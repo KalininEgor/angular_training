@@ -12,25 +12,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 
-const MaterialUI = [
-  MatInputModule,
-  MatTabsModule,
-  MatBadgeModule,
-  MatButtonModule,
-  MatSliderModule,
-  MatCheckboxModule,
-  MatToolbarModule,
-  MatSelectModule,
-  BrowserAnimationsModule,
-  FormsModule
-];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    MaterialUI
-  ],
-  exports: [MaterialUI]
+  imports: [CommonModule],
+  exports: [
+    MatInputModule,
+    MatTabsModule,
+    MatBadgeModule,
+    MatButtonModule,
+    MatSliderModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    FormsModule
+  ]
 })
 export class SharedModule { }
