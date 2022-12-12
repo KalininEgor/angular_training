@@ -1,0 +1,30 @@
+.list-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 15px;
+    justify-content: space-between;
+}
+
+mat-card {
+    width: 49%;
+    margin-bottom: 15px;
+    font-size: 20px;
+    &-title {
+        text-align: center;
+    }
+    &-content {
+        padding-bottom: 15px;
+    }
+}
+
+.active {
+    color: green;
+}
+
+.non-active {
+    color: red;
+}
+
+.hidden {
+    display: none;
+}

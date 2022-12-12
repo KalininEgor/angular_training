@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TabsFormModule } from './tabs-form/tabs-form.module';
-import { InteractionModule } from './interaction/interaction.module';
-import { SharedModule } from './shared/shared.module';
+import { UserModule } from './user/user.module';
+import { CarModule } from './car/car.module';
 
 
 @NgModule({
@@ -13,11 +16,13 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
   ],
   imports: [
-    SharedModule,
-    TabsFormModule,
-    InteractionModule,
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    UserModule,
+    CarModule,
+    MatToolbarModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
