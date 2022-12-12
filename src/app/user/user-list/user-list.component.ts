@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from "../../User";
+import { IUser } from "../user.interface";
 
 @Component({
   selector: 'app-user-list',
@@ -7,7 +7,7 @@ import { User } from "../../User";
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
-  public users: User[] = [
+  public users: Array<IUser> = [
     { name: "Egor", age: 23, isActivated: true },
     { name: "Vasya", age: 45, isActivated: false },
     { name: "Katya", age: 8, isActivated: true },
