@@ -8,13 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 
 
 
 @NgModule({
   declarations: [
     UserPageComponent,
-    UserListComponent
+    UserListComponent,
+    UserListItemComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-title>{{ user.name }}</mat-card-title>
+    <mat-card-content>Age: {{ user.age }}</mat-card-content>
+    <mat-card-content 
+        [ngClass]="user.isActivated ? 'active' : 'non-active'">
+        {{ user.isActivated ? 'Active' : 'Non-Active' }}
+    </mat-card-content>
+    <mat-divider></mat-divider>
+        <button 
+            mat-button
+            color="primary" 
+            (click)="deactivateUser()"
+            [disabled]="!user.isActivated || user.age < 18">
+            Deactivate
+        </button>
+</mat-card>

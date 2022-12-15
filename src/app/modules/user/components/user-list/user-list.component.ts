@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IUser } from "../../models/user.interface";
+import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { IUser } from '../../models/user.interface';
+import { UserListItemComponent } from '../user-list-item/user-list-item.component';
 
 @Component({
   selector: 'app-user-list',
@@ -7,12 +8,12 @@ import { IUser } from "../../models/user.interface";
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
-  public users: IUser[] = [
-    { name: "Egor", age: 23, isActivated: true },
-    { name: "Vasya", age: 45, isActivated: false },
-    { name: "Katya", age: 8, isActivated: true },
-    { name: "John", age: 65, isActivated: true },
-    { name: "Edward", age: 30, isActivated: true },
-    { name: "Christine", age: 10, isActivated: true },
-  ];
+  @Input() users: IUser[] = [];
+  @ViewChildren(UserListItemComponent) 
+  userListItems!: QueryList<UserListItemComponent>;
+
+  deactivateAll() {
+    this.userListItems.forEach(user => user.deactivateUser());
+  }
+
 }
