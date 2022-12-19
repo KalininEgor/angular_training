@@ -1,6 +1,6 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IFavorite } from 'src/app/modules/shared/models/favorite.interface';
 import { IUser } from '../../models/user.interface';
-import { UserListItemComponent } from '../user-list-item/user-list-item.component';
 
 @Component({
   selector: 'app-user-list',
@@ -9,11 +9,8 @@ import { UserListItemComponent } from '../user-list-item/user-list-item.componen
 })
 export class UserListComponent {
   @Input() users: IUser[] = [];
-  @ViewChildren(UserListItemComponent) 
-  userListItems!: QueryList<UserListItemComponent>;
-
-  deactivateAll() {
-    this.userListItems.forEach(user => user.deactivateUser());
+  @Output() favoriteChanged = new EventEmitter<IFavorite>();
+  changeFavorite(item: IFavorite) {
+    this.favoriteChanged.emit(item)
   }
-
 }

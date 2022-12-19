@@ -1,5 +1,9 @@
 export interface IUser {
+    id: number;
     name: string;
     age: number;
-    isActivated: boolean;
+    imageUrl: string;
+    gender: boolean;
+    department: string;
+    company: string;
 } 

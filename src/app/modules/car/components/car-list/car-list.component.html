@@ -1,0 +1,10 @@
+<app-list-item     
+    *ngFor="let car of cars" 
+    [mainInfo]="{name: car.name, id: car.id}"
+    [imageUrl]="car.imageUrl"
+    (favoriteChanged)="changeFavorite($event)"
+    >
+    <span titleData>({{car.number}})</span>
+    <li>Color: {{car.color}}</li>
+    <li>Release year: {{car.releaseYear}}</li>
+</app-list-item>

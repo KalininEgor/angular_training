@@ -1,1 +1,2 @@
-<app-user-list [users]="users"></app-user-list>
+<app-user-list [users]="users" (favoriteChanged)="changeFavorite($event)"></app-user-list>
+<app-favorite-list [favoriteItems]="favorite"></app-favorite-list>

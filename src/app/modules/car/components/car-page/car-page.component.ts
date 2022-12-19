@@ -1,10 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IFavorite } from 'src/app/modules/shared/models/favorite.interface';
+import { FavoritesService } from 'src/app/modules/shared/services/favorites.service';
+import { ICar } from '../../models/car.interface';
+import { CarService } from '../../services/car.service';
 
 @Component({
   selector: 'app-car-page',
   templateUrl: './car-page.component.html',
   styleUrls: ['./car-page.component.scss']
 })
-export class CarPageComponent {
-  carName: string = 'Audi';
+export class CarPageComponent implements OnInit {
+  cars: ICar[] = [];
+  favorite: IFavorite[] = [];
+  constructor(
+    private carService: CarService,
+    private favoritesService: FavoritesService
+  ) {}
+  ngOnInit(): void {
+    this.cars = this.carService.getCars();
+    this.favorite = this.favoritesService.getFavoriteList('cars');
+  }
+  changeFavorite(item: IFavorite) {
+    this.favorite = this.favoritesService.updateFavorite('cars', item)
+  }
 }

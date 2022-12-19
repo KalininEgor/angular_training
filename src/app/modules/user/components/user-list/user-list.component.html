@@ -1,10 +1,11 @@
-<button mat-raised-button color="accent" (click)="deactivateAll()">DEACTIVATE ADULT</button>
-<mat-slide-toggle #hideNonActive >Hide Non-Active users</mat-slide-toggle>
-
-<div class="list-container">
-    <app-user-list-item 
-        [class.hidden]="!user.isActivated && hideNonActive.checked"
-        *ngFor="let user of users" 
-        [user]="user">
-    </app-user-list-item>
-</div>
+<app-list-item 
+    *ngFor="let user of users" 
+    [mainInfo]="{name: user.name, id: user.id}"
+    [imageUrl]="user.imageUrl"
+    (favoriteChanged)="changeFavorite($event)"
+    >
+    <span titleData>({{user.age}} y.o.)</span>
+    <li>Gender: {{user.gender ? 'Male' : 'Female'}}</li>
+    <li>Company: {{user.company}}</li>
+    <li>Department: {{user.department}}</li>
+</app-list-item>

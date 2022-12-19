@@ -1,6 +1,2 @@
-<h1>Favorite car page</h1>
-<mat-form-field>
-    <mat-label>My favorite car</mat-label>
-    <input matInput placeholder="Ex. Suzuki" [(ngModel)]="carName">
-</mat-form-field>
-<span class="car_name">{{carName}}</span>
+<app-car-list [cars]="cars" (favoriteChanged)="changeFavorite($event)"></app-car-list>
+<app-favorite-list [title]="'Cars'" [favoriteItems]="favorite"></app-favorite-list>
