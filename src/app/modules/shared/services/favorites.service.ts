@@ -1,32 +1,39 @@
 import { Injectable } from '@angular/core';
 import { ICar } from '../../car/models/car.interface';
 import { IUser } from '../../user/models/user.interface';
-import { IFavorite } from '../models/favorite.interface';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavoritesService {
-  users: string[] = [];
-  cars: string[] = [];
+  favoriteCars: ICar[] = [];
+  favoriteUsers: IUser[] = [];
 
-  favorite: { [key: string]: IFavorite[] } = {
-    'users' : [],
-    'cars' : []
-  }
 
   constructor() { }
 
-  getFavoriteList(list: string): IFavorite[] {
-    return this.favorite[list]
+  getFavoriteCars(): ICar[] {
+    return this.favoriteCars
   }
-  updateFavorite(list: string, item: IFavorite) {
-    if (this.favorite[list].includes(item)) {
-      this.favorite[list] = this.favorite[list].filter(el => el != item)
+  getFavoriteUsers(): IUser[] {
+    return this.favoriteUsers
+  }
+  updateFavoriteCars(item: ICar): ICar[] {
+    if (this.favoriteCars.includes(item)) {
+      this.favoriteCars = this.favoriteCars.filter(el => el != item)
     } else {
-      this.favorite[list].push(item)
+      this.favoriteCars.push(item)
     }
-    return this.favorite[list];
+    return this.favoriteCars
+  }
+
+  updateFavoriteUsers(item: IUser): IUser[] {
+    if (this.favoriteUsers.includes(item)) {
+      this.favoriteUsers = this.favoriteUsers.filter(el => el != item)
+    } else {
+      this.favoriteUsers.push(item)
+    }
+    return this.favoriteUsers
   }
 }

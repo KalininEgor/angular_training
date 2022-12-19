@@ -4,14 +4,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ListItemComponent } from './components/list-item/list-item.component';
-import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
 
 
 
 @NgModule({
   declarations: [
     ListItemComponent,
-    FavoriteListComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +19,6 @@ import { FavoriteListComponent } from './components/favorite-list/favorite-list.
   ],
   exports: [
     ListItemComponent,
-    FavoriteListComponent
   ]
 })
 export class SharedModule { }

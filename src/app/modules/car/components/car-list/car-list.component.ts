@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IFavorite } from 'src/app/modules/shared/models/favorite.interface';
 import { ICar } from '../../models/car.interface';
 
 @Component({
@@ -9,8 +8,9 @@ import { ICar } from '../../models/car.interface';
 })
 export class CarListComponent {
   @Input() cars: ICar[] = [];
-  @Output() favoriteChanged = new EventEmitter<IFavorite>();
-  changeFavorite(item: IFavorite) {
+  @Input() favoriteCars: ICar[] = [];
+  @Output() favoriteChanged = new EventEmitter<ICar>();
+  changeFavorite(item: ICar) {
     this.favoriteChanged.emit(item)
   }
 }

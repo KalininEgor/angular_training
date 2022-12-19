@@ -1,7 +1,7 @@
 <app-list-item     
     *ngFor="let car of cars" 
-    [mainInfo]="{name: car.name, id: car.id}"
-    [imageUrl]="car.imageUrl"
+    [item]="car"
+    [isFavorite]="favoriteCars.includes(car)"
     (favoriteChanged)="changeFavorite($event)"
     >
     <span titleData>({{car.number}})</span>

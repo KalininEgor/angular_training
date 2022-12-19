@@ -1,7 +1,7 @@
 <app-list-item 
     *ngFor="let user of users" 
-    [mainInfo]="{name: user.name, id: user.id}"
-    [imageUrl]="user.imageUrl"
+    [item]="user"
+    [isFavorite]="favoriteUsers.includes(user)"
     (favoriteChanged)="changeFavorite($event)"
     >
     <span titleData>({{user.age}} y.o.)</span>

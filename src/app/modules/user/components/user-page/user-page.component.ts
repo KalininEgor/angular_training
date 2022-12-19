@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IFavorite } from 'src/app/modules/shared/models/favorite.interface';
 import { FavoritesService } from 'src/app/modules/shared/services/favorites.service';
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
@@ -11,16 +10,16 @@ import { UserService } from '../../services/user.service';
 })
 export class UserPageComponent implements OnInit{
   users: IUser[] = [];
-  favorite: IFavorite[] = []
+  favoriteUsers: IUser[] = []
   constructor(
     private userService: UserService,
     private favoritesService: FavoritesService
     ) {}
   ngOnInit(): void {
     this.users = this.userService.getUsers();
-    this.favorite = this.favoritesService.getFavoriteList('users');
+    this.favoriteUsers = this.favoritesService.getFavoriteUsers();
   }
-  changeFavorite(item: IFavorite) {
-    this.favorite = this.favoritesService.updateFavorite('users', item);
+  changeFavorite(item: IUser) {
+    this.favoriteUsers = this.favoritesService.updateFavoriteUsers(item);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { IFavorite } from '../../models/favorite.interface';
+import { ICar } from 'src/app/modules/car/models/car.interface';
+import { IUser } from 'src/app/modules/user/models/user.interface';
 
 @Component({
   selector: 'app-list-item',
@@ -7,13 +8,11 @@ import { IFavorite } from '../../models/favorite.interface';
   styleUrls: ['./list-item.component.scss']
 })
 export class ListItemComponent {
-  @Input() mainInfo!: IFavorite;
-  @Input() titleData!: string | number;
-  @Input() imageUrl!: string;
-  @Output() favoriteChanged = new EventEmitter<IFavorite>()
-  isFavorite: boolean = false;
+  @Input() item!: ICar | IUser;
+  @Output() favoriteChanged = new EventEmitter()
+  @Input() isFavorite!: boolean;
   changeFavorite() {
     this.isFavorite = !this.isFavorite;
-    this.favoriteChanged.emit(this.mainInfo);
+    this.favoriteChanged.emit(this.item);
   }
 }

@@ -1,2 +1,7 @@
-<app-user-list [users]="users" (favoriteChanged)="changeFavorite($event)"></app-user-list>
-<app-favorite-list [favoriteItems]="favorite"></app-favorite-list>
+<app-user-list [users]="users" [favoriteUsers]="favoriteUsers" (favoriteChanged)="changeFavorite($event)"></app-user-list>
+<div class="favorite">
+    <h1>Favorite Users</h1>
+    <ul>
+        <li *ngFor="let user of favoriteUsers">Name: {{user.name}}, Age: {{user.age}}</li>
+    </ul>
+</div>

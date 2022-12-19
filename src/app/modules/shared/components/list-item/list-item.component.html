@@ -1,17 +1,17 @@
 <mat-card>
     <mat-card-header>
       <mat-card-title>
-        {{mainInfo.name}} 
+        {{item.name}} 
         <strong class="titleData">
           <ng-content select="[titleData]"></ng-content>
         </strong>
       </mat-card-title>
     </mat-card-header>
-    <img mat-card-image [src]="imageUrl">
+    <img mat-card-image [src]="item.imageUrl">
 
     <mat-card-content>
       <ul>
-        <li>ID: {{mainInfo.id}}</li>
+        <li>ID: {{item.id}}</li>
         <ng-content></ng-content>
       </ul>
     </mat-card-content>

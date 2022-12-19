@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IFavorite } from 'src/app/modules/shared/models/favorite.interface';
 import { IUser } from '../../models/user.interface';
 
 @Component({
@@ -9,8 +8,9 @@ import { IUser } from '../../models/user.interface';
 })
 export class UserListComponent {
   @Input() users: IUser[] = [];
-  @Output() favoriteChanged = new EventEmitter<IFavorite>();
-  changeFavorite(item: IFavorite) {
+  @Input() favoriteUsers: IUser[] = [];
+  @Output() favoriteChanged = new EventEmitter<IUser>();
+  changeFavorite(item: IUser) {
     this.favoriteChanged.emit(item)
   }
 }
