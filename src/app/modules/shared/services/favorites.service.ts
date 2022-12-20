@@ -1,39 +1,31 @@
 import { Injectable } from '@angular/core';
-import { ICar } from '../../car/models/car.interface';
-import { IUser } from '../../user/models/user.interface';
+import { FavoriteTypes } from '../models/favorite.types';
 
+export type FavoriteStore = { [key in FavoriteTypes]: number[] };
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class FavoritesService {
-  favoriteCars: ICar[] = [];
-  favoriteUsers: IUser[] = [];
-
-
-  constructor() { }
-
-  getFavoriteCars(): ICar[] {
-    return this.favoriteCars
-  }
-  getFavoriteUsers(): IUser[] {
-    return this.favoriteUsers
-  }
-  updateFavoriteCars(item: ICar): ICar[] {
-    if (this.favoriteCars.includes(item)) {
-      this.favoriteCars = this.favoriteCars.filter(el => el != item)
-    } else {
-      this.favoriteCars.push(item)
+  
+    store: FavoriteStore = {
+        [FavoriteTypes.User]: [],
+        [FavoriteTypes.Car]: []
     }
-    return this.favoriteCars
-  }
 
-  updateFavoriteUsers(item: IUser): IUser[] {
-    if (this.favoriteUsers.includes(item)) {
-      this.favoriteUsers = this.favoriteUsers.filter(el => el != item)
-    } else {
-      this.favoriteUsers.push(item)
+    getFavorites(type: FavoriteTypes): number[] {
+        return this.store[type];
     }
-    return this.favoriteUsers
-  }
+
+    toggleFavorites(type: FavoriteTypes, id: number): number[] {
+        const index = this.store[type].indexOf(id);
+
+        if (index === -1) {
+            this.store[type].push(id);
+        } else {
+            this.store[type].splice(index, 1);
+        }
+
+        return this.store[type];
+    }
 }

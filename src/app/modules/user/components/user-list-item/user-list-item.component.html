@@ -1,0 +1,18 @@
+<app-list-item 
+    [imgSrc]="user.imageUrl" 
+    [isFavorite]="isFavorite"
+    (favoriteChanged)="changeFavorite()"
+>
+    <span titleData>
+        {{ user.name }}
+        <strong class="titleData"> ({{ user.age }} y.o.) </strong>
+    </span>
+
+    <div>
+        <div>ID: {{ user.id }}</div>
+        <div>Gender: {{ user.gender }}</div>
+        <div>Company: {{ user.company }}</div>
+        <div>Department: {{ user.department }}</div>
+    </div>
+
+</app-list-item>

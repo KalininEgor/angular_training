@@ -12,19 +12,19 @@ import { CarModule } from './modules/car/car.module';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    UserModule,
-    CarModule,
-    MatToolbarModule,
-    MatSelectModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        UserModule,
+        CarModule,
+        MatToolbarModule,
+        MatSelectModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

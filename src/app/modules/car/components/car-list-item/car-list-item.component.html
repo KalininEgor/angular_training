@@ -1,0 +1,18 @@
+<app-list-item 
+    [imgSrc]="car.imageUrl" 
+    [isFavorite]="isFavorite"
+    (favoriteChanged)="changeFavorite()"
+>
+
+    <span titleData>
+        {{ car.name }}
+        <strong class="titleData"> (number {{ car.number }}) </strong>
+    </span>
+
+    <div>
+        <div>ID: {{ car.id }}</div>
+        <div>Color: {{ car.color }}</div>
+        <div>Release year: {{ car.releaseYear }}</div>
+    </div>
+
+</app-list-item>

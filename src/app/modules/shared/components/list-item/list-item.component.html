@@ -1,27 +1,24 @@
 <mat-card>
+    
     <mat-card-header>
-      <mat-card-title>
-        {{item.name}} 
-        <strong class="titleData">
-          <ng-content select="[titleData]"></ng-content>
-        </strong>
-      </mat-card-title>
+        <mat-card-title>
+            <ng-content select="[titleData]"></ng-content>
+        </mat-card-title>
     </mat-card-header>
-    <img mat-card-image [src]="item.imageUrl">
+
+    <img mat-card-image [src]="imgSrc">
 
     <mat-card-content>
-      <ul>
-        <li>ID: {{item.id}}</li>
         <ng-content></ng-content>
-      </ul>
     </mat-card-content>
     
     <mat-card-actions>
-      <button mat-icon-button (click)="changeFavorite()">
-        <mat-icon 
-          color="{{isFavorite ? 'warn': 'lik'}}">
-          favorite
-        </mat-icon>
-      </button>
+        <button mat-icon-button (click)="changeFavorite()">
+            <mat-icon 
+                color="{{isFavorite ? 'warn': 'lik'}}">
+                favorite
+            </mat-icon>
+        </button>
     </mat-card-actions>
-  </mat-card>
+
+</mat-card>

@@ -1,10 +1,10 @@
-<app-list-item     
-    *ngFor="let car of cars" 
-    [item]="car"
-    [isFavorite]="favoriteCars.includes(car)"
-    (favoriteChanged)="changeFavorite($event)"
-    >
-    <span titleData>({{car.number}})</span>
-    <li>Color: {{car.color}}</li>
-    <li>Release year: {{car.releaseYear}}</li>
-</app-list-item>
+<ng-container *ngFor="let car of cars">
+
+    <app-car-list-item
+        *ngFor="let car of cars"
+        [car]="car"
+        [isFavorite]="favoriteIds.includes(car.id)"
+        (favoriteChanged)="changeFavorite(car)"
+    ></app-car-list-item>
+
+</ng-container>

@@ -1,11 +1,9 @@
-<app-list-item 
-    *ngFor="let user of users" 
-    [item]="user"
-    [isFavorite]="favoriteUsers.includes(user)"
-    (favoriteChanged)="changeFavorite($event)"
-    >
-    <span titleData>({{user.age}} y.o.)</span>
-    <li>Gender: {{user.gender ? 'Male' : 'Female'}}</li>
-    <li>Company: {{user.company}}</li>
-    <li>Department: {{user.department}}</li>
-</app-list-item>
+<ng-container *ngFor="let user of users">
+
+    <app-user-list-item
+        [user]="user"
+        [isFavorite]="favoriteIds.includes(user.id)"
+        (favoriteChanged)="changeFavorite(user)"
+    ></app-user-list-item>
+
+</ng-container>

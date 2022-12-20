@@ -1,7 +1,27 @@
-<app-car-list [cars]="cars" [favoriteCars]="favoriteCars" (favoriteChanged)="changeFavorite($event)"></app-car-list>
-<div class="favorite">
-    <h1>Favorite Cars</h1>
-    <ul>
-        <li *ngFor="let car of favoriteCars">Name: {{car.name}}, number: {{car.number}}</li>
-    </ul>
-</div>
+<app-car-list 
+    [cars]="cars" 
+    [favoriteIds]="favoriteIds"
+    (favoriteChanged)="changeFavorite($event)"
+></app-car-list>
+
+<app-favorite-list
+    [title]="'Cars'"
+>
+        <ng-container *ngFor="let car of favoriteCars">
+
+            <app-list-item 
+                class="favorite-item"
+                (favoriteChanged)="changeFavorite(car)"
+                [isFavorite]="true"
+            >
+                <span titleData>
+                    {{ car.name }}
+                    <strong class="titleData"> (number {{ car.number }}) </strong>
+                </span>
+
+            </app-list-item>
+
+        </ng-container>
+
+</app-favorite-list>
+
