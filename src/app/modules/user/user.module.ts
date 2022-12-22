@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
@@ -12,7 +13,6 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 import { UserFormPageComponent } from './components/user-form-page/user-form-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [

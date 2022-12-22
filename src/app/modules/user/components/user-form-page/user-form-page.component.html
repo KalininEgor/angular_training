@@ -1,10 +1,10 @@
 <app-form 
-    [formGroup]="userForm" 
+    [formGroup]="newUserForm" 
     (submitted)="addUser()"
     [buttonText]="'add user'"
 >
     <p>Full name</p>
-    <div formGroupName="fullName" class="group-container">
+    <div class="group-container">
         <mat-form-field>
             <mat-label>First Name</mat-label>
             <input matInput formControlName="firstName" />
@@ -41,6 +41,7 @@
     </mat-form-field>
 
     <mat-radio-group aria-labelledby="gender-label" formControlName="gender">
+        <label id="gender-label">Gender:</label>
         <mat-radio-button [value]="true">Male</mat-radio-button>
         <mat-radio-button [value]="false">Female</mat-radio-button>
     </mat-radio-group>

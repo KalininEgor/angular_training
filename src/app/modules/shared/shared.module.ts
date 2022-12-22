@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
 import { FormComponent } from './components/form/form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 

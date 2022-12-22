@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, NonNullableFormBuilder } from '@angular/forms';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
@@ -15,11 +15,9 @@ export class UserFormPageComponent {
         private router: Router
     ) {}
 
-    userForm = this.fb.group({
-        fullName: this.fb.group({
-            firstName: [''],
-            lastName: [''],
-        }),
+    newUserForm = this.fb.group({
+        firstName: [''],
+        lastName: [''],
         company: [''],
         department: [''],
         email: [''],
@@ -28,7 +26,7 @@ export class UserFormPageComponent {
     });
 
     addUser(): void {
-        this.userService.addUser(this.userForm.getRawValue());
+        this.userService.addUser(this.newUserForm.getRawValue());
         this.router.navigate(['user']);
     }
 }

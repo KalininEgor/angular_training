@@ -30,13 +30,7 @@ export class UserService {
         users.unshift ({
             id: Date.now(),
             imageUrl: 'https://canningtonvet.com.au/wp-content/uploads/2019/06/Cat-question-mark-2.png',
-            firstName: userData.fullName.firstName,
-            lastName: userData.fullName.lastName,
-            email: userData.email,
-            age: userData.age,
-            gender: userData.gender,
-            company: userData.company,
-            department: userData.department
+            ...userData
         });
     }
 }
