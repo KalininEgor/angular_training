@@ -3,7 +3,9 @@ import { IUser } from "../models/user.interface";
 export const users: IUser[] = [
     {
         id: 1, 
-        name: "Egor", 
+        firstName: "Egor", 
+        lastName: "Kalinin",
+        email: "KaEgor@mail.ru", 
         age: 23, 
         gender: true,
         company: 'ISsoft',
@@ -12,7 +14,9 @@ export const users: IUser[] = [
     },
     {
         id: 2, 
-        name: "Vasya", 
+        firstName: "Vasya", 
+        lastName: "Pupkin",
+        email: "Puvasya@mail.ru", 
         age: 45, 
         gender: true,
         company: 'ISsoft',
@@ -21,7 +25,9 @@ export const users: IUser[] = [
     },
     {
         id: 3, 
-        name: "Katya", 
+        firstName: "Katya", 
+        lastName: "Kondratyeva",
+        email: "Katya@mail.ru", 
         age: 28, 
         gender: false,
         company: 'ISsoft',
@@ -30,7 +36,9 @@ export const users: IUser[] = [
     },
     {
         id: 4, 
-        name: "John", 
+        firstName: "John", 
+        lastName: "Wick",
+        email: "JW@mail.ru", 
         age: 65, 
         gender: true,
         company: 'ISsoft',
@@ -39,7 +47,9 @@ export const users: IUser[] = [
     },
     {
         id: 5, 
-        name: "Edward", 
+        firstName: "Edward", 
+        lastName: "Snowden",
+        email: "SEdw@mail.ru", 
         age: 18, 
         gender: true,
         company: 'ISsoft',
@@ -48,7 +58,9 @@ export const users: IUser[] = [
     },
     {
         id: 6, 
-        name: "Christine", 
+        firstName: "Christina", 
+        lastName: "Aguilera",
+        email: "Pop@mail.ru", 
         age: 17, 
         gender: false,
         company: 'ISsoft',
@@ -57,7 +69,9 @@ export const users: IUser[] = [
     },
     {
         id: 7, 
-        name: "Karina", 
+        firstName: "Karina", 
+        lastName: "Simpson",
+        email: "Kars@mail.ru", 
         age: 25, 
         gender: false,
         company: 'ISsoft',
@@ -66,7 +80,9 @@ export const users: IUser[] = [
     },
     {
         id: 8, 
-        name: "Maxim", 
+        firstName: "Maxim", 
+        lastName: "Dyak",
+        email: "DYAK@mail.ru", 
         age: 75, 
         gender: true,
         company: 'ISsoft',

@@ -1,6 +1,8 @@
+@import '../../../../styles/variables';
+
 :host {
     display: flex;
     flex-wrap: wrap;
     width: 70%;
-    padding-top: 15px;
+    padding-top: $baseSize*3;
 }

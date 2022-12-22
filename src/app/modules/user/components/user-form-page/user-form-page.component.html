@@ -1,0 +1,47 @@
+<app-form 
+    [formGroup]="userForm" 
+    (submitted)="addUser()"
+    [buttonText]="'add user'"
+>
+    <p>Full name</p>
+    <div formGroupName="fullName" class="group-container">
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+        </mat-form-field>
+    </div>
+
+    <p>Work</p>
+    <div class="group-container">
+        <mat-form-field>
+            <mat-label>Company</mat-label>
+            <input matInput formControlName="company" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Department</mat-label>
+            <input matInput formControlName="department" />
+        </mat-form-field>
+    </div>
+
+    <p>Other info</p>
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Age</mat-label>
+        <input matInput formControlName="age" type="number" />
+    </mat-form-field>
+
+    <mat-radio-group aria-labelledby="gender-label" formControlName="gender">
+        <mat-radio-button [value]="true">Male</mat-radio-button>
+        <mat-radio-button [value]="false">Female</mat-radio-button>
+    </mat-radio-group>
+</app-form>

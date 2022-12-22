@@ -1,7 +1,6 @@
 <ng-container *ngFor="let car of cars">
 
     <app-car-list-item
-        *ngFor="let car of cars"
         [car]="car"
         [isFavorite]="favoriteIds.includes(car.id)"
         (favoriteChanged)="changeFavorite(car)"

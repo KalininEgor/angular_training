@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <span>Welcome to {{ title | uppercase }}!</span>
+
+    <div class="menu">
+        <button mat-button routerLink="car">Cars</button>
+
+        <button 
+            mat-button 
+            [matMenuTriggerFor]="menu"
+        >Users</button>
+        <mat-menu #menu>
+            <button mat-menu-item routerLink="user">User List</button>
+            <button mat-menu-item routerLink="user-form">Add new user</button>
+        </mat-menu>
+    </div>
+
+</mat-toolbar>

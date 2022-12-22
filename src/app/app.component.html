@@ -1,19 +1,7 @@
-<mat-toolbar color="primary">
-  <span>Welcome to {{title | uppercase}}!</span>
-</mat-toolbar>
+<app-header></app-header>
 
-<div class="container"> 
-  <div class="page-controller">
-    <mat-form-field>
-        <mat-select placeholder="Choose a page">
-            <mat-option routerLink="user" value="1">User Page</mat-option>
-            <mat-option routerLink="car" value="2">Car Page</mat-option>
-        </mat-select>
-    </mat-form-field>
-  </div> 
-  <router-outlet></router-outlet>
+<div class="container">
+    <router-outlet></router-outlet>
 </div>
 
-<footer>
-  rokkky
-</footer>
+<footer>rokkky</footer>

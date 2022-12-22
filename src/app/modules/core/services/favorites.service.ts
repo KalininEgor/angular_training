@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FavoriteTypes } from '../models/favorite.types';
+import { FavoriteTypes } from '../../shared/models/favorite.types';
 
 export type FavoriteStore = { [key in FavoriteTypes]: number[] };
 

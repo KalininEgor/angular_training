@@ -1,0 +1,21 @@
+@import '../../../../styles/variables';
+
+:host {
+    height: 100%;
+}
+
+mat-form-field {
+    padding: $baseSize;
+}
+
+mat-radio-group {
+    text-align: center;
+    padding-bottom: $baseSize*2;
+}
+
+.group-container {
+    display: flex;
+    mat-form-field {
+        width: 100%;
+    }
+}

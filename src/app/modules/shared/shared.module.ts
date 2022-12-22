@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
+import { FormComponent } from './components/form/form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,16 +14,19 @@ import { FavoriteListComponent } from './components/favorite-list/favorite-list.
     declarations: [
         ListItemComponent,
         FavoriteListComponent,
+        FormComponent,
     ],
     imports: [
         CommonModule,
         MatCardModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        ReactiveFormsModule,
     ],
     exports: [
         ListItemComponent,
-        FavoriteListComponent
+        FavoriteListComponent,
+        FormComponent
     ]
 })
 export class SharedModule { }

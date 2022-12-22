@@ -1,0 +1,6 @@
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+
+    <ng-content></ng-content>
+    <button mat-raised-button color="primary">{{buttonText | uppercase}}</button>
+    
+</form>

@@ -1,8 +1,10 @@
+@import '../../../../styles/variables';
+
 :host {
     width: 50%;
-    padding: 0 10px 20px;
+    padding: 0 $baseSize*2 $baseSize*3;
 }
 
 .titleData {
-    color: #673ab7;
+    color: $primaryColor;
 }
