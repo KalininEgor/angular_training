@@ -1,5 +1,5 @@
-<app-list-item
-    [imgSrc]="user.imageUrl"
+<app-card
+    [imgSrc]="user.imageUrl ? user.imageUrl : 'https://canningtonvet.com.au/wp-content/uploads/2019/06/Cat-question-mark-2.png' "
     [isFavorite]="isFavorite"
     (favoriteChanged)="changeFavorite()"
 >
@@ -15,4 +15,4 @@
         <div>Company: {{ user.company }}</div>
         <div>Department: {{ user.department }}</div>
     </div>
-</app-list-item>
+</app-card>

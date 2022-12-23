@@ -9,7 +9,7 @@
 >
         <ng-container *ngFor="let user of favoriteUsers">
 
-            <app-list-item 
+            <app-card
                 class="favorite-item"
                 (favoriteChanged)="changeFavorite(user)"
                 [isFavorite]="true"
@@ -19,7 +19,7 @@
                     <strong class="titleData"> ({{ user.age }} y.o.) </strong>
                 </span>
 
-            </app-list-item>
+            </app-card>
 
         </ng-container>
 

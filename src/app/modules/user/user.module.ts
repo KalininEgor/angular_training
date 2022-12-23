@@ -8,11 +8,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { UserPageComponent } from './components/user-page/user-page.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
-import { UserFormPageComponent } from './components/user-form-page/user-form-page.component';
+import { UserFormPageComponent } from './pages/user-form-page/user-form-page.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { UserFormPageComponent } from './components/user-form-page/user-form-pag
         UserFormPageComponent,
         UserListComponent,
         UserListItemComponent,
+        UserFormComponent,
     ],
     imports: [
         CommonModule,

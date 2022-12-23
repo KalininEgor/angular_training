@@ -1,8 +1,5 @@
-<app-form 
-    [formGroup]="newUserForm" 
-    (submitted)="addUser()"
-    [buttonText]="'add user'"
->
+<div [formGroup]="newUserForm" class="form-wrapper">
+
     <p>Full name</p>
     <div class="group-container">
         <mat-form-field>
@@ -45,4 +42,5 @@
         <mat-radio-button [value]="true">Male</mat-radio-button>
         <mat-radio-button [value]="false">Female</mat-radio-button>
     </mat-radio-group>
-</app-form>
+    
+</div>

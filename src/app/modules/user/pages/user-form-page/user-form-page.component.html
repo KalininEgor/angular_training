@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+    <app-user-form [parentForm]="form"></app-user-form>
+    
+    <button 
+        mat-raised-button 
+        (click)="addUser()"
+        color="primary"
+    >Save User
+    </button>
+</form>

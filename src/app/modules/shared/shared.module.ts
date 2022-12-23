@@ -3,18 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ListItemComponent } from './components/list-item/list-item.component';
+import { CardComponent } from './components/card/card.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
-import { FormComponent } from './components/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
     declarations: [
-        ListItemComponent,
+        CardComponent,
         FavoriteListComponent,
-        FormComponent,
     ],
     imports: [
         CommonModule,
@@ -24,9 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
     ],
     exports: [
-        ListItemComponent,
-        FavoriteListComponent,
-        FormComponent
+        CardComponent,
+        FavoriteListComponent
     ]
 })
 export class SharedModule { }

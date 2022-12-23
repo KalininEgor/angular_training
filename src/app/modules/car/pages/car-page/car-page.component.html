@@ -9,7 +9,7 @@
 >
         <ng-container *ngFor="let car of favoriteCars">
 
-            <app-list-item 
+            <app-card 
                 class="favorite-item"
                 (favoriteChanged)="changeFavorite(car)"
                 [isFavorite]="true"
@@ -19,7 +19,7 @@
                     <strong class="titleData"> (number {{ car.number }}) </strong>
                 </span>
 
-            </app-list-item>
+            </app-card>
 
         </ng-container>
 

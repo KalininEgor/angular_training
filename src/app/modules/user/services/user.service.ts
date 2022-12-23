@@ -27,9 +27,8 @@ export class UserService {
     }
 
     addUser(userData: INewUser): void {
-        users.unshift ({
-            id: Date.now(),
-            imageUrl: 'https://canningtonvet.com.au/wp-content/uploads/2019/06/Cat-question-mark-2.png',
+        users.push ({
+            id: users.length+1,
             ...userData
         });
     }

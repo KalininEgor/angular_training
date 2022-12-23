@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MatInputModule } from '@angular/material/input';
 
-import { CarPageComponent } from './components/car-page/car-page.component';
+import { CarPageComponent } from './pages/car-page/car-page.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CarListComponent } from './components/car-list/car-list.component';
