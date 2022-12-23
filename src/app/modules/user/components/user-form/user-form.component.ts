@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-user-form',
@@ -15,15 +15,13 @@ export class UserFormComponent implements OnInit {
         company: [''],
         department: [''],
         email: [''],
-        age: [15],
-        gender: [false],
+        age: [null],
+        gender: [null],
     });
 
-    constructor(private fb: NonNullableFormBuilder) {}
+    constructor(private fb: FormBuilder) {}
     
     ngOnInit(): void {
         this.parentForm.addControl('user', this.newUserForm);
     }
-
-    
 }
