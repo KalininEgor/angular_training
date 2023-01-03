@@ -8,11 +8,15 @@
         <strong class="titleData"> ({{ user.age }} y.o.) </strong>
     </span>
 
-    <div>
+    <div class="user-info">
         <div>ID: {{ user.id }}</div>
+        <mat-divider></mat-divider>
         <div>Gender: {{ user.gender ? "Male" : "Female" }}</div>
+        <mat-divider></mat-divider>
         <div>Email: {{ user.email }}</div>
+        <mat-divider></mat-divider>
         <div>Company: {{ user.company }}</div>
+        <mat-divider></mat-divider>
         <div>Department: {{ user.department }}</div>
     </div>
 </app-card>

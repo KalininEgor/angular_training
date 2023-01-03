@@ -17,3 +17,9 @@ mat-radio-group {
     text-align: center;
     padding-bottom: $baseSize*2;
 }
+
+mat-spinner {
+    margin: -$baseSize*3 0 $baseSize*3;
+    width: $baseSize*4 !important;
+    height: $baseSize*4 !important;
+}

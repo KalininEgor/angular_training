@@ -1,0 +1,33 @@
+<ng-container *ngIf="control?.errors != null && control?.touched">
+    <p *ngIf="control?.errors?.['required']">
+        Field is required
+    </p>
+
+    <p *ngIf="control?.errors?.['email']">
+        Provide a valid email
+    </p>
+
+    <p *ngIf="control?.errors?.['gmail']">
+        Provide a google email (@gmail.com)
+    </p>
+    
+    <p *ngIf="control?.errors?.['uniqueEmail']">
+        Email is already taken
+    </p>
+
+    <p *ngIf="control?.errors?.['max']">
+        Must be less than {{control?.errors?.['max'].max}}
+    </p>
+
+    <p *ngIf="control?.errors?.['min']">
+        Must be more than {{control?.errors?.['min'].min}}
+    </p>
+
+    <p *ngIf="control?.errors?.['maxlength']">
+        Must contain less than {{control?.errors?.['maxlength'].requiredLength}} characters
+    </p>
+    
+    <p *ngIf="control?.errors?.['minlength']">
+        Must contain more than {{control?.errors?.['minlength'].requiredLength}} characters
+    </p>
+</ng-container>

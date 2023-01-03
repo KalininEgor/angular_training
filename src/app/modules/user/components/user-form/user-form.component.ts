@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidationErrors, FormControl } from '@angular/forms';
+import { UniqueEmailValidatorService } from '../../services/unique-email-validator.service';
 
 @Component({
     selector: 'app-user-form',
@@ -9,19 +10,41 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class UserFormComponent implements OnInit {
     @Input() parentForm!: FormGroup;
 
+    constructor(
+        private fb: FormBuilder,
+        private uniqueEmailValidator: UniqueEmailValidatorService
+    ) {}
+
     newUserForm: FormGroup = this.fb.group({
-        firstName: [''],
-        lastName: [''],
-        company: [''],
-        department: [''],
-        email: [''],
-        age: [null],
-        gender: [null],
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        company: ['', [Validators.maxLength(35)]],
+        department: ['', [Validators.minLength(6)]],
+        email: ['', [
+                Validators.required, 
+                Validators.email, 
+                this.gmailValidator
+            ], 
+            [this.uniqueEmailValidator]
+        ],
+        age: [null, [ 
+                Validators.required, 
+                Validators.min(15), 
+                Validators.max(100)
+            ]
+        ],
+        gender: [null, [Validators.required]],
     });
 
-    constructor(private fb: FormBuilder) {}
-    
     ngOnInit(): void {
         this.parentForm.addControl('user', this.newUserForm);
     }
-}
+
+    gmailValidator(control: FormControl): ValidationErrors | null {
+
+        if (control.value.endsWith('@gmail.com') || !control.value.length) {
+            return null;
+        }
+        return {'gmail' : true};
+    }
+}   

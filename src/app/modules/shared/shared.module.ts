@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CardComponent } from './components/card/card.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputErrorComponent } from './components/input-error/input-error.component';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -13,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     declarations: [
         CardComponent,
         FavoriteListComponent,
+        InputErrorComponent,
     ],
     imports: [
         CommonModule,
@@ -20,10 +23,12 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatButtonModule,
         MatIconModule,
         ReactiveFormsModule,
+        MatInputModule
     ],
     exports: [
         CardComponent,
-        FavoriteListComponent
+        FavoriteListComponent,
+        InputErrorComponent
     ]
 })
 export class SharedModule { }

@@ -82,7 +82,7 @@ export const users: IUser[] = [
         id: 8, 
         firstName: "Maxim", 
         lastName: "Dyak",
-        email: "DYAK@mail.ru", 
+        email: "DYAK@gmail.com", 
         age: 75, 
         gender: true,
         company: 'ISsoft',

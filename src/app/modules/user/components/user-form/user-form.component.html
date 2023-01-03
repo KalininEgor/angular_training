@@ -5,38 +5,46 @@
             <mat-label>First Name</mat-label>
             <input matInput formControlName="firstName" />
         </mat-form-field>
+        <app-input-error [control]="newUserForm.get('firstName')"></app-input-error>
 
         <mat-form-field>
             <mat-label>Last Name</mat-label>
             <input matInput formControlName="lastName" />
         </mat-form-field>
+        <app-input-error [control]="newUserForm.get('lastName')"></app-input-error>
 
     <p>Work</p>
         <mat-form-field>
             <mat-label>Company</mat-label>
             <input matInput formControlName="company" />
         </mat-form-field>
+        <app-input-error [control]="newUserForm.get('company')"></app-input-error>
 
         <mat-form-field>
             <mat-label>Department</mat-label>
             <input matInput formControlName="department" />
         </mat-form-field>
+        <app-input-error [control]="newUserForm.get('department')"></app-input-error>
 
     <p>Other info</p>
     <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
     </mat-form-field>
-
+    <mat-spinner *ngIf="newUserForm.get('email')?.pending"></mat-spinner>
+    <app-input-error [control]="newUserForm.get('email')"></app-input-error>
+    
     <mat-form-field>
         <mat-label>Age</mat-label>
         <input matInput formControlName="age" type="number" />
     </mat-form-field>
+    <app-input-error [control]="newUserForm.get('age')"></app-input-error>
 
     <mat-radio-group aria-labelledby="gender-label" formControlName="gender">
         <label id="gender-label">Gender:</label>
         <mat-radio-button [value]="true">Male</mat-radio-button>
         <mat-radio-button [value]="false">Female</mat-radio-button>
     </mat-radio-group>
-    
+    <app-input-error [control]="newUserForm.get('gender')"></app-input-error>
+
 </div>

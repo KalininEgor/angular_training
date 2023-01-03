@@ -4,6 +4,7 @@ import { FavoritesService } from '../../core/services/favorites.service';
 import { users } from '../mocks/users';
 import { INewUser } from '../models/new-user.interface';
 import { IUser } from '../models/user.interface';
+import { concatMap, Observable, of, timer } from 'rxjs';
 
 
 @Injectable({
@@ -31,5 +32,11 @@ export class UserService {
             id: users.length+1,
             ...userData
         });
+    }
+
+    isEmailUnique(email: string): Observable<boolean> {
+        const isUnique = users.findIndex(user => user.email === email);
+        const result = isUnique === -1 ? of(true) : of(false);
+        return timer(1000).pipe(concatMap(() => result))
     }
 }
