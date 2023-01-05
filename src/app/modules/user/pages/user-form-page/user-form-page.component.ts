@@ -24,7 +24,6 @@ export class UserFormPageComponent implements OnInit {
 
     addUser(): void {
         this.form.get('user')?.markAllAsTouched();
-        this.form.get('user')?.markAsDirty();
         
         if (this.form.valid) {
             this.userService.addUser(this.form.value.user);

@@ -1,0 +1,28 @@
+<input
+    #imageUpload
+    hidden
+    type="file"
+    class="file-input"
+    (change)="onFileSelected($event)"
+/>
+
+<div class="file-upload">
+    <button
+        mat-mini-fab
+        color="primary"
+        class="upload-btn"
+        (click)="imageUpload.click()"
+    >
+        <mat-icon>attach_file</mat-icon>
+    </button>
+        {{ imageName || titleTemplate }}
+    <button
+        mat-icon-button
+        color="warn"
+        *ngIf="imageUpload.files?.length"
+        (click)="clearFile(imageUpload)"
+    >
+        <mat-icon>cancel</mat-icon>
+    </button>
+</div>
+<app-validation-error [control]="imageControl"></app-validation-error>

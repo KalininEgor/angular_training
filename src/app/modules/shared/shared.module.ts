@@ -8,6 +8,7 @@ import { FavoriteListComponent } from './components/favorite-list/favorite-list.
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
 import { MatInputModule } from '@angular/material/input';
+import { ImageUploadInputComponent } from './components/image-upload-input/image-upload-input.component';
 
 
 
@@ -16,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
         CardComponent,
         FavoriteListComponent,
         ValidationErrorComponent,
+        ImageUploadInputComponent,
     ],
     imports: [
         CommonModule,
@@ -28,7 +30,8 @@ import { MatInputModule } from '@angular/material/input';
     exports: [
         CardComponent,
         FavoriteListComponent,
-        ValidationErrorComponent
+        ValidationErrorComponent,
+        ImageUploadInputComponent
     ]
 })
 export class SharedModule { }

@@ -47,25 +47,5 @@
     </mat-radio-group>
     <app-validation-error [control]="newUserForm.get('gender')"></app-validation-error>
 
-    <input hidden type="file" class="file-input"
-       (change)="onFileSelected($event)" #fileUpload>
-
-    <div class="file-upload" >
-        <button 
-            mat-mini-fab
-            color="primary" 
-            class="upload-btn"
-            (click)="fileUpload.click()">
-            <mat-icon>attach_file</mat-icon>
-        </button>
-        {{ uploadingFileName || "Upload profile image"}}
-        <button 
-            mat-icon-button
-            *ngIf="fileUpload.files?.length"
-            (click)="clearFile(fileUpload)"
-            >
-            <mat-icon>cancel</mat-icon>
-        </button>
-    </div>
-    <app-validation-error [control]="newUserForm.get('imageUrl')"></app-validation-error>
+    <app-image-upload-input [parentForm]="newUserForm" [titleTemplate]="'Upload profile image'"></app-image-upload-input>
 </div>

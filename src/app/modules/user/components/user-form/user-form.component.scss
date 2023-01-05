@@ -24,12 +24,3 @@ mat-spinner {
     height: $baseSize*4 !important;
 }
 
-.file-upload {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-bottom: $baseSize*3;
-    button {
-        margin-right: $baseSize*3;
-    }
-}
