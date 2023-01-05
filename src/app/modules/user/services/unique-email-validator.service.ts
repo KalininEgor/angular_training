@@ -11,7 +11,7 @@ export class UniqueEmailValidatorService implements AsyncValidator {
 
     validate(control: AbstractControl): Observable<ValidationErrors | null> {
         return this.userService.isEmailUnique(control.value).pipe(
-            map(isTaken => (isTaken ? null : { 'uniqueEmail' : true })),
+            map(uniqueEmail => (uniqueEmail ? null : { 'uniqueEmail' : true })),
             catchError(() => of(null))
         );
     }
