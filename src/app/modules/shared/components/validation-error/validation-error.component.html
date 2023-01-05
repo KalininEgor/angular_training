@@ -30,4 +30,8 @@
     <p *ngIf="control?.errors?.['minlength']">
         Must contain more than {{control?.errors?.['minlength'].requiredLength}} characters
     </p>
+
+    <p *ngIf="control?.errors?.['invalidFile']">
+        Only images supports
+    </p>
 </ng-container>

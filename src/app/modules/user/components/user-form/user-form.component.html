@@ -5,26 +5,26 @@
             <mat-label>First Name</mat-label>
             <input matInput formControlName="firstName" />
         </mat-form-field>
-        <app-input-error [control]="newUserForm.get('firstName')"></app-input-error>
+        <app-validation-error [control]="newUserForm.get('firstName')"></app-validation-error>
 
         <mat-form-field>
             <mat-label>Last Name</mat-label>
             <input matInput formControlName="lastName" />
         </mat-form-field>
-        <app-input-error [control]="newUserForm.get('lastName')"></app-input-error>
+        <app-validation-error [control]="newUserForm.get('lastName')"></app-validation-error>
 
     <p>Work</p>
         <mat-form-field>
             <mat-label>Company</mat-label>
             <input matInput formControlName="company" />
         </mat-form-field>
-        <app-input-error [control]="newUserForm.get('company')"></app-input-error>
+        <app-validation-error [control]="newUserForm.get('company')"></app-validation-error>
 
         <mat-form-field>
             <mat-label>Department</mat-label>
             <input matInput formControlName="department" />
         </mat-form-field>
-        <app-input-error [control]="newUserForm.get('department')"></app-input-error>
+        <app-validation-error [control]="newUserForm.get('department')"></app-validation-error>
 
     <p>Other info</p>
     <mat-form-field>
@@ -32,19 +32,40 @@
         <input matInput formControlName="email" />
     </mat-form-field>
     <mat-spinner *ngIf="newUserForm.get('email')?.pending"></mat-spinner>
-    <app-input-error [control]="newUserForm.get('email')"></app-input-error>
+    <app-validation-error [control]="newUserForm.get('email')"></app-validation-error>
     
     <mat-form-field>
         <mat-label>Age</mat-label>
         <input matInput formControlName="age" type="number" />
     </mat-form-field>
-    <app-input-error [control]="newUserForm.get('age')"></app-input-error>
+    <app-validation-error [control]="newUserForm.get('age')"></app-validation-error>
 
     <mat-radio-group aria-labelledby="gender-label" formControlName="gender">
-        <label id="gender-label">Gender:</label>
+        <label id="gender-label">Gender*</label>
         <mat-radio-button [value]="true">Male</mat-radio-button>
         <mat-radio-button [value]="false">Female</mat-radio-button>
     </mat-radio-group>
-    <app-input-error [control]="newUserForm.get('gender')"></app-input-error>
+    <app-validation-error [control]="newUserForm.get('gender')"></app-validation-error>
 
+    <input hidden type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+    <div class="file-upload" >
+        <button 
+            mat-mini-fab
+            color="primary" 
+            class="upload-btn"
+            (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+        {{ uploadingFileName || "Upload profile image"}}
+        <button 
+            mat-icon-button
+            *ngIf="fileUpload.files?.length"
+            (click)="clearFile(fileUpload)"
+            >
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+    <app-validation-error [control]="newUserForm.get('imageUrl')"></app-validation-error>
 </div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputErrorComponent } from './input-error.component';
+import { ValidationErrorComponent } from './validation-error.component';
 
 describe('InputErrorComponent', () => {
-  let component: InputErrorComponent;
-  let fixture: ComponentFixture<InputErrorComponent>;
+  let component: ValidationErrorComponent;
+  let fixture: ComponentFixture<ValidationErrorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InputErrorComponent ]
+      declarations: [ ValidationErrorComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InputErrorComponent);
+    fixture = TestBed.createComponent(ValidationErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserListComponent } from './components/user-list/user-list.component';
@@ -35,7 +36,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
         MatFormFieldModule,
         MatRadioModule,
         MatProgressSpinnerModule,
-        MatDividerModule
+        MatDividerModule,
+        MatIconModule
     ],
 })
 export class UserModule {}

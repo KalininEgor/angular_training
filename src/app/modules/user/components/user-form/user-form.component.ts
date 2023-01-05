@@ -34,10 +34,41 @@ export class UserFormComponent implements OnInit {
             ]
         ],
         gender: [null, [Validators.required]],
+        imageUrl: [null]
     });
+
+    uploadingFileName: string = '';
 
     ngOnInit(): void {
         this.parentForm.addControl('user', this.newUserForm);
+    }
+
+    onFileSelected($event: Event): void {
+        this.newUserForm.get('imageUrl')?.markAsTouched();
+        
+        const file: File = ($event.target as HTMLInputElement).files![0];
+        this.uploadingFileName = file.name;
+
+        if (file && file.type.match(/image\/*/)) { 
+            this.newUserForm.get('imageUrl')?.setErrors(null);
+            
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.newUserForm.get('imageUrl')?.setValue(reader.result);
+            }
+        } else {
+            this.newUserForm.get('imageUrl')?.setErrors({'invalidFile': true})
+        }
+    }
+
+    clearFile(fileUploadInput: HTMLInputElement): void {
+        fileUploadInput.files = new DataTransfer().files;
+
+        this.newUserForm.get('imageUrl')?.setValue(null);
+        this.newUserForm.get('imageUrl')?.setErrors(null);
+
+        this.uploadingFileName = '';
     }
 
     gmailValidator(control: FormControl): ValidationErrors | null {
