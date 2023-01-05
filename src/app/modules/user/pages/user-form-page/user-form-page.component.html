@@ -1,9 +1,9 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="addUser()">
     <app-user-form [parentForm]="form"></app-user-form>
     
     <button 
         mat-raised-button 
-        (click)="addUser()"
+        type="submit"
         color="primary"
     >Save User
     </button>
