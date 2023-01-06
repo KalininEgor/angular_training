@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidationErrors, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { gmailValidator } from 'src/app/modules/shared/services/gmail-validator';
 import { UniqueEmailValidatorService } from '../../services/unique-email-validator.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { UniqueEmailValidatorService } from '../../services/unique-email-validat
     styleUrls: ['./user-form.component.scss'],
 })
 export class UserFormComponent implements OnInit {
-    @Input() parentForm!: FormGroup;
+    @Output() formReady = new EventEmitter<FormGroup>();
 
     constructor(
         private fb: FormBuilder,
@@ -23,7 +24,7 @@ export class UserFormComponent implements OnInit {
         email: ['', [
                 Validators.required, 
                 Validators.email, 
-                this.gmailValidator
+                gmailValidator
             ], 
             [this.uniqueEmailValidator]
         ],
@@ -33,20 +34,11 @@ export class UserFormComponent implements OnInit {
                 Validators.max(100)
             ]
         ],
-        gender: [null, [Validators.required]]
+        gender: [null, [Validators.required]],
+        imageUrl: [null]
     });
 
-    uploadingFileName: string = '';
-
     ngOnInit(): void {
-        this.parentForm.addControl('user', this.newUserForm);
-    }
-    
-    gmailValidator(control: FormControl): ValidationErrors | null {
-
-        if (control.value.endsWith('@gmail.com') || !control.value.length) {
-            return null;
-        }
-        return {'gmail' : true};
+        this.formReady.emit(this.newUserForm);
     }
 }   

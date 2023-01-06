@@ -35,7 +35,7 @@ export class UserService {
     }
 
     isEmailUnique(email: string): Observable<boolean> {
-        const isUnique = users.findIndex(user => user.email === email);
+        const isUnique = users.findIndex(user => user.email.toLowerCase() === email.toLowerCase());
         const result = isUnique === -1 ? of(true) : of(false);
         return timer(1000).pipe(concatMap(() => result))
     }

@@ -5,26 +5,38 @@
             <mat-label>First Name</mat-label>
             <input matInput formControlName="firstName" />
         </mat-form-field>
-        <app-validation-error [control]="newUserForm.get('firstName')"></app-validation-error>
+        <app-validation-error 
+            [control]="newUserForm.get('firstName')"
+            [controlName]="'First Name'"
+        ></app-validation-error>
 
         <mat-form-field>
             <mat-label>Last Name</mat-label>
             <input matInput formControlName="lastName" />
         </mat-form-field>
-        <app-validation-error [control]="newUserForm.get('lastName')"></app-validation-error>
+        <app-validation-error 
+            [control]="newUserForm.get('lastName')"
+            [controlName]="'Last Name'"
+        ></app-validation-error>
 
     <p>Work</p>
         <mat-form-field>
             <mat-label>Company</mat-label>
             <input matInput formControlName="company" />
         </mat-form-field>
-        <app-validation-error [control]="newUserForm.get('company')"></app-validation-error>
+        <app-validation-error 
+            [control]="newUserForm.get('company')"
+            [controlName]="'Company'"
+        ></app-validation-error>
 
         <mat-form-field>
             <mat-label>Department</mat-label>
             <input matInput formControlName="department" />
         </mat-form-field>
-        <app-validation-error [control]="newUserForm.get('department')"></app-validation-error>
+        <app-validation-error 
+            [control]="newUserForm.get('department')"
+            [controlName]="'Department'"
+        ></app-validation-error>
 
     <p>Other info</p>
     <mat-form-field>
@@ -32,20 +44,33 @@
         <input matInput formControlName="email" />
     </mat-form-field>
     <mat-spinner *ngIf="newUserForm.get('email')?.pending"></mat-spinner>
-    <app-validation-error [control]="newUserForm.get('email')"></app-validation-error>
+    <app-validation-error 
+        [control]="newUserForm.get('email')"
+        [controlName]="'Email'"
+    ></app-validation-error>
     
     <mat-form-field>
         <mat-label>Age</mat-label>
         <input matInput formControlName="age" type="number" />
     </mat-form-field>
-    <app-validation-error [control]="newUserForm.get('age')"></app-validation-error>
+    <app-validation-error 
+        [control]="newUserForm.get('age')"
+        [controlName]="'Age'"
+    ></app-validation-error>
 
     <mat-radio-group aria-labelledby="gender-label" formControlName="gender">
         <label id="gender-label">Gender*</label>
         <mat-radio-button [value]="true">Male</mat-radio-button>
         <mat-radio-button [value]="false">Female</mat-radio-button>
     </mat-radio-group>
-    <app-validation-error [control]="newUserForm.get('gender')"></app-validation-error>
+    <app-validation-error 
+        [control]="newUserForm.get('gender')"
+        [controlName]="'Gender'"
+    ></app-validation-error>
 
-    <app-image-upload-input [parentForm]="newUserForm" [titleTemplate]="'Upload profile image'"></app-image-upload-input>
+    <app-image-upload-input 
+        [control]="newUserForm.get('imageUrl')!" 
+        [titleTemplate]="'Upload profile image'"
+    ></app-image-upload-input>
+    <app-validation-error [control]="newUserForm.get('imageUrl')"></app-validation-error>
 </div>

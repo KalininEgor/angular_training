@@ -2,9 +2,14 @@
 
 .file-upload {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     margin-bottom: $baseSize*3;
+    padding: $baseSize*2;
+    border: 1px dotted $primaryColor;
+    border-radius: $baseSize;
+    background-color: #673ab72e;
+    cursor: pointer;
     button {
         margin-right: $baseSize*3;
     }

@@ -22,11 +22,15 @@ export class UserFormPageComponent implements OnInit {
         this.form = this.fb.group({});
     }
 
+    addSubform(name: string, form: FormGroup): void {
+        this.form.addControl(name, form)
+    }
+
     addUser(): void {
-        this.form.get('user')?.markAllAsTouched();
+        this.form.get('newUser')?.markAllAsTouched();
         
         if (this.form.valid) {
-            this.userService.addUser(this.form.value.user);
+            this.userService.addUser(this.form.value.newUser);
             this.router.navigate(['users']); 
         }
     }
