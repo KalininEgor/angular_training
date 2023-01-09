@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
@@ -22,15 +22,15 @@ export class UserFormPageComponent implements OnInit {
         this.form = this.fb.group({});
     }
 
-    addSubform(name: string, form: FormGroup): void {
-        this.form.addControl(name, form)
+    addSubform(name: string, form: FormGroup | FormArray): void {
+        this.form.addControl(name, form);
     }
 
     addUser(): void {
-        this.form.get('newUser')?.markAllAsTouched();
+        this.form.markAllAsTouched();
         
         if (this.form.valid) {
-            this.userService.addUser(this.form.value.newUser);
+            this.userService.addUser(this.form.value.newUser, this.form.value.addresses);
             this.router.navigate(['users']); 
         }
     }

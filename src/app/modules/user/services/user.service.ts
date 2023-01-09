@@ -4,7 +4,7 @@ import { FavoritesService } from '../../core/services/favorites.service';
 import { users } from '../mocks/users';
 import { INewUser } from '../models/new-user.interface';
 import { IUser } from '../models/user.interface';
-import { concatMap, Observable, of, timer } from 'rxjs';
+import { address } from '../../shared/models/address.type';
 
 
 @Injectable({
@@ -12,9 +12,7 @@ import { concatMap, Observable, of, timer } from 'rxjs';
 })
 export class UserService {
 
-    constructor (
-        private favoriteService: FavoritesService
-    ) {}
+    constructor (private favoriteService: FavoritesService) {}
 
     getUsers(): IUser[] {
         return users;
@@ -27,16 +25,11 @@ export class UserService {
         })
     }
 
-    addUser(userData: INewUser): void {
+    addUser(userData: INewUser, addresses: address[]): void {
         users.push ({
             id: users.length+1,
-            ...userData
+            ...userData,
+            addresses
         });
-    }
-
-    isEmailUnique(email: string): Observable<boolean> {
-        const isUnique = users.findIndex(user => user.email.toLowerCase() === email.toLowerCase());
-        const result = isUnique === -1 ? of(true) : of(false);
-        return timer(1000).pipe(concatMap(() => result))
     }
 }

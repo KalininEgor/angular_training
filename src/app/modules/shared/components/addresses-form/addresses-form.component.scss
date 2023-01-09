@@ -1,0 +1,18 @@
+mat-form-field {
+    width: 100%;
+}
+
+.address-title {
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+mat-icon {
+    padding: 0;
+}
+
+.address-remove {
+    padding: 0;
+    transform: scale(0.7);
+}

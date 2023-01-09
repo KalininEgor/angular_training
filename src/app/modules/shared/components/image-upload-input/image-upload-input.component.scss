@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: $baseSize*3;
+    margin: $baseSize*2 0 $baseSize*3;
     padding: $baseSize*2;
     border: 1px dotted $primaryColor;
     border-radius: $baseSize;

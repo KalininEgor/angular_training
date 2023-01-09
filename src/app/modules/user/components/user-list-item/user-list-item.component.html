@@ -9,14 +9,33 @@
     </span>
 
     <div class="user-info">
-        <div>ID: {{ user.id }}</div>
+        <div><i>ID:</i> {{ user.id }}</div>
         <mat-divider></mat-divider>
-        <div>Gender: {{ user.gender ? "Male" : "Female" }}</div>
+
+        <div><i>Gender:</i> {{ user.gender ? "Male" : "Female" }}</div>
         <mat-divider></mat-divider>
-        <div>Email: {{ user.email }}</div>
+
+        <div><i>Email:</i> {{ user.email }}</div>
         <mat-divider></mat-divider>
-        <div>Company: {{ user.company }}</div>
+
+        <div><i>Company:</i> {{ user.company }}</div>
         <mat-divider></mat-divider>
-        <div>Department: {{ user.department }}</div>
+        
+        <div><i>Department:</i> {{ user.department }}</div>
+        <mat-divider></mat-divider>
+
+        <ng-container *ngFor="let address of user.addresses; let i = index">
+            <div>
+                <p><b>Address {{i+1}}</b></p>
+                <div>
+                    <p><i>Address line:</i> {{address.addressLine}}</p>
+                    <ng-container *ngIf="address.city">
+                        <p><i>City:</i> {{address.city}}; </p>
+                        <p><i>Zip:</i> {{address.zip}}</p>
+                    </ng-container>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </ng-container>
     </div>
 </app-card>

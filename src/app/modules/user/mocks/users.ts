@@ -2,7 +2,7 @@ import { IUser } from "../models/user.interface";
 
 export const users: IUser[] = [
     {
-        id: 1, 
+        id: 1,
         firstName: "Egor", 
         lastName: "Kalinin",
         email: "KaEgor@mail.ru", 
@@ -10,10 +10,11 @@ export const users: IUser[] = [
         gender: true,
         company: 'ISsoft',
         department: 'Marketing',
-        imageUrl: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-08/220805-domestic-cat-mjf-1540-382ba2.jpg', 
+        imageUrl: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-08/220805-domestic-cat-mjf-1540-382ba2.jpg',
+        addresses: [{addressLine: "Ostrojskih, h.14, app.156"}]
     },
     {
-        id: 2, 
+        id: 2,
         firstName: "Vasya", 
         lastName: "Pupkin",
         email: "Puvasya@mail.ru", 
@@ -21,10 +22,11 @@ export const users: IUser[] = [
         gender: true,
         company: 'ISsoft',
         department: 'Human Resources',
-        imageUrl: 'https://static.scientificamerican.com/sciam/cache/file/92E141F8-36E4-4331-BB2EE42AC8674DD3_source.jpg?w=590&h=800&1966AE6B-E8E5-4D4A-AACA385519F64D03', 
+        imageUrl: 'https://static.scientificamerican.com/sciam/cache/file/92E141F8-36E4-4331-BB2EE42AC8674DD3_source.jpg?w=590&h=800&1966AE6B-E8E5-4D4A-AACA385519F64D03',
+        addresses: [{addressLine: "Nikoly Tesly 33", city: "Minsk", zip: "220052"}]
     },
     {
-        id: 3, 
+        id: 3,
         firstName: "Katya", 
         lastName: "Kondratyeva",
         email: "Katya@mail.ru", 
@@ -32,10 +34,11 @@ export const users: IUser[] = [
         gender: false,
         company: 'ISsoft',
         department: 'IT',
-        imageUrl: 'https://cdn.britannica.com/92/181392-050-08187DB5/cat-British-Shorthair-grey.jpg', 
+        imageUrl: 'https://cdn.britannica.com/92/181392-050-08187DB5/cat-British-Shorthair-grey.jpg',
+        addresses: [{addressLine: "Nikoly Tesly 33", city: "Minsk", zip: "220052"}]
     },
     {
-        id: 4, 
+        id: 4,
         firstName: "John", 
         lastName: "Wick",
         email: "JW@mail.ru", 
@@ -43,10 +46,11 @@ export const users: IUser[] = [
         gender: true,
         company: 'ISsoft',
         department: 'InfoSec',
-        imageUrl: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-08/220805-domestic-cat-mjf-1540-382ba2.jpg', 
+        imageUrl: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-08/220805-domestic-cat-mjf-1540-382ba2.jpg',
+        addresses: [{addressLine: "Nikoly Tesly 33"}]
     },
     {
-        id: 5, 
+        id: 5,
         firstName: "Edward", 
         lastName: "Snowden",
         email: "SEdw@mail.ru", 
@@ -54,10 +58,11 @@ export const users: IUser[] = [
         gender: true,
         company: 'ISsoft',
         department: 'Human Resources',
-        imageUrl: 'https://static.scientificamerican.com/sciam/cache/file/92E141F8-36E4-4331-BB2EE42AC8674DD3_source.jpg?w=590&h=800&1966AE6B-E8E5-4D4A-AACA385519F64D03', 
+        imageUrl: 'https://static.scientificamerican.com/sciam/cache/file/92E141F8-36E4-4331-BB2EE42AC8674DD3_source.jpg?w=590&h=800&1966AE6B-E8E5-4D4A-AACA385519F64D03',
+        addresses: [{addressLine: "Nikoly Tesly 33", city: "Minsk", zip: "220052"}]
     },
     {
-        id: 6, 
+        id: 6,
         firstName: "Christina", 
         lastName: "Aguilera",
         email: "Pop@mail.ru", 
@@ -65,10 +70,11 @@ export const users: IUser[] = [
         gender: false,
         company: 'ISsoft',
         department: 'Accountant',
-        imageUrl: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-08/220805-domestic-cat-mjf-1540-382ba2.jpg', 
+        imageUrl: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-08/220805-domestic-cat-mjf-1540-382ba2.jpg',
+        addresses: [{addressLine: "Nikoly Tesly 33", city: "Minsk", zip: "220052"}]
     },
     {
-        id: 7, 
+        id: 7,
         firstName: "Karina", 
         lastName: "Simpson",
         email: "Kars@mail.ru", 
@@ -76,10 +82,11 @@ export const users: IUser[] = [
         gender: false,
         company: 'ISsoft',
         department: 'Human Resources',
-        imageUrl: 'https://static.scientificamerican.com/sciam/cache/file/92E141F8-36E4-4331-BB2EE42AC8674DD3_source.jpg?w=590&h=800&1966AE6B-E8E5-4D4A-AACA385519F64D03', 
+        imageUrl: 'https://static.scientificamerican.com/sciam/cache/file/92E141F8-36E4-4331-BB2EE42AC8674DD3_source.jpg?w=590&h=800&1966AE6B-E8E5-4D4A-AACA385519F64D03',
+        addresses: [{addressLine: "Nikoly Tesly 33"}]
     },
     {
-        id: 8, 
+        id: 8,
         firstName: "Maxim", 
         lastName: "Dyak",
         email: "DYAK@gmail.com", 
@@ -87,6 +94,7 @@ export const users: IUser[] = [
         gender: true,
         company: 'ISsoft',
         department: 'InfoSec',
-        imageUrl: 'https://cdn.britannica.com/92/181392-050-08187DB5/cat-British-Shorthair-grey.jpg', 
+        imageUrl: 'https://cdn.britannica.com/92/181392-050-08187DB5/cat-British-Shorthair-grey.jpg',
+        addresses: [{addressLine: "Nikoly Tesly 33", city: "Minsk", zip: "220052"}]
     },
 ]

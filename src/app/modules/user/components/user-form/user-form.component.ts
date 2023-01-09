@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { gmailValidator } from 'src/app/modules/shared/services/gmail-validator';
 import { UniqueEmailValidatorService } from '../../services/unique-email-validator.service';

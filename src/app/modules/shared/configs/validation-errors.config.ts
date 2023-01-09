@@ -1,6 +1,6 @@
-import { TError } from "../models/validation-error.type";
+import { TValidationErrors } from "../models/validation-error.type";
 
-export const errorsConfig: TError = {
+export const validationErrorsConfig: TValidationErrors = {
     required: (controlName) => {
         return `'${controlName}' is required field`;
     },
@@ -14,16 +14,16 @@ export const errorsConfig: TError = {
         return 'This email is already taken';
     },
     min: (controlName, control) => {
-        return `'${controlName}' must be more than ${control!.errors!['min'].min}`;
+        return `'${controlName}' must be more than ${control.errors!['min'].min}`;
     },
     max: (controlName, control) => {
-        return `'${controlName}' must be less than ${control!.errors!['max'].max}`;
+        return `'${controlName}' must be less than ${control.errors!['max'].max}`;
     },
     minlength: (controlName, control) => {
-        return `'${controlName}' must contain more than ${control!.errors!['minlength'].requiredLength} characters`;
+        return `'${controlName}' must contain more than ${control.errors!['minlength'].requiredLength} characters`;
     },
     maxlength: (controlName, control) => {
-        return `'${controlName}' must contain less than ${control!.errors!['maxlength'].requiredLength} characters`;
+        return `'${controlName}' must contain less than ${control.errors!['maxlength'].requiredLength} characters`;
     },
     invalidImage: () => {
         return 'Only pictures allowed';

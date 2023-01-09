@@ -6,4 +6,5 @@ export interface INewUser {
     email: string;
     age: number;
     gender: boolean;
+    imageUrl?: string;
 }
