@@ -11,7 +11,8 @@ import { FavoriteListComponent } from './components/favorite-list/favorite-list.
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
 import { ImageUploadInputComponent } from './components/image-upload-input/image-upload-input.component';
-import { AddressesFormComponent } from './components/addresses-form/addresses-form.component';
+import { AddressFormListComponent } from './components/address-form-list/address-form-list.component';
+import { AddressFormComponent } from './components/address-form/address-form.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { AddressesFormComponent } from './components/addresses-form/addresses-fo
         FavoriteListComponent,
         ValidationErrorComponent,
         ImageUploadInputComponent,
-        AddressesFormComponent,
+        AddressFormListComponent,
+        AddressFormComponent,
     ],
     imports: [
         CommonModule,
@@ -35,7 +37,7 @@ import { AddressesFormComponent } from './components/addresses-form/addresses-fo
         FavoriteListComponent,
         ValidationErrorComponent,
         ImageUploadInputComponent,
-        AddressesFormComponent,
+        AddressFormListComponent,
     ],
 })
 export class SharedModule {}

@@ -1,0 +1,30 @@
+<ng-container [formGroup]='addressesForm'>
+    <div formArrayName="addresses">
+        <div *ngFor="let group of addresses.controls; let i = index">
+            <div class="address-title">
+                <span>Address</span>&nbsp;
+                <ng-container *ngIf="addresses.controls.length > 1">
+                    <span>{{i+1}}</span>
+                    <button
+                        class="address-remove" 
+                        mat-icon-button 
+                        (click)="$event.preventDefault(); removeAddressGroup(i)"
+                    ><mat-icon color="warn">cancel</mat-icon>
+                    </button>
+                </ng-container>
+            </div>
+            <app-address-form [group]="group"></app-address-form>
+        </div>
+
+        <button 
+            mat-icon-button
+            matTooltip="Add new address" 
+            (click)="$event.preventDefault(); addAddressGroup()" 
+        ><mat-icon>add_circle</mat-icon>
+        </button>
+    </div>
+</ng-container>
+
+<ng-template>
+
+</ng-template>

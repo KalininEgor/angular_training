@@ -4,7 +4,7 @@ import { FavoritesService } from '../../core/services/favorites.service';
 import { users } from '../mocks/users';
 import { INewUser } from '../models/new-user.interface';
 import { IUser } from '../models/user.interface';
-import { address } from '../../shared/models/address.type';
+import { IAddress } from '../../shared/models/address.interface';
 
 
 @Injectable({
@@ -25,7 +25,7 @@ export class UserService {
         })
     }
 
-    addUser(userData: INewUser, addresses: address[]): void {
+    addUser(userData: INewUser, addresses: IAddress[]): void {
         users.push ({
             id: users.length+1,
             ...userData,

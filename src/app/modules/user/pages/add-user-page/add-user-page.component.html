@@ -3,7 +3,7 @@
     <app-user-form (formReady)="addSubform('newUser', $event)"></app-user-form>
 
     <h2>User addresses</h2>
-    <app-addresses-form [parentForm]="form" (formReady)="addSubform('addresses', $event)"></app-addresses-form> 
+    <app-address-form-list (formReady)="addSubform('addressesForm', $event)"></app-address-form-list> 
     
     <button 
         mat-raised-button 

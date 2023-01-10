@@ -15,13 +15,13 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
-import { UserFormPageComponent } from './pages/user-form-page/user-form-page.component';
+import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
     declarations: [
         UserPageComponent,
-        UserFormPageComponent,
+        AddUserPageComponent,
         UserListComponent,
         UserListItemComponent,
         UserFormComponent,
