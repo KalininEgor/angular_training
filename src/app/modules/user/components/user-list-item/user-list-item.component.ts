@@ -10,8 +10,13 @@ export class UserListItemComponent {
     @Input() user!: IUser;
     @Input() isFavorite!: boolean;
     @Output() favoriteChanged = new EventEmitter();
+    @Output() editClicked = new EventEmitter();
 
     changeFavorite(): void {
         this.favoriteChanged.emit();
+    }
+
+    onEditClick(): void {
+        this.editClicked.emit();
     }
 }

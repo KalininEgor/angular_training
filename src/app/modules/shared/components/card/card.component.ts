@@ -7,10 +7,15 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class CardComponent {
     @Input() imgSrc!: string;
-    @Output() favoriteChanged = new EventEmitter();
     @Input() isFavorite!: boolean;
+    @Output() favoriteChanged = new EventEmitter();
+    @Output() editClicked = new EventEmitter();
 
-    changeFavorite() {
+    changeFavorite(): void {
         this.favoriteChanged.emit();
+    }
+
+    onEditClick(): void {
+        this.editClicked.emit();
     }
 }

@@ -2,6 +2,7 @@
     [users]="users" 
     [favoriteIds]="favoriteIds"
     (favoriteChanged)="changeFavorite($event)"
+    (editClicked)="openEditorPage($event)"
 ></app-user-list>
 
 <app-favorite-list

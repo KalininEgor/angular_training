@@ -2,6 +2,7 @@
     [imgSrc]="user.imageUrl ? user.imageUrl : 'https://canningtonvet.com.au/wp-content/uploads/2019/06/Cat-question-mark-2.png' "
     [isFavorite]="isFavorite"
     (favoriteChanged)="changeFavorite()"
+    (editClicked)="onEditClick()"
 >
     <span titleData>
         {{ user.firstName + " " + user.lastName }}

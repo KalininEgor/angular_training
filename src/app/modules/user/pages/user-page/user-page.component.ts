@@ -3,6 +3,7 @@ import { FavoriteTypes } from 'src/app/modules/shared/models/favorite.types';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-user-page',
@@ -16,7 +17,8 @@ export class UserPageComponent implements OnInit{
 
     constructor(
         private userService: UserService,
-        private favoritesService: FavoritesService
+        private favoritesService: FavoritesService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -28,6 +30,9 @@ export class UserPageComponent implements OnInit{
     changeFavorite(user: IUser): void {
         this.favoriteIds = this.favoritesService.toggleFavorites(FavoriteTypes.User, user.id);
         this.favoriteUsers = this.userService.getFavoriteUsers();
+    }
 
+    openEditorPage(id: number) {
+        this.router.navigate(['edit-user', id], )
     }
 }

@@ -1,6 +1,7 @@
 <ng-container [formGroup]='addressesForm'>
     <div formArrayName="addresses">
         <div *ngFor="let group of addresses.controls; let i = index">
+            
             <div class="address-title">
                 <span>Address</span>&nbsp;
                 <ng-container *ngIf="addresses.controls.length > 1">
@@ -13,7 +14,9 @@
                     </button>
                 </ng-container>
             </div>
+
             <app-address-form [group]="group"></app-address-form>
+
         </div>
 
         <button 

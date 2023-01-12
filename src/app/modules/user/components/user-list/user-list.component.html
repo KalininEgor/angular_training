@@ -4,6 +4,7 @@
         [user]="user"
         [isFavorite]="favoriteIds.includes(user.id)"
         (favoriteChanged)="changeFavorite(user)"
+        (editClicked)="onEditClick(user.id)"
     ></app-user-list-item>
 
 </ng-container>

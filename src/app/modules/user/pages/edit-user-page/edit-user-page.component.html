@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="updateUser()">
+    <h1>Edit user</h1>
+
+    <app-user-form 
+        [initialdata]="user"
+        (formReady)="initSubForm('user', $event)"
+    ></app-user-form>
+
+    <app-address-form-list 
+        [initialdata]="user"
+        (formReady)="initSubForm('addressesForm', $event)"
+    ></app-address-form-list>
+
+    <button 
+        mat-raised-button 
+        type="submit"
+        color="primary"
+    >Edit User</button>
+</form>
+
+

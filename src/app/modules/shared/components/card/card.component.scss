@@ -4,4 +4,6 @@ mat-card {
 
 mat-card-actions {
     margin-top: auto;
+    display: flex;
+    justify-content: space-between;
 }
