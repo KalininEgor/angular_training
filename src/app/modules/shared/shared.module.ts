@@ -13,6 +13,7 @@ import { ValidationErrorComponent } from './components/validation-error/validati
 import { ImageUploadInputComponent } from './components/image-upload-input/image-upload-input.component';
 import { AddressFormListComponent } from './components/address-form-list/address-form-list.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
+import { SearchFieldComponent } from './components/search-field/search-field.component';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { AddressFormComponent } from './components/address-form/address-form.com
         ImageUploadInputComponent,
         AddressFormListComponent,
         AddressFormComponent,
+        SearchFieldComponent,
     ],
     imports: [
         CommonModule,
@@ -38,6 +40,7 @@ import { AddressFormComponent } from './components/address-form/address-form.com
         ValidationErrorComponent,
         ImageUploadInputComponent,
         AddressFormListComponent,
+        SearchFieldComponent
     ],
 })
 export class SharedModule {}

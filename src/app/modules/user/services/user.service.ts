@@ -1,11 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FavoriteTypes } from '../../shared/models/favorite.types';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { users } from '../mocks/users';
 import { INewUser } from '../models/new-user.interface';
 import { IUser } from '../models/user.interface';
 import { IAddress } from '../../shared/models/address.interface';
-import { BehaviorSubject, delay, filter, find, map, merge, mergeMap, Observable, of, Subject, take } from 'rxjs';
+import { BehaviorSubject, delay, map, mergeMap, Observable, take } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -24,21 +24,37 @@ export class UserService {
         return this.users$.pipe(
             take(1),
             delay(700),
-            map(users => {
-                return users.find((user) => user.id === id)!
+            map((users) => {
+                return users.find((user) => user.id === id)!;
             })
         );
     }
 
     getFavoriteUsers(): Observable<IUser[]> {
         return this.users$.pipe(
-            mergeMap(users => {
-                return this.favoriteService.getFavorites(FavoriteTypes.User)
+            mergeMap((users) => {
+                return this.favoriteService
+                    .getFavorites(FavoriteTypes.User)
                     .pipe(
-                        map(favorites => {
-                            return users.filter(user => favorites.includes(user.id))
+                        map((favorites) => {
+                            return users.filter((user) =>
+                                favorites.includes(user.id)
+                            );
                         })
                     );
+            })
+        );
+    }
+
+    findUsers(searchText: string): Observable<IUser[]> {
+        return this.users$.pipe(
+            map((users) => {
+                return users.filter((user) => {
+                    return (
+                        user.lastName.toLowerCase().includes(searchText) ||
+                        user.firstName.toLowerCase().includes(searchText)
+                    );
+                });
             })
         );
     }
@@ -61,4 +77,3 @@ export class UserService {
         });
     }
 }
-

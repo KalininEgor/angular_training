@@ -1,13 +1,13 @@
-<app-user-list 
-    [users]="users" 
-    [favoriteUsers]="favoriteUsers"
-    (favoriteChanged)="changeFavorite($event)"
-    (editClicked)="openEditorPage($event)"
-></app-user-list>
+<app-search-field (searchFieldReady)="findUsers($event)"></app-search-field>
+<div class="wrapper">
+    <app-user-list 
+        [users]="users" 
+        [favoriteUsers]="favoriteUsers"
+        (favoriteChanged)="changeFavorite($event)"
+        (editClicked)="openEditorPage($event)"
+    ></app-user-list>
 
-<app-favorite-list
-    [title]="'Users'"
->
+    <app-favorite-list [title]="'Users'">
         <ng-container *ngFor="let user of favoriteUsers">
 
             <app-card
@@ -24,4 +24,5 @@
 
         </ng-container>
 
-</app-favorite-list>
+    </app-favorite-list>
+</div>

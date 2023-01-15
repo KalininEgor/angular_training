@@ -44,6 +44,14 @@ export class UserPageComponent implements OnInit, OnDestroy {
         }));
     }
 
+    findUsers(searchText: Observable<string>): void {
+        searchText.subscribe(text => {
+            this.userService.findUsers(text).subscribe(users => {
+                this.users = users;
+            })
+        })
+    }
+
     openEditorPage(id: number) {
         this.router.navigate(['edit-user', id]);
     }

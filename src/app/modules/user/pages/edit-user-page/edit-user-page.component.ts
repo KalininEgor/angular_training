@@ -11,7 +11,7 @@ import { UserService } from '../../services/user.service';
     templateUrl: './edit-user-page.component.html',
     styleUrls: ['./edit-user-page.component.scss'],
 })
-export class EditUserPageComponent implements OnInit, ComponentCanDeactivate{
+export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
     isSaved: boolean = false;
     id!: number;
     email!: string;
@@ -28,46 +28,29 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate{
     ngOnInit(): void {
         this.form = this.fb.group({
             addressesForm: this.fb.group({
-                addresses: this.fb.array([])
-            })
+                addresses: this.fb.array([]),
+            }),
         });
 
         this.route.params.pipe(take(1)).subscribe((params) => {
             this.id = +params['id'];
-            
-            this.userService.getUserById(this.id)
+
+            this.userService
+                .getUserById(this.id)
                 .pipe(take(1))
-                .subscribe(value => {
-                    debugger
+                .subscribe((value) => {
                     this.user = value;
                     this.email = value.email;
 
                     for (const a of this.user.addresses) {
                         this.addresses.push(this.fb.group({}));
-                    };
+                    }
 
                     setTimeout(() => {
                         this.addresses.patchValue(this.user.addresses);
                     }, 0);
                     this.form.get('user')?.patchValue(this.user);
                 });
-
-            /* this.userService.getUserById(this.id)
-                .pipe(take(1))
-                    .subscribe(value => {
-                        debugger
-                        this.user = value;
-                        this.email = value.email;
-
-                        for (const a of this.user.addresses) {
-                            this.addresses.push(this.fb.group({}));
-                        };
- 
-                        setTimeout(() => {
-                            this.addresses.patchValue(this.user.addresses);
-                        }, 0);
-                        this.form.get('user')?.patchValue(this.user);
-                    }); */
         });
     }
 
@@ -82,7 +65,7 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate{
     initSubForm(name: string, subForm: FormGroup): void {
         this.form.addControl(name, subForm);
     }
-    
+
     updateUser(): void {
         this.form.markAllAsTouched();
 
@@ -90,11 +73,13 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate{
             this.isSaved = true;
 
             const updatedUser = this.form.getRawValue();
-            this.userService.editUser(updatedUser.user, updatedUser.addressesForm.addresses, this.id);
-            
-            this.router.navigate(['users']); 
+            this.userService.editUser(
+                updatedUser.user,
+                updatedUser.addressesForm.addresses,
+                this.id
+            );
+
+            this.router.navigate(['users']);
         }
     }
-
-      
 }
