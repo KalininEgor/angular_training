@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, delay, map, mergeMap, Observable, of } from 'rxjs';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { FavoriteTypes } from '../../shared/models/favorite.types';
 import { cars } from '../mocks/cars';
@@ -9,18 +10,25 @@ import { ICar } from '../models/car.interface';
 })
 export class CarService {
 
-    constructor(
-        private favoriteService: FavoritesService
-    ) {}
+    carsSbj = new BehaviorSubject<ICar[]>(cars);
+    cars$ = this.carsSbj.asObservable();
+
+    constructor(private favoriteService: FavoritesService) {}
     
-    getCars(): ICar[] {
-        return cars;
+    getCars(): Observable<ICar[]> {
+        return this.cars$.pipe(delay(700));
     }
 
-    getFavoriteCars(): ICar[] {
-        const favoriteIds = this.favoriteService.getFavorites(FavoriteTypes.Car);
-        return this.getCars().filter(car => {
-            return favoriteIds.includes(car.id);  
-        })
+    getFavoriteCars(): Observable<ICar[]> {
+        return this.cars$.pipe(
+            mergeMap(cars => {
+                return this.favoriteService.getFavorites(FavoriteTypes.Car)
+                    .pipe(
+                        map(favorites => {
+                            return cars.filter(car => favorites.includes(car.id))
+                        })
+                    );
+            })
+        );
     }
 }

@@ -9,7 +9,7 @@ import { IAddress } from '../../models/address.interface';
     styleUrls: ['./address-form-list.component.scss'],
 })
 export class AddressFormListComponent implements OnInit {
-    @Input() initialdata?: Observable<any>;
+    @Input() initialArray?: FormArray
     @Output() formReady = new EventEmitter<FormGroup>();
 
     addressesForm!: FormGroup;
@@ -18,11 +18,8 @@ export class AddressFormListComponent implements OnInit {
 
     ngOnInit(): void {
         this.addressesForm = this.fb.group({
-            addresses: this.fb.array([this.createAddressGroup()]),
+            addresses: this.initialArray || this.fb.array([this.fb.group({})]),
         });
-
-        if (this.initialdata) this.initEditAddresses();
-
         this.formReady.emit(this.addressesForm);
     }
 
@@ -30,28 +27,8 @@ export class AddressFormListComponent implements OnInit {
         return this.addressesForm.get('addresses') as FormArray;
     }
 
-    initEditAddresses() {
-        this.initialdata!.pipe(take(1)).subscribe(data => {
-            const addressesData: IAddress[] = data.addresses;
-
-            while (this.addresses.controls.length < addressesData.length) {
-                this.addAddressGroup();
-            }
-
-            this.addresses.patchValue(addressesData);
-        });
-    }
-
-    createAddressGroup(): FormGroup {
-        return this.fb.group({
-            addressLine: [null, Validators.required],
-            city: [null],
-            zip: [{ value: null, disabled: true }, Validators.required],
-        });
-    }
-
     addAddressGroup(): void {
-        this.addresses.push(this.createAddressGroup());
+        this.addresses.push(this.fb.group({}));
     }
 
     removeAddressGroup(index: number): void {

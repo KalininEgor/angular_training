@@ -3,6 +3,7 @@ import { FavoriteTypes } from 'src/app/modules/shared/models/favorite.types';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { ICar } from '../../models/car.interface';
 import { CarService } from '../../services/car.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-car-page',
@@ -11,8 +12,8 @@ import { CarService } from '../../services/car.service';
 })
 export class CarPageComponent implements OnInit {
     cars: ICar[] = [];
-    favoriteIds: number[] = [];
     favoriteCars: ICar[] = [];
+    subscribe: Subscription = new Subscription();
 
     constructor(
         private carService: CarService,
@@ -20,13 +21,23 @@ export class CarPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.cars = this.carService.getCars();
-        this.favoriteIds = this.favoritesService.getFavorites(FavoriteTypes.Car);
-        this.favoriteCars = this.carService.getFavoriteCars();
+        this.subscribe.add(this.carService.getCars().subscribe(cars => {
+            this.cars = cars;
+        }));
+
+        this.subscribe.add(this.carService.getFavoriteCars().subscribe(cars => {
+            this.favoriteCars = cars;
+        }));
     }
 
     changeFavorite(car: ICar): void {
-        this.favoriteIds = this.favoritesService.toggleFavorites(FavoriteTypes.Car, car.id);
-        this.favoriteCars = this.carService.getFavoriteCars();
+        this.favoritesService.toggleFavorites(
+            FavoriteTypes.Car,
+            car.id
+        );
+
+        this.subscribe.add(this.carService.getFavoriteCars().subscribe(cars => {
+            this.favoriteCars = cars;
+        }));
     }
 }

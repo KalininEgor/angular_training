@@ -2,12 +2,12 @@
     <h1>Edit user</h1>
 
     <app-user-form 
-        [initialdata]="user"
+        [currentEmail]="email"
         (formReady)="initSubForm('user', $event)"
     ></app-user-form>
 
     <app-address-form-list 
-        [initialdata]="user"
+        [initialArray]="addresses"
         (formReady)="initSubForm('addressesForm', $event)"
     ></app-address-form-list>
 

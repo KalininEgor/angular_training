@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FavoriteTypes } from 'src/app/modules/shared/models/favorite.types';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-user-page',
     templateUrl: './user-page.component.html',
-    styleUrls: ['./user-page.component.scss']
+    styleUrls: ['./user-page.component.scss'],
 })
-export class UserPageComponent implements OnInit{
+export class UserPageComponent implements OnInit, OnDestroy {
     users: IUser[] = [];
-    favoriteIds: number[] = [];
     favoriteUsers: IUser[] = [];
+
+    subscribe: Subscription = new Subscription();
 
     constructor(
         private userService: UserService,
@@ -22,17 +24,31 @@ export class UserPageComponent implements OnInit{
     ) {}
 
     ngOnInit(): void {
-        this.users = this.userService.getUsers();
-        this.favoriteIds = this.favoritesService.getFavorites(FavoriteTypes.User);
-        this.favoriteUsers = this.userService.getFavoriteUsers();
+        this.subscribe.add(this.userService.getUsers().subscribe(users => {
+            this.users = users;
+        }));
+
+        this.subscribe.add(this.userService.getFavoriteUsers().subscribe(users => {
+            this.favoriteUsers = users;
+        }))
     }
 
     changeFavorite(user: IUser): void {
-        this.favoriteIds = this.favoritesService.toggleFavorites(FavoriteTypes.User, user.id);
-        this.favoriteUsers = this.userService.getFavoriteUsers();
+        this.favoritesService.toggleFavorites(
+            FavoriteTypes.User,
+            user.id
+        );
+        
+        this.subscribe.add(this.userService.getFavoriteUsers().subscribe(users => {
+            this.favoriteUsers = users;
+        }));
     }
 
     openEditorPage(id: number) {
-        this.router.navigate(['edit-user', id], )
+        this.router.navigate(['edit-user', id]);
+    }
+
+    ngOnDestroy(): void {
+        this.subscribe.unsubscribe();
     }
 }

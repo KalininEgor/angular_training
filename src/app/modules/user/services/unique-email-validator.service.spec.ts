@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UniqueEmailValidatorService } from './unique-email-validator.service';
+import { UniqueEmailValidator } from './unique-email.validator';
 
-describe('UniqueEmailValidatorService', () => {
-  let service: UniqueEmailValidatorService;
+describe('UniqueEmailValidator', () => {
+  let service: UniqueEmailValidator;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UniqueEmailValidatorService);
+    service = TestBed.inject(UniqueEmailValidator);
   });
 
   it('should be created', () => {

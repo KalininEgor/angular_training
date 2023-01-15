@@ -8,7 +8,7 @@ import { IUser } from '../../models/user.interface';
 })
 export class UserListComponent {
     @Input() users: IUser[] = [];
-    @Input() favoriteIds: number[] = [];
+    @Input() favoriteUsers: IUser[] = [];
     @Output() favoriteChanged = new EventEmitter<IUser>();
     @Output() editClicked = new EventEmitter<number>();
 

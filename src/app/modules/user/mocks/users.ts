@@ -95,6 +95,6 @@ export const users: IUser[] = [
         company: 'ISsoft',
         department: 'InfoSec',
         imageUrl: 'https://cdn.britannica.com/92/181392-050-08187DB5/cat-British-Shorthair-grey.jpg',
-        addresses: [{addressLine: "Nikoly Tesly 33", city: "Minsk", zip: "220052"}, {addressLine: "Nikoly Tesly 323", city: "Minsk", zip: "220052"}]
+        addresses: [{addressLine: "Nikoly Tesly 33", city: "Minsk", zip: "220052"}, {addressLine: "Nikoly Tesly 323", city: "Minsk", zip: "220052"},  {addressLine: "Nikoly Tesly 323", city: "Minsk", zip: "220052"},  {addressLine: "Nikoly Tesly 323", city: "Minsk", zip: "220052"}]
     },
 ]

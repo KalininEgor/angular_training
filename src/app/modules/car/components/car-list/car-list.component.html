@@ -2,7 +2,7 @@
 
     <app-car-list-item
         [car]="car"
-        [isFavorite]="favoriteIds.includes(car.id)"
+        [isFavorite]="favoriteCars.includes(car)"
         (favoriteChanged)="changeFavorite(car)"
     ></app-car-list-item>
 

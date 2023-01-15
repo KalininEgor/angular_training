@@ -1,22 +1,25 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { map, merge, Observable, Subscription, take } from 'rxjs';
-import { UniqueEmailValidatorService } from '../../services/unique-email-validator.service';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { merge, Subscription } from 'rxjs';
+import { UniqueEmailValidator } from '../../services/unique-email.validator';
 import { gmailValidator } from 'src/app/modules/shared/services/gmail-validator';
-import { IUser } from '../../models/user.interface';
 
 @Component({
     selector: 'app-user-form',
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent implements OnInit, OnDestroy {
-    @Input() initialdata?: Observable<IUser>
+export class UserFormComponent implements OnInit, OnChanges, OnDestroy {
+    /* @Input() set emailOnEdit(currentEmail: string) {
+        this.newUserForm.get('email')?.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(currentEmail));
+        this.newUserForm.get('email')?.updateValueAndValidity();
+    }; */
+    @Input() currentEmail?: string;
     @Output() formReady = new EventEmitter<FormGroup>();
 
     constructor(
         private fb: FormBuilder,
-        private uniqueEmailValidator: UniqueEmailValidatorService
+        private uniqueEmailValidator: UniqueEmailValidator
     ) {}
 
     subscribe: Subscription = new Subscription();
@@ -31,7 +34,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
                 Validators.email, 
                 gmailValidator
             ], 
-            [this.uniqueEmailValidator.validate.bind(this.uniqueEmailValidator)]
+            [this.uniqueEmailValidator]
         ],
         age: [null, [ 
                 Validators.required, 
@@ -46,65 +49,36 @@ export class UserFormComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.fillEmailValue();
 
-        if (this.initialdata) this.initExistingUser()
-        
         this.formReady.emit(this.newUserForm);
+        /* setTimeout(() => {
+            this.newUserForm.get('email')!.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(!!this.currentEmail));
+            this.newUserForm.get('email')!.updateValueAndValidity();
+        }, 100); */
     }
 
-    initExistingUser(): void {
-        const emailField: AbstractControl = this.newUserForm.get('email')!;
-        emailField.clearAsyncValidators();
-
-        this.initialdata?.pipe(take(1)).subscribe(user => {
-
-            this.subscribe.add(
-                emailField.valueChanges.subscribe(value => {
-            
-                    if (value === user.email) {
-                        emailField.clearAsyncValidators();
-                    } else {
-                        emailField.setAsyncValidators(this.uniqueEmailValidator.validate.bind(this.uniqueEmailValidator));
-                    }
-    
-                    emailField.updateValueAndValidity({emitEvent: false});
-                })  
-            );         
-
-            this.newUserForm.patchValue(user, {emitEvent: false});
-        });
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['currentEmail']) {
+            const email = changes['currentEmail'].currentValue;
+            console.log(this.newUserForm);
+            if (email && email === this.newUserForm.get('email')!.value) {
+                this.newUserForm.get('email')?.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(!!this.currentEmail));
+                this.newUserForm.get('email')?.updateValueAndValidity();
+            }
+        }
     }
 
     fillEmailValue(): void {
-        let firstPart = '';
-        let secondPart = '';
-
+        const firstName = this.newUserForm.get('firstName')!
+        const lastName = this.newUserForm.get('lastName')!
+        
         this.subscribe.add(
             merge(
-                this.newUserForm.get('firstName')!.valueChanges
-                    .pipe(
-                        map(value => {
-                            return {
-                                control: 'firstName',
-                                value: value
-                            }
-                        })
-                    ),
-                this.newUserForm.get('lastName')!.valueChanges
-                    .pipe(
-                        map(value => {
-                            return {
-                                control: 'lastName',
-                                value: value
-                            }
-                        })
-                    ))
-                .subscribe(emailPart => {
-                    if (emailPart.control === 'firstName') {
-                        firstPart = emailPart.value;
-                    } else {
-                        secondPart = emailPart.value;
-                    }
-                    this.newUserForm.get('email')!.setValue(`${firstPart}.${secondPart}@gmail.com`);
+                firstName.valueChanges,
+                lastName.valueChanges
+                ).subscribe(v => {
+                    this.newUserForm.get('email')!.setValue(
+                        `${firstName.value}.${lastName.value}@gmail.com`
+                    );
                     this.newUserForm.get('email')!.markAsTouched();
                 }
             )

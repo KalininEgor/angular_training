@@ -8,7 +8,7 @@ import { ICar } from '../../models/car.interface';
 })
 export class CarListComponent {
     @Input() cars: ICar[] = [];
-    @Input() favoriteIds: number[] = [];
+    @Input() favoriteCars: ICar[] = [];
     @Output() favoriteChanged = new EventEmitter<ICar>();
   
     changeFavorite(car: ICar): void {

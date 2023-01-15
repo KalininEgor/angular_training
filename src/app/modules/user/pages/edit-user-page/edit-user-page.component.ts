@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
-import { DialogService } from 'src/app/modules/core/services/dialog.service';
 import { ComponentCanDeactivate } from 'src/app/modules/core/services/exitAbout.guard';
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
@@ -15,32 +14,69 @@ import { UserService } from '../../services/user.service';
 export class EditUserPageComponent implements OnInit, ComponentCanDeactivate{
     isSaved: boolean = false;
     id!: number;
-    user!: Observable<IUser>;
+    email!: string;
+    user!: IUser;
     form!: FormGroup;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private userService: UserService,
-        private dialogService: DialogService,
         private fb: FormBuilder
     ) {}
 
-    canDeactivate(): boolean | Observable<boolean> {
-        if (this.form.dirty && !this.isSaved) {
-            return this.dialogService.confirmLeave("You have some unsaved changes. Do you want to leave this page?");
-        } else {
-            return true;
-        }
-    }
-
     ngOnInit(): void {
-        this.form = this.fb.group({});
+        this.form = this.fb.group({
+            addressesForm: this.fb.group({
+                addresses: this.fb.array([])
+            })
+        });
 
         this.route.params.pipe(take(1)).subscribe((params) => {
             this.id = +params['id'];
-            this.user = this.userService.getUser(this.id).pipe(take(1));
+            
+            this.userService.getUserById(this.id)
+                .pipe(take(1))
+                .subscribe(value => {
+                    debugger
+                    this.user = value;
+                    this.email = value.email;
+
+                    for (const a of this.user.addresses) {
+                        this.addresses.push(this.fb.group({}));
+                    };
+
+                    setTimeout(() => {
+                        this.addresses.patchValue(this.user.addresses);
+                    }, 0);
+                    this.form.get('user')?.patchValue(this.user);
+                });
+
+            /* this.userService.getUserById(this.id)
+                .pipe(take(1))
+                    .subscribe(value => {
+                        debugger
+                        this.user = value;
+                        this.email = value.email;
+
+                        for (const a of this.user.addresses) {
+                            this.addresses.push(this.fb.group({}));
+                        };
+ 
+                        setTimeout(() => {
+                            this.addresses.patchValue(this.user.addresses);
+                        }, 0);
+                        this.form.get('user')?.patchValue(this.user);
+                    }); */
         });
+    }
+
+    canDeactivate(): boolean | Observable<boolean> {
+        return !(this.form.dirty && !this.isSaved);
+    }
+
+    get addresses(): FormArray {
+        return this.form.get('addressesForm.addresses') as FormArray;
     }
 
     initSubForm(name: string, subForm: FormGroup): void {
