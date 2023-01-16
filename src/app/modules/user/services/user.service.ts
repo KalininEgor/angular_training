@@ -5,7 +5,7 @@ import { users } from '../mocks/users';
 import { INewUser } from '../models/new-user.interface';
 import { IUser } from '../models/user.interface';
 import { IAddress } from '../../shared/models/address.interface';
-import { BehaviorSubject, delay, map, mergeMap, Observable, take } from 'rxjs';
+import { BehaviorSubject, delay, map, mergeMap, Observable, of, take } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -13,15 +13,15 @@ import { BehaviorSubject, delay, map, mergeMap, Observable, take } from 'rxjs';
 export class UserService {
     constructor(private favoriteService: FavoritesService) {}
 
-    usersSbj = new BehaviorSubject<IUser[]>(users);
-    users$ = this.usersSbj.asObservable();
+    /* usersSbj = new BehaviorSubject<IUser[]>(users);
+    getUsers() = this.usersSbj.asObservable(); */
 
     getUsers(): Observable<IUser[]> {
-        return this.users$.pipe(delay(700));
+        return of(users).pipe(delay(700));
     }
 
     getUserById(id: number): Observable<IUser> {
-        return this.users$.pipe(
+        return this.getUsers().pipe(
             take(1),
             delay(700),
             map((users) => {
@@ -31,7 +31,7 @@ export class UserService {
     }
 
     getFavoriteUsers(): Observable<IUser[]> {
-        return this.users$.pipe(
+        return this.getUsers().pipe(
             mergeMap((users) => {
                 return this.favoriteService
                     .getFavorites(FavoriteTypes.User)
@@ -47,7 +47,7 @@ export class UserService {
     }
 
     findUsers(searchText: string): Observable<IUser[]> {
-        return this.users$.pipe(
+        return this.getUsers().pipe(
             map((users) => {
                 return users.filter((user) => {
                     return (
