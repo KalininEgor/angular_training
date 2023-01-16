@@ -9,11 +9,11 @@ import { gmailValidator } from 'src/app/modules/shared/services/gmail-validator'
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent implements OnInit, OnChanges, OnDestroy {
-    /* @Input() set emailOnEdit(currentEmail: string) {
+export class UserFormComponent implements OnInit, OnDestroy {
+    @Input() set emailOnEdit(currentEmail: string) {
         this.newUserForm.get('email')?.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(currentEmail));
         this.newUserForm.get('email')?.updateValueAndValidity();
-    }; */
+    };
     @Input() currentEmail?: string;
     @Output() formReady = new EventEmitter<FormGroup>();
 
@@ -48,28 +48,20 @@ export class UserFormComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
         this.fillEmailValue();
-        debugger
-        /* this.newUserForm.get('email')!.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(this.currentEmail!));
-        this.newUserForm.get('email')!.updateValueAndValidity(); */
-
+        
         this.formReady.emit(this.newUserForm);
-
-        setTimeout(() => {
-            this.newUserForm.get('email')!.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(this.currentEmail!));
-            this.newUserForm.get('email')!.updateValueAndValidity();
-        }, 100);
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        /* if (changes['currentEmail']) {
+    /* ngOnChanges(changes: SimpleChanges): void {
+        if (changes['currentEmail']) {
             const email = changes['currentEmail'].currentValue;
             console.log(this.newUserForm);
             if (email && email === this.newUserForm.get('email')!.value) {
-                this.newUserForm.get('email')?.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(!!this.currentEmail));
+                this.newUserForm.get('email')?.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(this.currentEmail!));
                 this.newUserForm.get('email')?.updateValueAndValidity();
             }
-        } */
-    }
+        }
+    } */
 
     fillEmailValue(): void {
         const firstName = this.newUserForm.get('firstName')!

@@ -17,14 +17,13 @@ export class UniqueEmailValidator {
     }
 
     validateOnEdit(currentEmail: string): AsyncValidatorFn{
-        debugger
+
         return (control: AbstractControl): Observable<ValidationErrors | null> => {
             if (control.value === currentEmail) {
                 return of(null)
             } else {
                 return this.validate(control)
             }
-            /* return editableEmail ? of(null) : this.validate(control); */
         }  
     }
 

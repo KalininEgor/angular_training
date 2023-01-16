@@ -13,6 +13,7 @@
             <app-card
                 class="favorite-item"
                 (favoriteChanged)="changeFavorite(user)"
+                (editClicked)="openEditorPage(user.id)"
                 [isFavorite]="true"
             >
                 <span titleData>
