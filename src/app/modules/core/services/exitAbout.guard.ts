@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DialogService } from './dialog.service';
+import { DialogComponent } from '../components/dialog/dialog.component';
 
 export interface ComponentCanDeactivate {
     canDeactivate: () => boolean | Observable<boolean>;
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ExitAboutGuard implements CanDeactivate<ComponentCanDeactivate> {
-
-    constructor( private dialogService: DialogService) {}
+    constructor(public dialog: MatDialog) {}
 
     canDeactivate(
         component: ComponentCanDeactivate
     ): Observable<boolean> | boolean {
-        return !component.canDeactivate() ? this.dialogService.confirmLeave('You have some unsaved changes. Do you want to leave this page?') : true;
+        if (component.canDeactivate()) {
+            return true;
+        }
+        return this.dialog
+            .open(DialogComponent, {
+                data: { message: 'You have some unsaved changes' },
+            })
+            .afterClosed();
     }
 }

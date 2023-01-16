@@ -49,10 +49,17 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
                     setTimeout(() => {
                         this.addresses.patchValue(this.user.addresses);
                     }, 0);
+                    
                     this.form.get('user')?.patchValue(this.user);
                 });
         });
     }
+
+    /* ngAfterViewInit(): void {
+        this.addresses.patchValue(this.user.addresses);
+        this.form.get('user')?.patchValue(this.user);
+    } */
+     
 
     canDeactivate(): boolean | Observable<boolean> {
         return !(this.form.dirty && !this.isSaved);

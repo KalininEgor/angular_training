@@ -16,9 +16,15 @@ export class UniqueEmailValidator {
         );
     }
 
-    validateOnEdit(editableEmail: boolean): AsyncValidatorFn{
+    validateOnEdit(currentEmail: string): AsyncValidatorFn{
+        debugger
         return (control: AbstractControl): Observable<ValidationErrors | null> => {
-            return editableEmail ? of(null) : this.validate(control);
+            if (control.value === currentEmail) {
+                return of(null)
+            } else {
+                return this.validate(control)
+            }
+            /* return editableEmail ? of(null) : this.validate(control); */
         }  
     }
 
