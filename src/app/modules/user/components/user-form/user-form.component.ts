@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { UniqueEmailValidator } from '../../services/unique-email.validator';
@@ -52,26 +52,17 @@ export class UserFormComponent implements OnInit, OnDestroy {
         this.formReady.emit(this.newUserForm);
     }
 
-    /* ngOnChanges(changes: SimpleChanges): void {
-        if (changes['currentEmail']) {
-            const email = changes['currentEmail'].currentValue;
-            console.log(this.newUserForm);
-            if (email && email === this.newUserForm.get('email')!.value) {
-                this.newUserForm.get('email')?.setAsyncValidators(this.uniqueEmailValidator.validateOnEdit(this.currentEmail!));
-                this.newUserForm.get('email')?.updateValueAndValidity();
-            }
-        }
-    } */
+    ngOnDestroy(): void {
+        this.subscribe.unsubscribe();
+    }
 
     fillEmailValue(): void {
-        const firstName = this.newUserForm.get('firstName')!
-        const lastName = this.newUserForm.get('lastName')!
+        const firstName = this.newUserForm.get('firstName')!;
+        const lastName = this.newUserForm.get('lastName')!;
         
         this.subscribe.add(
-            merge(
-                firstName.valueChanges,
-                lastName.valueChanges
-                ).subscribe(v => {
+            merge(firstName.valueChanges,lastName.valueChanges)
+                .subscribe(() => {
                     this.newUserForm.get('email')!.setValue(
                         `${firstName.value}.${lastName.value}@gmail.com`
                     );
@@ -79,9 +70,5 @@ export class UserFormComponent implements OnInit, OnDestroy {
                 }
             )
         );
-    }
-    
-    ngOnDestroy(): void {
-        this.subscribe.unsubscribe();
     }
 }   

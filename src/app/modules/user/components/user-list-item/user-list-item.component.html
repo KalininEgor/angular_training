@@ -7,6 +7,9 @@
     <span titleData>
         {{ user.firstName + " " + user.lastName }}
         <strong class="titleData"> ({{ user.age }} y.o.) </strong>
+        <button mat-icon-button (click)="onEditClick()">
+            <mat-icon>edit</mat-icon>
+        </button>        
     </span>
 
     <div class="user-info">

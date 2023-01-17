@@ -1,4 +1,4 @@
-<app-search-field (searchFieldReady)="findUsers($event)"></app-search-field>
+<app-search-field (searchValueChanged)="findUsers($event)"></app-search-field>
 <div class="wrapper">
     <app-user-list 
         [users]="users" 

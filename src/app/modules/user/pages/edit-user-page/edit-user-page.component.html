@@ -3,12 +3,12 @@
 
     <app-user-form 
         [emailOnEdit]="email"
-        (formReady)="initSubForm('user', $event)"
+        (formReady)="addSubForm('user', $event)"
     ></app-user-form>
 
     <app-address-form-list 
         [initialArray]="addresses"
-        (formReady)="initSubForm('addressesForm', $event)"
+        (formReady)="addSubForm('addressesForm', $event)"
     ></app-address-form-list>
 
     <button 

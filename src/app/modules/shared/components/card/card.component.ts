@@ -14,8 +14,4 @@ export class CardComponent {
     changeFavorite(): void {
         this.favoriteChanged.emit();
     }
-
-    onEditClick(): void {
-        this.editClicked.emit();
-    }
 }

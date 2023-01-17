@@ -5,16 +5,13 @@ import { users } from '../mocks/users';
 import { INewUser } from '../models/new-user.interface';
 import { IUser } from '../models/user.interface';
 import { IAddress } from '../../shared/models/address.interface';
-import { BehaviorSubject, delay, map, mergeMap, Observable, of, take } from 'rxjs';
+import { delay, map, mergeMap, Observable, of, take } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
     constructor(private favoriteService: FavoritesService) {}
-
-    /* usersSbj = new BehaviorSubject<IUser[]>(users);
-    getUsers() = this.usersSbj.asObservable(); */
 
     getUsers(): Observable<IUser[]> {
         return of(users).pipe(delay(700));
@@ -50,30 +47,55 @@ export class UserService {
         return this.getUsers().pipe(
             map((users) => {
                 return users.filter((user) => {
-                    return (
-                        user.lastName.toLowerCase().includes(searchText) ||
-                        user.firstName.toLowerCase().includes(searchText)
-                    );
+                    const fullName = `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
+
+                    return fullName.includes(searchText.trim().toLowerCase());
                 });
             })
         );
     }
 
-    addUser(userData: INewUser, addresses: IAddress[]): void {
-        users.push({
-            id: users.length + 1,
-            ...userData,
-            addresses,
-        });
+    addUser(userData: INewUser, addresses: IAddress[]): Observable<boolean> {
+        return this.getUsers().pipe(
+            take(1),
+            map((users) => {
+                try {
+                    users.push({
+                        id: users.length + 1,
+                        ...userData,
+                        addresses,
+                    });
+
+                    return true;
+                } catch (error) {
+                    console.log(error);
+                    return false;
+                }
+            })
+        );
     }
 
-    editUser(userData: INewUser, addresses: IAddress[], id: number): void {
-        const targetUser = users.findIndex((user) => user.id === id);
+    editUser(
+        userData: INewUser,
+        addresses: IAddress[],
+        id: number
+    ): Observable<boolean> {
+        return this.getUsers().pipe(
+            take(1),
+            map((users) => {
+                const targetUser = users.findIndex((user) => user.id === id);
 
-        users.splice(targetUser, 1, {
-            id: id,
-            ...userData,
-            addresses,
-        });
+                if (targetUser === -1) {
+                    return false;
+                } else {
+                    users.splice(targetUser, 1, {
+                        id: id,
+                        ...userData,
+                        addresses,
+                    });
+                    return true;
+                }
+            })
+        );
     }
 }

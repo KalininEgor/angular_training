@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserPageComponent } from './modules/user/pages/user-page/user-page.component';
+import { UsersPageComponent } from './modules/user/pages/users-page/users-page.component';
 import { CarPageComponent } from './modules/car/pages/car-page/car-page.component';
 import { AddUserPageComponent } from './modules/user/pages/add-user-page/add-user-page.component';
 import { EditUserPageComponent } from './modules/user/pages/edit-user-page/edit-user-page.component';
@@ -11,7 +11,7 @@ const routes: Routes = [
         redirectTo: 'users', 
         pathMatch: 'full'
     },
-    { path: 'users', component: UserPageComponent },
+    { path: 'users', component: UsersPageComponent },
     { path: 'add-user', component: AddUserPageComponent },
     {
         path: 'edit-user/:id',

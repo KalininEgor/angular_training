@@ -4,17 +4,16 @@ import { FavoritesService } from 'src/app/modules/core/services/favorites.servic
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-user-page',
-    templateUrl: './user-page.component.html',
-    styleUrls: ['./user-page.component.scss'],
+    templateUrl: './users-page.component.html',
+    styleUrls: ['./users-page.component.scss'],
 })
-export class UserPageComponent implements OnInit, OnDestroy {
+export class UsersPageComponent implements OnInit, OnDestroy {
     users: IUser[] = [];
     favoriteUsers: IUser[] = [];
-
     subscribe: Subscription = new Subscription();
 
     constructor(
@@ -32,6 +31,10 @@ export class UserPageComponent implements OnInit, OnDestroy {
             this.favoriteUsers = users;
         }))
     }
+    
+    ngOnDestroy(): void {
+        this.subscribe.unsubscribe();
+    }
 
     changeFavorite(user: IUser): void {
         this.favoritesService.toggleFavorites(
@@ -44,19 +47,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
         }));
     }
 
-    findUsers(searchText: Observable<string>): void {
-        searchText.subscribe(text => {
-            this.userService.findUsers(text).subscribe(users => {
-                this.users = users;
-            })
-        })
+    findUsers(searchText: string): void {
+        this.userService.findUsers(searchText).subscribe(users => {
+            this.users = users;
+        });
     }
 
     openEditorPage(id: number) {
         this.router.navigate(['edit-user', id]);
-    }
-
-    ngOnDestroy(): void {
-        this.subscribe.unsubscribe();
     }
 }

@@ -9,7 +9,6 @@ import { UserService } from '../../services/user.service';
     styleUrls: ['./add-user-page.component.scss'],
 })
 export class AddUserPageComponent implements OnInit {
-
     form!: FormGroup;
 
     constructor(
@@ -28,10 +27,20 @@ export class AddUserPageComponent implements OnInit {
 
     addUser(): void {
         this.form.markAllAsTouched();
-        
+
         if (this.form.valid) {
-            this.userService.addUser(this.form.value.newUser, this.form.value.addressesForm.addresses);
-            this.router.navigate(['users']); 
+            this.userService
+                .addUser(
+                    this.form.value.newUser,
+                    this.form.value.addressesForm.addresses
+                )
+                .subscribe((isAdded) => {
+                    if (isAdded) {
+                        this.router.navigate(['users']);
+                    } else {
+                        window.alert("Something went wrong. Check form and try again")
+                    }
+                });
         }
     }
 }

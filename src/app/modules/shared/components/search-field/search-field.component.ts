@@ -8,16 +8,19 @@ import { debounceTime, distinctUntilChanged, map, Observable } from 'rxjs';
     styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent implements OnInit {
-    @Output() searchFieldReady: EventEmitter<Observable<string>> = new EventEmitter();
+    @Output() searchValueChanged: EventEmitter<string> = new EventEmitter();
 
     searchControl: FormControl = new FormControl(null);
 
     ngOnInit(): void {
-        this.searchFieldReady.emit(this.searchControl.valueChanges.pipe(
-            debounceTime(500),
-            map(value => value.trim().toLowerCase()),
-            distinctUntilChanged()
-        ));
+        this.searchControl.valueChanges
+            .pipe(
+                debounceTime(500),
+                distinctUntilChanged()
+            )
+            .subscribe(searchValue => {
+                this.searchValueChanged.emit(searchValue);
+            });   
     }
     
 }

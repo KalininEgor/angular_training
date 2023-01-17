@@ -32,7 +32,7 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
             }),
         });
 
-        this.route.params.pipe(take(1)).subscribe((params) => {
+        this.route.params.subscribe((params) => {
             this.id = +params['id'];
 
             this.userService
@@ -54,22 +54,12 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
                 });
         });
     }
-
-    /* ngAfterViewInit(): void {
-        this.addresses.patchValue(this.user.addresses);
-        this.form.get('user')?.patchValue(this.user);
-    } */
-     
-
-    canDeactivate(): boolean | Observable<boolean> {
-        return !(this.form.dirty && !this.isSaved);
-    }
-
+    
     get addresses(): FormArray {
         return this.form.get('addressesForm.addresses') as FormArray;
     }
-
-    initSubForm(name: string, subForm: FormGroup): void {
+    
+    addSubForm(name: string, subForm: FormGroup): void {
         this.form.addControl(name, subForm);
     }
 
@@ -84,9 +74,18 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
                 updatedUser.user,
                 updatedUser.addressesForm.addresses,
                 this.id
-            );
-
-            this.router.navigate(['users']);
+            ).subscribe(isEdited => {
+                debugger
+                if (isEdited) {
+                    this.router.navigate(['users']);
+                } else {
+                    window.alert('Something went wrong, please try again');
+                }
+            });
         }
+    }
+
+    canDeactivate(): boolean | Observable<boolean> {
+        return !(this.form.dirty && !this.isSaved);
     }
 }
