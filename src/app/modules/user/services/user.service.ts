@@ -1,20 +1,58 @@
 import { Injectable } from '@angular/core';
-import { FavoriteTypes } from '../../shared/models/favorite.types';
+import { delay, map, mergeMap, Observable, of, take } from 'rxjs';
+
 import { FavoritesService } from '../../core/services/favorites.service';
-import { users } from '../mocks/users';
+import { HttpService } from '../../core/services/http.service';
+
+import { FavoriteTypes } from '../../shared/models/favorite.types';
 import { INewUser } from '../models/new-user.interface';
 import { IUser } from '../models/user.interface';
 import { IAddress } from '../../shared/models/address.interface';
-import { delay, map, mergeMap, Observable, of, take } from 'rxjs';
+import { IResponseGetUsers } from '../models/response-get-users.interface';
+import { GET_USERS_URL } from '../../core/configs/global-variables';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
-    constructor(private favoriteService: FavoritesService) {}
+    users!: IUser[];
+
+    constructor(
+        private favoriteService: FavoritesService,
+        private http: HttpService
+    ) {}
 
     getUsers(): Observable<IUser[]> {
-        return of(users).pipe(delay(700));
+        if (this.users) return of(this.users).pipe(delay(500));
+
+        return this.http.get<IResponseGetUsers>(GET_USERS_URL).pipe(
+            take(1),
+            map((response) => {
+                const responseUsers = response.results;
+
+                this.users = <IUser[]>responseUsers.map((user, index) => {
+                    return {
+                        id: index,
+                        firstName: user.name.first,
+                        lastName: user.name.last,
+                        email: user.email,
+                        age: user.dob.age,
+                        gender: user.gender === 'male' ? true : false,
+                        company: user.company,
+                        department: user.department,
+                        imageUrl: user.picture.large,
+                        addresses: [
+                            {
+                                addressLine: user.location.street.name + ',' + user.location.street.number,
+                                city: user.location.city,
+                                zip: user.location.postcode,
+                            },
+                        ],
+                    };
+                });
+                return this.users;
+            })
+        );
     }
 
     getUserById(id: number): Observable<IUser> {
@@ -75,6 +113,20 @@ export class UserService {
         );
     }
 
+    //example POST
+    addUserOnServer(
+        url: string,
+        userData: INewUser,
+        addresses: IAddress[]
+    ): Observable<boolean> {
+        const newUser: IUser = {
+            id: this.users.length + 1,
+            ...userData,
+            addresses,
+        };
+        return this.http.post<IUser>(url, newUser);
+    }
+
     editUser(
         userData: INewUser,
         addresses: IAddress[],
@@ -97,5 +149,22 @@ export class UserService {
                 }
             })
         );
+    }
+
+    //example PUT
+    EditUserOnServer(
+        url: string,
+        userData: INewUser,
+        addresses: IAddress[],
+        id: number
+    ): Observable<boolean> {
+        return this.http.put(
+            url,
+            {
+                id: id,
+                ...userData,
+                addresses,
+            }
+        )
     }
 }

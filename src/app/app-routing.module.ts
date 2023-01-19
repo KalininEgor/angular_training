@@ -4,7 +4,7 @@ import { UsersPageComponent } from './modules/user/pages/users-page/users-page.c
 import { CarPageComponent } from './modules/car/pages/car-page/car-page.component';
 import { AddUserPageComponent } from './modules/user/pages/add-user-page/add-user-page.component';
 import { EditUserPageComponent } from './modules/user/pages/edit-user-page/edit-user-page.component';
-import { ExitAboutGuard } from './modules/core/services/exitAbout.guard';
+import { ExitAboutGuard } from './modules/core/guards/exitAbout.guard';
 
 const routes: Routes = [
     { path: '', 

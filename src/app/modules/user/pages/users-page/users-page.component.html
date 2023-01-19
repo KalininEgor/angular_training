@@ -27,3 +27,8 @@
 
     </app-favorite-list>
 </div>
+<mat-paginator 
+    (page)="onPageChange($event)"
+    [length]="usersLength"
+    [pageSize]="10"
+></mat-paginator>

@@ -10,10 +10,8 @@ export class DialogService {
     constructor(public dialog: MatDialog) {}
 
     confirmLeave(message?: string): Observable<boolean> {
-        debugger
         return this.dialog.open(DialogComponent, {
             data: {message: message}
         }).afterClosed()
-        //return of(window.confirm(message || 'You really want to leave?'));
     }
 }

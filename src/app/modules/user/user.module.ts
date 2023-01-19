@@ -18,6 +18,7 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.com
         MatRadioModule,
         MatProgressSpinnerModule,
         MatDividerModule,
-        MatIconModule
+        MatIconModule,
+        MatPaginatorModule
     ],
 })
 export class UserModule {}

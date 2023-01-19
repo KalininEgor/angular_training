@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
-import { ComponentCanDeactivate } from 'src/app/modules/core/services/exitAbout.guard';
+import { ComponentCanDeactivate } from 'src/app/modules/core/guards/exitAbout.guard';
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 
@@ -75,7 +75,6 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
                 updatedUser.addressesForm.addresses,
                 this.id
             ).subscribe(isEdited => {
-                debugger
                 if (isEdited) {
                     this.router.navigate(['users']);
                 } else {

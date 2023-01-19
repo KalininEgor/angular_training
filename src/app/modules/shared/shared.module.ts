@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { CardComponent } from './components/card/card.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
@@ -32,7 +34,8 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
         MatIconModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatPaginatorModule
     ],
     exports: [
         CardComponent,
@@ -40,7 +43,7 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
         ValidationErrorComponent,
         ImageUploadInputComponent,
         AddressFormListComponent,
-        SearchFieldComponent
+        SearchFieldComponent,
     ],
 })
 export class SharedModule {}

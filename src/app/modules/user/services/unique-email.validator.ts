@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { delay, map, Observable, of, take } from 'rxjs';
+import { debounceTime, delay, map, Observable, of, take } from 'rxjs';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class UniqueEmailValidator {
 
     validate(control: AbstractControl): Observable<ValidationErrors | null> {
         return this.isEmailUnique(control.value).pipe(
+            debounceTime(1000),
             delay(500),
             map(isUnique => isUnique ? null : { 'uniqueEmail' : true })
         );

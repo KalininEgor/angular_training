@@ -15,16 +15,3 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-
-.favorite {
-    width: 100%;
-    h1 {
-        color: $primaryColor;
-        text-align: center;
-        font-weight: 500;
-    }
-}
-
-.favorite-item {
-    margin: $baseSize;
-}
