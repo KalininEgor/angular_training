@@ -16,6 +16,10 @@ export class UserListComponent {
         this.favoriteChanged.emit(user);
     }
 
+    checkFavorite(user: IUser) {
+        return !!this.favoriteUsers.find(favUser => favUser.id === user.id)
+    }
+
     onEditClick(id: number): void {
         this.editClicked.emit(id);
     }

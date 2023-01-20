@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { ComponentCanDeactivate } from 'src/app/modules/core/guards/exitAbout.guard';
 import { IUser } from '../../models/user.interface';
+import { UserApiService } from '../../services/user-api.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
         private router: Router,
         private route: ActivatedRoute,
         private userService: UserService,
+        private userApi: UserApiService,
         private fb: FormBuilder
     ) {}
 
@@ -35,7 +37,7 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
         this.route.params.subscribe((params) => {
             this.id = +params['id'];
 
-            this.userService
+            this.userApi
                 .getUserById(this.id)
                 .pipe(take(1))
                 .subscribe((value) => {
@@ -70,11 +72,11 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
             this.isSaved = true;
 
             const updatedUser = this.form.getRawValue();
-            this.userService.editUser(
-                updatedUser.user,
-                updatedUser.addressesForm.addresses,
-                this.id
-            ).subscribe(isEdited => {
+            this.userApi.editUser({
+                id: this.id,
+                ...updatedUser.user,
+                ...updatedUser.addressesForm.addresses
+            }).subscribe(isEdited => {
                 if (isEdited) {
                     this.router.navigate(['users']);
                 } else {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { debounceTime, delay, map, Observable, of, take } from 'rxjs';
-import { UserService } from './user.service';
+import { UserApiService } from './user-api.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UniqueEmailValidator {
-    constructor(private userService: UserService) {}
+    constructor(private userApi: UserApiService) {}
 
     validate(control: AbstractControl): Observable<ValidationErrors | null> {
         return this.isEmailUnique(control.value).pipe(
@@ -29,7 +29,7 @@ export class UniqueEmailValidator {
     }
 
     isEmailUnique(email: string): Observable<boolean> {
-        return this.userService.getUsers().pipe(
+        return this.userApi.getUsers().pipe(
             take(1),
             map(users => {
                 const isUnique = users.findIndex(user => user.email.toLowerCase() === email.toLowerCase());

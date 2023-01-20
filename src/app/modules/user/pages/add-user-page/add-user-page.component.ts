@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserApiService } from '../../services/user-api.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class AddUserPageComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private userService: UserService,
+        private userApi: UserApiService,
         private router: Router
     ) {}
 
@@ -29,11 +30,11 @@ export class AddUserPageComponent implements OnInit {
         this.form.markAllAsTouched();
 
         if (this.form.valid) {
-            this.userService
-                .addUser(
-                    this.form.value.newUser,
-                    this.form.value.addressesForm.addresses
-                )
+            this.userApi
+                .addUser({
+                    ...this.form.value.newUser,
+                    ...this.form.value.addressesForm.addresses
+                })
                 .subscribe((isAdded) => {
                     if (isAdded) {
                         this.router.navigate(['users']);

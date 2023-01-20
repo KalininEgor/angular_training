@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FavoriteTypes } from 'src/app/modules/shared/models/favorite.types';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { IUser } from '../../models/user.interface';
@@ -6,6 +6,8 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { UserApiService } from '../../services/user-api.service';
+import { SearchFieldComponent } from 'src/app/modules/shared/components/search-field/search-field.component';
 
 @Component({
     selector: 'app-user-page',
@@ -13,20 +15,22 @@ import { PageEvent } from '@angular/material/paginator';
     styleUrls: ['./users-page.component.scss'],
 })
 export class UsersPageComponent implements OnInit {
+    @ViewChild(SearchFieldComponent, {read: ElementRef}) 
+    private searchField!: ElementRef;
+
     users: IUser[] = [];
     favoriteUsers: IUser[] = [];
-    usersLength!: number;
 
     constructor(
         private userService: UserService,
+        private userApi: UserApiService,
         private favoritesService: FavoritesService,
         private router: Router,
     ) {}
 
     ngOnInit(): void {
-        this.userService.getUsers().pipe(take(1)).subscribe(users => {
-            this.users = users.slice(0, 10);
-            this.usersLength = users.length; 
+        this.userApi.getUsers().pipe(take(1)).subscribe(users => {
+            this.users = users;
         }); 
 
         this.userService.getFavoriteUsers().pipe(take(1)).subscribe(users => {
@@ -35,11 +39,10 @@ export class UsersPageComponent implements OnInit {
     }
 
     onPageChange(page: PageEvent) {
-        const startIndex = page.pageIndex*page.pageSize;
-        this.userService.getUsers().pipe(take(1)).subscribe(users => {
-            this.users = users.slice(startIndex, startIndex+10);
-            this.usersLength = users.length; 
-        }); 
+        this.userApi.getUsers(page.pageIndex+1, page.pageSize).pipe(take(1)).subscribe(users => {
+            this.users = users;
+        });
+        this.searchField.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     changeFavorite(user: IUser): void {
@@ -54,7 +57,7 @@ export class UsersPageComponent implements OnInit {
     }
 
     findUsers(searchText: string): void {
-        this.userService.findUsers(searchText).pipe(take(1)).subscribe(users => {
+        this.userApi.getUsersByName(searchText).pipe(take(1)).subscribe(users => {
             this.users = users;
         });
     }

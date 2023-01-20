@@ -1,28 +1,41 @@
 export interface IResponseUser {
-    id: {
-        value: string;
-    };
-    name: {
-        first: string;
-        last: string;
-    };
     email: string;
-    dob: {
-        age: number;
-    };
-    gender: 'female' | 'male';
     company?: string;
-    department: string;
-    picture: {
-        large: string;
-        medium: string;
-    };
-    location: {
-        street: {
-            name: string;
-            number: number;
-        };
-        city?: string;
-        postcode?: string;
-    };
-}
+    department?: string;
+    id: IResponseId;
+    name: IResponseName;
+    dob: IResponseDob;
+    gender: ResponseGender;
+    picture: IResponsePicture;
+    location: IResponseLocation;
+};
+
+export interface IResponseId {
+    value: number;
+};
+
+export interface IResponseName {
+    first: string;
+    last: string;
+};
+
+export type ResponseGender = 'female' | 'male';
+
+export interface IResponseDob {
+    age: number;
+};
+
+export interface IResponsePicture {
+    large: string;
+    medium: string;
+};
+
+export interface IResponseStreet {
+    name: string;
+    number: number;
+};
+export interface IResponseLocation {
+    street: IResponseStreet;
+    city?: string;
+    postcode?: string;
+};

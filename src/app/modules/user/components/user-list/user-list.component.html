@@ -2,7 +2,7 @@
 
     <app-user-list-item
         [user]="user"
-        [isFavorite]="favoriteUsers.includes(user)"
+        [isFavorite]="checkFavorite(user)"
         (favoriteChanged)="changeFavorite(user)"
         (editClicked)="onEditClick(user.id)"
     ></app-user-list-item>
