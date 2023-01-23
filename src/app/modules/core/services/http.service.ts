@@ -8,7 +8,6 @@ import { HttpServiceOptions } from '../models/http-options.interface';
     providedIn: 'root',
 })
 export class HttpService {
-    baseUrl: string = environment.apiUrl!;
 
     constructor(private http: HttpClient) {}
 
@@ -17,7 +16,9 @@ export class HttpService {
         optionsObj: HttpServiceOptions = {}
     ): Observable<T> {
         const options: Object = this.buildRequestOptions(optionsObj);
-        return this.http.get<T>(this.baseUrl + url, options).pipe(catchError(this.handleError));
+
+        return this.http.get<T>(this.buildFullURL(url), options)
+            .pipe(catchError(this.handleError));
     }
 
     post<T>(
@@ -26,7 +27,9 @@ export class HttpService {
         optionsObj: HttpServiceOptions = {}
     ): Observable<T> {
         const options: Object = this.buildRequestOptions(optionsObj);
-        return this.http.post<T>(this.baseUrl + url, body, options).pipe(catchError(this.handleError));
+
+        return this.http.post<T>(this.buildFullURL(url), body, options)
+            .pipe(catchError(this.handleError));
     }
 
     put<T>(
@@ -35,7 +38,9 @@ export class HttpService {
         optionsObj: HttpServiceOptions = {}
     ): Observable<any> {
         const options: Object = this.buildRequestOptions(optionsObj);
-        return this.http.put<T>(this.baseUrl + url, body, options).pipe(catchError(this.handleError));
+
+        return this.http.put<T>(this.buildFullURL(url), body, options)
+            .pipe(catchError(this.handleError));
     }
 
     handleError(error: HttpErrorResponse) {
@@ -52,8 +57,12 @@ export class HttpService {
         return {
             headers: options.headers || {},
             params: options.params || [],
-            observe: options.observe || 'response',
-            responseType: options.responseType || 'json'
+            observe: options.observe || 'response' as const,
+            responseType: options.responseType || 'json' as const
         }
+    }
+
+    buildFullURL(urlPart: string): string {
+        return environment.apiUrl + urlPart
     }
 }

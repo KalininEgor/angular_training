@@ -8,6 +8,7 @@ import { take } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { UserApiService } from '../../services/user-api.service';
 import { SearchFieldComponent } from 'src/app/modules/shared/components/search-field/search-field.component';
+import { PAGINATION_LIMIT, PAGINATION_OPTIONS } from '../../configs/pagination.config';
 
 @Component({
     selector: 'app-user-page',
@@ -21,6 +22,9 @@ export class UsersPageComponent implements OnInit {
     users: IUser[] = [];
     favoriteUsers: IUser[] = [];
     lastSearch: string = '';
+
+    paginationLimit: number = PAGINATION_LIMIT;
+    paginationOptions: number[] = PAGINATION_OPTIONS;
 
     constructor(
         private userService: UserService,
@@ -77,9 +81,6 @@ export class UsersPageComponent implements OnInit {
             .subscribe((users) => {
                 this.users = users;
             });
-        // this.userApi.getUsersByName(searchText).pipe(take(1)).subscribe(users => {
-        //     this.users = users;
-        // });
     }
 
     openEditorPage(id: number) {

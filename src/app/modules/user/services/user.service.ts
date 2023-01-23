@@ -4,6 +4,7 @@ import { map, mergeMap, Observable } from 'rxjs';
 import { FavoritesService } from '../../core/services/favorites.service';
 
 import { FavoriteTypes } from '../../shared/models/favorite.types';
+import { PAGE_SIZE } from '../configs/pagination.config';
 import { IUser } from '../models/user.interface';
 import { UserApiService } from './user-api.service';
 
@@ -18,7 +19,7 @@ export class UserService {
     ) {}
 
     getFavoriteUsers(): Observable<IUser[]> {
-        return this.userApi.getUsers().pipe(
+        return this.userApi.getUsers(1, PAGE_SIZE).pipe(
             mergeMap((users) => {
                 return this.favoriteService
                     .getFavorites(FavoriteTypes.User)
