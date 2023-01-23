@@ -13,11 +13,12 @@ import { convertToUser, convertToUserList } from '../utils/convert-user.util';
 export class UserApiService {
     constructor(private httpService: HttpService) {}
 
-    getUsers(page: number = 1, pageSize: number = 10): Observable<IUser[]> {
+    getUsers(page: number = 1, pageSize: number = 10, search: string = ''): Observable<IUser[]> {
         const options = {
             params: new HttpParams().appendAll({
                 'results': pageSize,
-                'page': page
+                'page': page,
+                'search': search
             })
         };
         return this.httpService.get<IResponseGetUsers>('' , options).pipe(
@@ -34,14 +35,14 @@ export class UserApiService {
         )
     }
 
-    getUsersByName(name: string): Observable<IUser[]> {
-        const options = {
-            params: new HttpParams().append('search', name)
-        };
-        return this.httpService.get<IResponseGetUsers>('/users/find', options).pipe(
-            map((response) => convertToUserList(response.body.results))
-        )
-    }
+    // getUsersByName(name: string): Observable<IUser[]> {
+    //     const options = {
+    //         params: new HttpParams().append('search', name)
+    //     };
+    //     return this.httpService.get<IResponseGetUsers>('/users/find', options).pipe(
+    //         map((response) => convertToUserList(response.body.results))
+    //     )
+    // }
 
     addUser(user: INewUser): Observable<IUser> {
         return this.httpService.post<IResponseGetUsers>('/users/add', user).pipe(

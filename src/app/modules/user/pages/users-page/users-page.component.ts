@@ -15,51 +15,71 @@ import { SearchFieldComponent } from 'src/app/modules/shared/components/search-f
     styleUrls: ['./users-page.component.scss'],
 })
 export class UsersPageComponent implements OnInit {
-    @ViewChild(SearchFieldComponent, {read: ElementRef}) 
+    @ViewChild(SearchFieldComponent, { read: ElementRef })
     private searchField!: ElementRef;
 
     users: IUser[] = [];
     favoriteUsers: IUser[] = [];
+    lastSearch: string = '';
 
     constructor(
         private userService: UserService,
         private userApi: UserApiService,
         private favoritesService: FavoritesService,
-        private router: Router,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
-        this.userApi.getUsers().pipe(take(1)).subscribe(users => {
-            this.users = users;
-        }); 
+        this.userApi
+            .getUsers()
+            .pipe(take(1))
+            .subscribe((users) => {
+                this.users = users;
+            });
 
-        this.userService.getFavoriteUsers().pipe(take(1)).subscribe(users => {
-            this.favoriteUsers = users;
-        });
+        this.userService
+            .getFavoriteUsers()
+            .pipe(take(1))
+            .subscribe((users) => {
+                this.favoriteUsers = users;
+            });
     }
 
     onPageChange(page: PageEvent) {
-        this.userApi.getUsers(page.pageIndex+1, page.pageSize).pipe(take(1)).subscribe(users => {
-            this.users = users;
+        this.userApi
+            .getUsers(page.pageIndex + 1, page.pageSize, this.lastSearch)
+            .pipe(take(1))
+            .subscribe((users) => {
+                this.users = users;
+            });
+        this.searchField.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
         });
-        this.searchField.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     changeFavorite(user: IUser): void {
-        this.favoritesService.toggleFavorites(
-            FavoriteTypes.User,
-            user.id
-        );
-        
-        this.userService.getFavoriteUsers().pipe(take(1)).subscribe(users => {
-            this.favoriteUsers = users;
-        });
+        this.favoritesService.toggleFavorites(FavoriteTypes.User, user.id);
+
+        this.userService
+            .getFavoriteUsers()
+            .pipe(take(1))
+            .subscribe((users) => {
+                this.favoriteUsers = users;
+            });
     }
 
     findUsers(searchText: string): void {
-        this.userApi.getUsersByName(searchText).pipe(take(1)).subscribe(users => {
-            this.users = users;
-        });
+        this.lastSearch = searchText;
+        this.userApi
+            .getUsers(1, 10, this.lastSearch)
+            .pipe(take(1))
+            .subscribe((users) => {
+                this.users = users;
+            });
+        // this.userApi.getUsersByName(searchText).pipe(take(1)).subscribe(users => {
+        //     this.users = users;
+        // });
     }
 
     openEditorPage(id: number) {
