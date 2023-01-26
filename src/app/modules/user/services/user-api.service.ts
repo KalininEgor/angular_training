@@ -7,6 +7,7 @@ import { INewUser } from '../models/new-user.interface';
 import { IResponseGetUsers } from '../models/response-get-users.interface';
 import { IUser } from '../models/user.interface';
 import { convertToUser, convertToUserList } from '../utils/convert-user.util';
+import { createRandomDelay } from '../utils/random-delay.util';
 
 @Injectable({
     providedIn: 'root',
@@ -15,13 +16,15 @@ export class UserApiService {
     constructor(private httpService: HttpService) {}
 
     getUsers(page: number = 1, pageSize: number = PAGE_SIZE, search?: string): Observable<IUser[]> {
-        const options = {
-            params: new HttpParams().appendAll({
-                'results': pageSize,
-                'page': page,
-                'search': search ? search : ''
-            })
-        };
+        const params: HttpParams = new HttpParams().appendAll({
+            'results': pageSize,
+            'page': page
+        });
+        debugger
+        if (search) params.append('search', search);
+
+        const options = { params: params };
+
         return this.httpService.get<IResponseGetUsers>('' , options).pipe(
             map((response) => {
                 return convertToUserList(response.body.results);
@@ -30,13 +33,13 @@ export class UserApiService {
     }
 
     getExcelByUserId(id: string): Observable<string> {
-        const time = Math.floor(1 + Math.random() * 6) * 1000;
+        const delayTime = createRandomDelay(1, 6);
 
         return this.httpService.get<IResponseGetUsers>('', {params: {id: id}}).pipe(
             map(() => {
-                return `Received excel from user with ID '${id}' in ${time} ms`
+                return `Received excel from user with ID '${id}' in ${delayTime} ms`
             }),
-            delay(time)
+            delay(delayTime)
         )
     }
 

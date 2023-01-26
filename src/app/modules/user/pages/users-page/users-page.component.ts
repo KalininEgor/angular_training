@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FavoriteTypes } from 'src/app/modules/shared/models/favorite.types';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { concatMap, exhaustMap, merge, mergeMap, Observable, Subject, switchMap, take, tap } from 'rxjs';
+import { concatMap, exhaustMap, merge, mergeMap, Observable, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { UserApiService } from '../../services/user-api.service';
 import { SearchFieldComponent } from 'src/app/modules/shared/components/search-field/search-field.component';
@@ -15,9 +15,11 @@ import { PAGE_SIZE, PAGINATION_LIMIT, PAGINATION_OPTIONS } from '../../configs/p
     templateUrl: './users-page.component.html',
     styleUrls: ['./users-page.component.scss'],
 })
-export class UsersPageComponent implements OnInit {
+export class UsersPageComponent implements OnInit, OnDestroy {
     @ViewChild(SearchFieldComponent, { read: ElementRef })
     private searchField!: ElementRef;
+
+    destroyed: Subject<void> = new Subject();
 
     users: IUser[] = [];
     favoriteUsers: IUser[] = [];
@@ -42,21 +44,24 @@ export class UsersPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.userApi.getUsers(this.page, this.pageSize, this.searchText).pipe(
-            mergeMap(users => {
-                this.users = users;
-                return this.userService.getFavoriteUsers(users);
-            })
-        ).subscribe((users) => {
-            this.favoriteUsers = users;
-        });
+        this.requestFavoriteUserList();
 
+        this.initControlSubscriptions();
 
+        this.refreshUserList();
+    }
+
+    ngOnDestroy(): void {
+        this.destroyed.next();
+    }
+
+    initControlSubscriptions(): void {
         this.userListController.asObservable().pipe(
             switchMap((v, index) => this.requestUserList().pipe(
-                    tap(() => console.log(index))
+                    tap(() => console.log(`SwitchMap refresh, operation №${index}`))
                 )
-            )
+            ),
+            takeUntil(this.destroyed)
         ).subscribe((users) => {
             this.users = users;
         });
@@ -64,9 +69,10 @@ export class UsersPageComponent implements OnInit {
 
         this.exhaustUserListController.asObservable().pipe(
             exhaustMap((v, index) => this.requestUserList().pipe(
-                    tap(() => console.log(index))
+                    tap(() => console.log(`ExhaustMap refresh, operation №${index}`))
                 )
-            )
+            ),
+            takeUntil(this.destroyed)
         ).subscribe((users) => {
             this.users = users;
         });
@@ -74,7 +80,8 @@ export class UsersPageComponent implements OnInit {
 
         this.excelExportController.asObservable().pipe(
             tap(id => console.log(`Exporting excel from user with ID '${id}'...`)),
-            mergeMap(id => this.userApi.getExcelByUserId(id))
+            mergeMap(id => this.userApi.getExcelByUserId(id)),
+            takeUntil(this.destroyed)
         )
         .subscribe(message => {
             console.log(message);
@@ -85,9 +92,26 @@ export class UsersPageComponent implements OnInit {
             concatMap(id => {
                 console.log(`Exporting data about user with ID '${id}'...`);
                 return this.userApi.getUserById(id);
-            })
+            }),
+            takeUntil(this.destroyed)
         ).subscribe(userData => {
             console.log(JSON.stringify(userData));
+        });
+    }
+
+    requestUserList(): Observable<IUser[]> {
+        return this.userApi
+            .getUsers(this.page, this.pageSize, this.searchText)
+            .pipe(take(1))
+    }
+
+    requestFavoriteUserList(): void {
+        this.userApi.getUsers(this.page, this.pageSize, this.searchText).pipe(
+            mergeMap(users => {
+                return this.userService.getFavoriteUsers(users);
+            })
+        ).subscribe((users) => {
+            this.favoriteUsers = users;
         });
     }
 
@@ -139,11 +163,5 @@ export class UsersPageComponent implements OnInit {
 
     exhaustRefreshUserList(): any {
         this.exhaustUserListController.next();
-    }
-
-    requestUserList(): Observable<IUser[]> {
-        return this.userApi
-            .getUsers(this.page, this.pageSize, this.searchText)
-            .pipe(take(1))
     }
 }
