@@ -4,11 +4,11 @@ import { FavoritesService } from 'src/app/modules/core/services/favorites.servic
 import { IUser } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { concatMap, exhaustMap, merge, mergeMap, Observable, Subject, switchMap, take, tap } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { UserApiService } from '../../services/user-api.service';
 import { SearchFieldComponent } from 'src/app/modules/shared/components/search-field/search-field.component';
-import { PAGINATION_LIMIT, PAGINATION_OPTIONS } from '../../configs/pagination.config';
+import { PAGE_SIZE, PAGINATION_LIMIT, PAGINATION_OPTIONS } from '../../configs/pagination.config';
 
 @Component({
     selector: 'app-user-page',
@@ -21,10 +21,18 @@ export class UsersPageComponent implements OnInit {
 
     users: IUser[] = [];
     favoriteUsers: IUser[] = [];
-    lastSearch: string = '';
 
+    page: number = 1;
+    pageSize: number = PAGE_SIZE;
     paginationLimit: number = PAGINATION_LIMIT;
     paginationOptions: number[] = PAGINATION_OPTIONS;
+
+    searchText: string = '';
+    
+    userListController = new Subject<void>();
+    exhaustUserListController = new Subject<void>();
+    excelExportController = new Subject<string>();
+    userExportController = new Subject<string>();
 
     constructor(
         private userService: UserService,
@@ -34,28 +42,61 @@ export class UsersPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.userApi
-            .getUsers()
-            .pipe(take(1))
-            .subscribe((users) => {
+        this.userApi.getUsers(this.page, this.pageSize, this.searchText).pipe(
+            mergeMap(users => {
                 this.users = users;
-            });
+                return this.userService.getFavoriteUsers(users);
+            })
+        ).subscribe((users) => {
+            this.favoriteUsers = users;
+        });
 
-        this.userService
-            .getFavoriteUsers()
-            .pipe(take(1))
-            .subscribe((users) => {
-                this.favoriteUsers = users;
-            });
+
+        this.userListController.asObservable().pipe(
+            switchMap((v, index) => this.requestUserList().pipe(
+                    tap(() => console.log(index))
+                )
+            )
+        ).subscribe((users) => {
+            this.users = users;
+        });
+
+
+        this.exhaustUserListController.asObservable().pipe(
+            exhaustMap((v, index) => this.requestUserList().pipe(
+                    tap(() => console.log(index))
+                )
+            )
+        ).subscribe((users) => {
+            this.users = users;
+        });
+
+
+        this.excelExportController.asObservable().pipe(
+            tap(id => console.log(`Exporting excel from user with ID '${id}'...`)),
+            mergeMap(id => this.userApi.getExcelByUserId(id))
+        )
+        .subscribe(message => {
+            console.log(message);
+        });
+        
+
+        this.userExportController.asObservable().pipe(
+            concatMap(id => {
+                console.log(`Exporting data about user with ID '${id}'...`);
+                return this.userApi.getUserById(id);
+            })
+        ).subscribe(userData => {
+            console.log(JSON.stringify(userData));
+        });
     }
 
-    onPageChange(page: PageEvent) {
-        this.userApi
-            .getUsers(page.pageIndex + 1, page.pageSize, this.lastSearch)
-            .pipe(take(1))
-            .subscribe((users) => {
-                this.users = users;
-            });
+    onPageChange(page: PageEvent): void {
+        this.page = page.pageIndex+1;
+        this.pageSize = page.pageSize;
+        
+        this.refreshUserList();
+        
         this.searchField.nativeElement.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
@@ -63,27 +104,46 @@ export class UsersPageComponent implements OnInit {
     }
 
     changeFavorite(user: IUser): void {
-        this.favoritesService.toggleFavorites(FavoriteTypes.User, user.id);
-
-        this.userService
-            .getFavoriteUsers()
-            .pipe(take(1))
-            .subscribe((users) => {
-                this.favoriteUsers = users;
-            });
+        this.favoritesService.toggleFavorites(FavoriteTypes.User, user.id)
+        .pipe(take(1))
+        .subscribe(userIds => {
+            this.favoriteUsers = this.users.filter(user => {
+                return userIds.includes(user.id);
+            })
+        });
     }
 
     findUsers(searchText: string): void {
-        this.lastSearch = searchText;
-        this.userApi
-            .getUsers(1, 10, this.lastSearch)
-            .pipe(take(1))
-            .subscribe((users) => {
-                this.users = users;
-            });
+        this.searchText = searchText;
+        this.page = 1;
+        this.pageSize = PAGE_SIZE;
+
+        this.refreshUserList();
     }
 
-    openEditorPage(id: number) {
+    openEditorPage(id: string) {
         this.router.navigate(['edit-user', id]);
+    }
+
+    exportUserExcel(id: string) {
+        this.excelExportController.next(id);
+    }
+
+    exportUser(id: string) {
+        this.userExportController.next(id);
+    }
+
+    refreshUserList(): any {
+        this.userListController.next();
+    }
+
+    exhaustRefreshUserList(): any {
+        this.exhaustUserListController.next();
+    }
+
+    requestUserList(): Observable<IUser[]> {
+        return this.userApi
+            .getUsers(this.page, this.pageSize, this.searchText)
+            .pipe(take(1))
     }
 }

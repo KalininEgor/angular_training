@@ -5,6 +5,8 @@
         [isFavorite]="checkFavorite(user)"
         (favoriteChanged)="changeFavorite(user)"
         (editClicked)="onEditClick(user.id)"
+        (excelExportClicked)="onExcelExportClick(user.id)"
+        (userExportClicked)="onUserExportClick(user.id)"
     ></app-user-list-item>
 
 </ng-container>

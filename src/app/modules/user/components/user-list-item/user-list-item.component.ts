@@ -11,6 +11,8 @@ export class UserListItemComponent {
     @Input() isFavorite!: boolean;
     @Output() favoriteChanged = new EventEmitter();
     @Output() editClicked = new EventEmitter();
+    @Output() excelExportClicked = new EventEmitter();
+    @Output() userExportClicked = new EventEmitter();
 
     changeFavorite(): void {
         this.favoriteChanged.emit();
@@ -18,5 +20,13 @@ export class UserListItemComponent {
 
     onEditClick(): void {
         this.editClicked.emit();
+    }
+
+    onExcelExportClick(): void {
+        this.excelExportClicked.emit();
+    }
+
+    onUserExportClick(): void {
+        this.userExportClicked.emit();
     }
 }

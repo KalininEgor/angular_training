@@ -11,7 +11,7 @@ export interface IResponseUser {
 };
 
 export interface IResponseId {
-    value: number;
+    value: string;
 };
 
 export interface IResponseName {

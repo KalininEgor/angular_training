@@ -1,10 +1,25 @@
-<app-search-field #seacrhfield (searchValueChanged)="findUsers($event)"></app-search-field>
+<div class="wrapper users-page-control">
+    <app-search-field #seacrhfield (searchValueChanged)="findUsers($event)"></app-search-field>
+    <button 
+        mat-raised-button
+        color="primary"
+        (click)="refreshUserList()"
+    >REFRESH LIST</button>
+    <button 
+        mat-raised-button
+        color="primary"
+        (click)="exhaustRefreshUserList()"
+    >REFRESH LIST (first)</button>
+</div>
+
 <div class="wrapper">
     <app-user-list 
         [users]="users" 
         [favoriteUsers]="favoriteUsers"
         (favoriteChanged)="changeFavorite($event)"
         (editClicked)="openEditorPage($event)"
+        (excelExportClicked)="exportUserExcel($event)"
+        (userExportClicked)="exportUser($event)"
     ></app-user-list>
 
     <app-favorite-list [title]="'Users'">

@@ -2,12 +2,12 @@ import { IResponseUser } from "../models/response-user.interface";
 import { IUser } from "../models/user.interface";
 
 export function convertToUserList(userDataList: IResponseUser[]): IUser[] {
-    return userDataList.map((user, index) => convertToUser(user, index));
+    return userDataList.map(user => convertToUser(user));
 };
 
-export function convertToUser(userData: IResponseUser, id: number): IUser {
+export function convertToUser(userData: IResponseUser): IUser {
     return {
-        id: id,
+        id: userData.id.value || userData.name.first + userData.name.last,
         firstName: userData.name.first,
         lastName: userData.name.last,
         email: userData.email,

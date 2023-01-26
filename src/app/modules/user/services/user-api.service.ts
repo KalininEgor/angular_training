@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { delay, map, Observable, of } from 'rxjs';
 import { HttpService } from '../../core/services/http.service';
 import { PAGE_SIZE } from '../configs/pagination.config';
 import { INewUser } from '../models/new-user.interface';
@@ -23,28 +23,42 @@ export class UserApiService {
             })
         };
         return this.httpService.get<IResponseGetUsers>('' , options).pipe(
-            map((response) => convertToUserList(response.body.results))
+            map((response) => {
+                return convertToUserList(response.body.results);
+            })
         );
     }
 
-    getUserById(id: number): Observable<IUser> {
+    getExcelByUserId(id: string): Observable<string> {
+        const time = Math.floor(1 + Math.random() * 6) * 1000;
+
+        return this.httpService.get<IResponseGetUsers>('', {params: {id: id}}).pipe(
+            map(() => {
+                return `Received excel from user with ID '${id}' in ${time} ms`
+            }),
+            delay(time)
+        )
+    }
+
+    getUserById(id: string): Observable<IUser> {
         const options = {
             params: new HttpParams().append('id', id)
         };
-        return this.httpService.get<IResponseGetUsers>(`/user`, options).pipe(
-            map((response) => convertToUser(response.body.results[0], id))
+        return this.httpService.get<IResponseGetUsers>(``, options).pipe(
+            delay(1000),
+            map((response) => convertToUser(response.body.results[0]))
         )
     }
 
     addUser(user: INewUser): Observable<IUser> {
         return this.httpService.post<IResponseGetUsers>('/users/add', user).pipe(
-            map((response) => convertToUser(response.body.results[0], response.body.results[0].id.value))
+            map((response) => convertToUser(response.body.results[0]))
         );
     }
 
     editUser(user: IUser): Observable<IUser> {
         return this.httpService.put<IResponseGetUsers>('/user/edit', user).pipe(
-            map((responseUser) => convertToUser(responseUser.results[0], responseUser.id))
+            map((responseUser) => convertToUser(responseUser.results[0]))
         );
     }
 }

@@ -63,6 +63,6 @@ export class HttpService {
     }
 
     buildFullURL(urlPart: string): string {
-        return environment.apiUrl + urlPart
+        return environment.apiUrl + urlPart + environment.seed
     }
 }

@@ -14,7 +14,12 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 20px 0;
+}
+
+.users-page-control {
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 mat-paginator {

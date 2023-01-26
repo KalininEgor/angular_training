@@ -14,7 +14,7 @@ import { UserService } from '../../services/user.service';
 })
 export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
     isSaved: boolean = false;
-    id!: number;
+    id!: string;
     email!: string;
     user!: IUser;
     form!: FormGroup;
@@ -22,7 +22,6 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private userService: UserService,
         private userApi: UserApiService,
         private fb: FormBuilder
     ) {}
@@ -35,7 +34,7 @@ export class EditUserPageComponent implements OnInit, ComponentCanDeactivate {
         });
 
         this.route.params.subscribe((params) => {
-            this.id = +params['id'];
+            this.id = params['id'];
 
             this.userApi
                 .getUserById(this.id)

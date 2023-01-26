@@ -1,5 +1,5 @@
 export interface ICar {
-    id: number;
+    id: string;
     name: string;
     releaseYear: number;
     imageUrl: string;

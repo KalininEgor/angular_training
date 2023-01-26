@@ -10,7 +10,9 @@ export class UserListComponent {
     @Input() users: IUser[] = [];
     @Input() favoriteUsers: IUser[] = [];
     @Output() favoriteChanged = new EventEmitter<IUser>();
-    @Output() editClicked = new EventEmitter<number>();
+    @Output() editClicked = new EventEmitter<string>();
+    @Output() excelExportClicked = new EventEmitter<string>();
+    @Output() userExportClicked = new EventEmitter<string>();
 
     changeFavorite(user: IUser): void {
         this.favoriteChanged.emit(user);
@@ -20,7 +22,15 @@ export class UserListComponent {
         return !!this.favoriteUsers.find(favUser => favUser.id === user.id)
     }
 
-    onEditClick(id: number): void {
+    onEditClick(id: string): void {
         this.editClicked.emit(id);
+    }
+
+    onExcelExportClick(id: string): void {
+        this.excelExportClicked.emit(id);
+    }
+
+    onUserExportClick(id: string): void {
+        this.userExportClicked.emit(id);
     }
 }

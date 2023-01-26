@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, map, mergeMap, Observable, of, Subject, take } from 'rxjs';
+import { delay, Observable, of, take } from 'rxjs';
 import { FavoriteTypes } from '../../shared/models/favorite.types';
 
-export type FavoriteStore = { [key in FavoriteTypes]: number[] };
+export type FavoriteStore = { [key in FavoriteTypes]: string[] };
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +14,11 @@ export class FavoritesService {
         [FavoriteTypes.Car]: []
     }
 
-    getFavorites(type: FavoriteTypes): Observable<number[]> {
+    getFavorites(type: FavoriteTypes): Observable<string[]> {
         return of(this.store[type]).pipe(delay(200));
     }
 
-    toggleFavorites(type: FavoriteTypes, id: number): Observable<number[]> {
+    toggleFavorites(type: FavoriteTypes, id: string): Observable<string[]> {
         const favorites = this.store[type];
         const index = favorites.indexOf(id);
 
@@ -28,6 +28,6 @@ export class FavoritesService {
             favorites.splice(index, 1);
         }
 
-        return this.getFavorites(type).pipe(delay(200))
+        return this.getFavorites(type).pipe(take(1),delay(200))
     }
 }

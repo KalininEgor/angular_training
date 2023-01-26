@@ -10,17 +10,19 @@ import { ICar } from '../models/car.interface';
 })
 export class CarService {
 
-    carsSbj = new BehaviorSubject<ICar[]>(cars);
-    cars$ = this.carsSbj.asObservable();
+    cars: ICar[] = cars;
+
+    // carsSbj = new BehaviorSubject<ICar[]>(cars);
+    // cars$ = this.carsSbj.asObservable();
 
     constructor(private favoriteService: FavoritesService) {}
     
     getCars(): Observable<ICar[]> {
-        return this.cars$.pipe(delay(700));
+        return of(this.cars).pipe(delay(700));
     }
 
     getFavoriteCars(): Observable<ICar[]> {
-        return this.cars$.pipe(
+        return of(this.cars).pipe(
             mergeMap(cars => {
                 return this.favoriteService.getFavorites(FavoriteTypes.Car)
                     .pipe(
