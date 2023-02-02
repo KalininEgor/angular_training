@@ -36,7 +36,7 @@ export class SignUpPageComponent {
                 password: formValue.passGroup.password
             })
             .subscribe(isCreated => {
-                isCreated ? this.router.navigate(['login']) : alert('Login already Exist. Choose another one');
+                this.router.navigate(['login']);
             });
         }
     }
