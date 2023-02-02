@@ -1,0 +1,65 @@
+@import '../../../../styles/_variables.scss';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    padding-top: 36px;
+    height: 100%;
+}
+
+h1 {
+    font-size: 70px;
+    line-height: 1;
+    font-weight: 500;
+    color: $primaryColor;
+    margin: 0;
+}
+
+.user_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    img {
+        display: block;
+        height: 70px;
+        border-radius: 50%;
+        margin-right: $baseSize*3;
+    }
+}
+
+.pages_wrapper {
+    width: 100%;
+    display: flex;
+    flex: auto;
+    justify-content: space-between;
+    align-items: stretch;
+    padding-top: $baseSize*3;
+}
+
+.page_card {
+    width: 100%;
+    cursor: pointer;
+    transition: box-shadow .3s ease-in-out;
+    &:hover {
+        box-shadow: 0px 5px 100px 46px rgba(0, 0, 0, 0.519) inset;   
+    }
+    &:nth-child(odd) {
+        margin-right: $baseSize;
+    }
+    h2 {
+        margin: 0;
+        font-size: $baseSize*5;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.688), rgba(255, 255, 255, 0));
+        padding: $baseSize*2;
+    }
+}
+
+
+.users_page {
+    background: center / cover no-repeat url('http://ec.europa.eu/social/BlobServlet?mode=displayPicture&photoId=12493');
+}
+
+.cars_page {
+    background: center / cover no-repeat url('https://media.wired.com/photos/5db34628182de80009f7fdf9/4:3/w_2132,h_1599,c_limit/Transpo-parkinglot-91275970.jpg');
+}

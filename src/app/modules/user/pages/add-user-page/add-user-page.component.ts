@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserApiService } from '../../services/user-api.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-add-user-page',

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CarListComponent } from './components/car-list/car-list.component';
 import { CarListItemComponent } from './components/car-list-item/car-list-item.component';
+import { CarRoutingModule } from './car-routing.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CarListItemComponent } from './components/car-list-item/car-list-item.c
         CommonModule,
         MatInputModule,
         FormsModule,
-        SharedModule
-    ]
+        SharedModule,
+        CarRoutingModule
+    ],
 })
 export class CarModule { }

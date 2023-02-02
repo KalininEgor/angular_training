@@ -28,4 +28,7 @@ export const validationErrorsConfig: TValidationErrors = {
     invalidImage: () => {
         return 'Only pictures allowed';
     },
+    notSamePass: () => {
+        return 'Passwords do not match'
+    }
 }

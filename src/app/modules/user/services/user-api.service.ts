@@ -20,7 +20,7 @@ export class UserApiService {
             'results': pageSize,
             'page': page
         });
-        debugger
+        
         if (search) params.append('search', search);
 
         const options = { params: params };

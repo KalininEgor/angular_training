@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="createNewUser()"> 
+    <h1>Sign Up</h1>
+
+    <app-authorization-form 
+        [authType]="'signup'" 
+        (formReady)="addChildForm('signupForm', $event)"
+    ></app-authorization-form>
+    
+    <button 
+        mat-raised-button 
+        type="submit"
+        color="primary"
+    >Sign Up
+    </button>
+
+    <p>Already have an account? <a routerLink="/login">Log In</a></p>
+</form>

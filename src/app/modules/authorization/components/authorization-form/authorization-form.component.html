@@ -1,0 +1,56 @@
+<div [formGroup]="authForm" class="form-wrapper">
+
+    <mat-form-field>
+        <mat-label>Login</mat-label>
+        <input matInput formControlName="login" />
+    </mat-form-field>
+    <app-validation-error 
+        [control]="authForm.get('login')"
+        [controlName]="'Login'"
+    ></app-validation-error>
+
+    <div [formGroup]="passGroup">
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hidePass ? 'password' : 'text'" />
+            <button 
+                mat-icon-button 
+                matSuffix 
+                type="button"
+                (click)="togglePassword($event)"
+            >
+                <mat-icon>
+                    {{hidePass ? 'visibility_off' : 'visibility'}}
+                </mat-icon>
+            </button>
+        </mat-form-field>
+        
+        <app-validation-error 
+            [control]="passGroup.get('password')"
+            [controlName]="'Password'"
+        ></app-validation-error>
+
+        <ng-container *ngIf="authType === 'signup'">
+            <mat-form-field>
+                <mat-label>Repeat password</mat-label>
+                <input matInput formControlName="passwordRepeat" [type]="hidePass ? 'password' : 'text'" />
+            </mat-form-field>
+            <app-validation-error 
+                [control]="passGroup.get('passwordRepeat')"
+                [controlName]="'Repeat password'"
+            ></app-validation-error>
+
+            
+        </ng-container>
+
+    </div>
+    
+    <ng-container *ngIf="authType === 'signup'">
+        <app-validation-error *ngIf="passGroup.get('passwordRepeat')!.valid && passGroup.get('password')!.valid"
+            [control]="authForm.get('passGroup')"
+            [controlName]="'Pass'"
+            ></app-validation-error> 
+    </ng-container>
+    
+</div>

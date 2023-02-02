@@ -10,9 +10,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { HeaderComponent } from './components/header/header.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 @NgModule({
-    declarations: [HeaderComponent, DialogComponent],
+    declarations: [HeaderComponent, DialogComponent, HomePageComponent],
     imports: [
         CommonModule, 
         AppRoutingModule,

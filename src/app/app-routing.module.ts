@@ -1,24 +1,38 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UsersPageComponent } from './modules/user/pages/users-page/users-page.component';
-import { CarPageComponent } from './modules/car/pages/car-page/car-page.component';
-import { AddUserPageComponent } from './modules/user/pages/add-user-page/add-user-page.component';
-import { EditUserPageComponent } from './modules/user/pages/edit-user-page/edit-user-page.component';
-import { ExitAboutGuard } from './modules/core/guards/exitAbout.guard';
+import { HomePageComponent } from './modules/core/components/home-page/home-page.component';
+import { LogInPageComponent } from './modules/authorization/pages/log-in-page/log-in-page.component';
+import { SignUpPageComponent } from './modules/authorization/pages/sign-up-page/sign-up-page.component';
+import { AuthAccessGuard } from './modules/core/guards/auth-access.guard';
 
 const routes: Routes = [
-    { path: '', 
-        redirectTo: 'users', 
-        pathMatch: 'full'
+    { 
+        path: '', 
+        component: HomePageComponent,
+        title: 'Home', 
+        canActivate: [AuthAccessGuard] 
     },
-    { path: 'users', component: UsersPageComponent },
-    { path: 'add-user', component: AddUserPageComponent },
+    { 
+        path: 'login', 
+        title: 'Log in',
+        component: LogInPageComponent 
+    },
+    { 
+        path: 'signup',
+        title: 'Sign up', 
+        component: SignUpPageComponent 
+    },
     {
-        path: 'edit-user/:id',
-        component: EditUserPageComponent,
-        canDeactivate: [ExitAboutGuard],
+        path: 'users',
+        loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+        canActivate: [AuthAccessGuard],
     },
-    { path: 'cars', component: CarPageComponent },
+    {
+        path: 'cars',
+        title: 'Car list',
+        loadChildren: () => import('./modules/car/car.module').then(m => m.CarModule),
+        canActivate: [AuthAccessGuard],
+    },
 ];
 
 @NgModule({

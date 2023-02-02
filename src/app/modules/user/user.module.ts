@@ -19,6 +19,7 @@ import { AddUserPageComponent } from './pages/add-user-page/add-user-page.compon
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatProgressSpinnerModule,
         MatDividerModule,
         MatIconModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        UserRoutingModule
     ],
 })
 export class UserModule {}

@@ -146,7 +146,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     }
 
     openEditorPage(id: string) {
-        this.router.navigate(['edit-user', id]);
+        this.router.navigate(['users/edit', id]);
     }
 
     exportUserExcel(id: string) {
