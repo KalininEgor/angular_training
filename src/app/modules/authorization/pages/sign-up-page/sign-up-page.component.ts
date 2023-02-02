@@ -36,7 +36,10 @@ export class SignUpPageComponent {
                 password: formValue.passGroup.password
             })
             .subscribe(isCreated => {
-                this.router.navigate(['login']);
+                if (isCreated) {
+                    this.router.navigate(['login']);
+                }
+                
             });
         }
     }
