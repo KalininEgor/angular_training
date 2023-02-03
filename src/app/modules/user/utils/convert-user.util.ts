@@ -13,8 +13,8 @@ export function convertToUser(userData: IResponseUser): IUser {
         email: userData.email,
         age: userData.dob.age,
         gender: userData.gender === 'male' ? true : false,
-        company: userData.company,
-        department: userData.department,
+        company: 'ISoft',
+        department: 'Front End',
         imageUrl: userData.picture.large,
         addresses: [
             {

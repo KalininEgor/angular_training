@@ -10,17 +10,17 @@ import { AuthorizationService } from '../../shared/services/authorization.servic
 @Injectable({
     providedIn: 'root',
 })
-export class AuthAccessGuard implements CanActivate {
+export class UnauthAccessGuard implements CanActivate {
     constructor(
         private authService: AuthorizationService,
         private router: Router
     ) {}
 
     canActivate(): Observable<boolean | UrlTree> | boolean | UrlTree {
-        return this.authService.authorizationStatus ? true : this.router.parseUrl('/login');  
-    }
-
-    canLoad(): Observable<boolean | UrlTree> | boolean | UrlTree {
-        return this.authService.authorizationStatus ? true : this.router.parseUrl('');
+        if (this.authService.authorizationStatus) {
+            return this.router.parseUrl('');
+        } else {
+            return true;
+        }
     }
 }

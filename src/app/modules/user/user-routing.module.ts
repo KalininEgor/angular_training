@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ExitAboutGuard } from '../core/guards/exitAbout.guard';
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
 
@@ -20,7 +21,8 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     title: 'Edit user',
-    component: EditUserPageComponent
+    component: EditUserPageComponent,
+    canDeactivate: [ExitAboutGuard]
   },
 ];
 

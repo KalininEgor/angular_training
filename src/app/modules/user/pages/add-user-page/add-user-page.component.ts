@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { UserApiService } from '../../services/user-api.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { UserApiService } from '../../services/user-api.service';
     templateUrl: './add-user-page.component.html',
     styleUrls: ['./add-user-page.component.scss'],
 })
-export class AddUserPageComponent implements OnInit {
+export class AddUserPageComponent implements OnInit, OnDestroy {
+    destroyed: Subject<void> = new Subject();
     form!: FormGroup;
 
     constructor(
@@ -19,6 +21,10 @@ export class AddUserPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this.fb.group({});
+    }
+
+    ngOnDestroy(): void {
+        this.destroyed.next();
     }
 
     addSubform(name: string, form: FormGroup): void {
@@ -34,6 +40,9 @@ export class AddUserPageComponent implements OnInit {
                     ...this.form.value.newUser,
                     ...this.form.value.addressesForm.addresses
                 })
+                .pipe(
+                    takeUntil(this.destroyed)
+                )
                 .subscribe((isAdded) => {
                     if (isAdded) {
                         this.router.navigate(['users']);

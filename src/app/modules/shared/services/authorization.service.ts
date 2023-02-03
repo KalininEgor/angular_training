@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, Observable, of } from 'rxjs';
-import { userCredentials } from '../mocks/user-credentials.mock';
-import { IUserCredentials } from '../models/user-credentials.interface';
+import { userCredentials } from '../../authorization/mocks/user-credentials.mock';
+import { IUserCredentials } from '../../authorization/models/user-credentials.interface';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthorizationService {
-    currentUser: BehaviorSubject<string> = new BehaviorSubject<string>('');
-    isAuthorized: boolean = false;
+    private currentUser: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private isAuthorized: boolean = false;
+
+    get authorizationStatus(): boolean {
+        return this.isAuthorized;
+    }
+
+    get authorizedUser(): BehaviorSubject<string> {
+        return this.currentUser;
+    }
 
     constructor() {}
 
@@ -23,15 +31,17 @@ export class AuthorizationService {
             return userCred.login === user.login && userCred.password === user.password;
         });
 
+        let res = false;
+
         if (isCredentialsValid !== -1) {
             this.currentUser.next(user.login);
 
             this.isAuthorized = true;
             
-            return of(true).pipe(delay(500));
-        } else {
-            return of(false).pipe(delay(500));
+            res = true; 
         }
+
+        return of(res).pipe(delay(500));
     }
 
     signOut(): void {

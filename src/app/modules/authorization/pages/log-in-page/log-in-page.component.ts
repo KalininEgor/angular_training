@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthorizationService } from '../../services/authorization.service';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthorizationService } from '../../../shared/services/authorization.service';
 
 @Component({
     selector: 'app-log-in-page',
     templateUrl: './log-in-page.component.html',
     styleUrls: ['./log-in-page.component.scss'],
 })
-export class LogInPageComponent implements OnInit {
+export class LogInPageComponent implements OnInit, OnDestroy {
     form!: FormGroup;
+
+    destroyed: Subject<void> = new Subject();
 
     constructor(
         private fb: FormBuilder,
@@ -19,6 +22,10 @@ export class LogInPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this.fb.group({});
+    }
+
+    ngOnDestroy(): void {
+        this.destroyed.next();
     }
 
     addChildForm(name: string, form: FormGroup): void {
@@ -35,6 +42,9 @@ export class LogInPageComponent implements OnInit {
                 login: formValue.login,
                 password: formValue.passGroup.password,
             })
+            .pipe(
+                takeUntil(this.destroyed)
+            )
             .subscribe((isCreated) => {
                 isCreated ? this.router.navigate(['']) : alert('Invalid login or password. Check and try again');
             });

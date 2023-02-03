@@ -6,24 +6,6 @@
     flex-direction: column;
 }
 
-.container {
-    padding: $baseSize $baseSize*3;
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-}
-
-mat-form-field {
-    width: 50%;
-}
-
-.page-controller {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: $baseSize*3 0;
-}
-
 footer {
     background: $primaryColor;
     color: #fff;

@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+    <div class="current-user" [matMenuTriggerFor]="profileMenu">
+        <img src="../../../../../assets/random_user_image.jpg" alt="">
+        <h2>{{currentUser}}</h2>
+    </div>
+
+    <mat-menu #profileMenu>
+        <button mat-menu-item (click)="signOut()">Sign Out</button>
+    </mat-menu>
+
+    <div class="menu">
+        <button mat-button routerLink="">Home</button>
+        <button mat-button routerLink="cars">Cars</button>
+        <button 
+            mat-button 
+            [matMenuTriggerFor]="menu"
+        >Users</button>
+        
+        <mat-menu #menu>
+            <button mat-menu-item routerLink="users">User List</button>
+            <button mat-menu-item routerLink="users/add">Add new user</button>
+        </mat-menu>
+    </div>
+
+</mat-toolbar>

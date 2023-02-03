@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { passwordRepeatValidator } from '../../../shared/services/password-repeat-validator';
+import { repeatValidator } from '../../../shared/services/repeat-validator';
 
 @Component({
     selector: 'app-authorization-form',
@@ -26,7 +26,8 @@ export class AuthorizationFormComponent implements OnInit{
 
         if (this.authType === 'signup') {
             this.passGroup.addControl('passwordRepeat', this.fb.control(null, Validators.required));
-            this.passGroup.setValidators(passwordRepeatValidator(this.passGroup));
+
+            this.passGroup.setValidators(repeatValidator('password', 'passwordRepeat'));
         };
         
         this.formReady.emit(this.authForm);

@@ -47,7 +47,7 @@
     </div>
     
     <ng-container *ngIf="authType === 'signup'">
-        <app-validation-error *ngIf="passGroup.get('passwordRepeat')!.valid && passGroup.get('password')!.valid"
+        <app-validation-error
             [control]="authForm.get('passGroup')"
             [controlName]="'Pass'"
             ></app-validation-error> 

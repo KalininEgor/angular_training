@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthorizationService } from 'src/app/modules/authorization/services/authorization.service';
+import { AuthorizationService } from 'src/app/modules/shared/services/authorization.service';
 
 @Component({
     selector: 'app-home-page',
@@ -10,7 +10,7 @@ export class HomePageComponent {
     currentUser!: string;
 
     constructor(private authService: AuthorizationService) {
-        this.authService.currentUser.subscribe(user => {
+        this.authService.authorizedUser.subscribe(user => {
             this.currentUser = user;
         });
     }
