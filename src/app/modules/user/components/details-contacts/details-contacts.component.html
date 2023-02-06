@@ -1,0 +1,15 @@
+<ng-container *ngIf="user">
+    <p><strong>Email:</strong> {{user.email}}</p>
+
+    <ng-container *ngFor="let address of user.addresses; let index">
+        <p><strong>Address line:</strong> {{address.addressLine}}</p>
+        
+        <ng-container *ngIf="address.city">
+            <mat-divider></mat-divider>
+            <p><strong>City:</strong> {{address.city}}</p>
+            
+            <mat-divider></mat-divider>
+            <p><strong>Zip-code:</strong> {{address.zip}}</p>
+        </ng-container>
+    </ng-container>
+</ng-container>

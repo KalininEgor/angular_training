@@ -7,6 +7,7 @@ import { AuthAccessGuard } from './modules/core/guards/auth-access.guard';
 import { AuthorizedUserWrapperComponent } from './modules/core/components/authorized-user-wrapper/authorized-user-wrapper.component';
 import { UnauthorizedUserWrapperComponent } from './modules/core/components/unauthorized-user-wrapper/unauthorized-user-wrapper.component';
 import { UnauthAccessGuard } from './modules/core/guards/unauth-access.guard';
+import { AuthAccessLoadGuard } from './modules/core/guards/auth-access-load.guard';
 
 const routes: Routes = [
     {
@@ -23,13 +24,13 @@ const routes: Routes = [
                 path: 'users',
                 title: 'User list',
                 loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
-                canLoad: [AuthAccessGuard], 
+                canLoad: [AuthAccessLoadGuard], 
             },
             {
                 path: 'cars',
                 title: 'Car list',
                 loadChildren: () => import('./modules/car/car.module').then(m => m.CarModule),
-                canLoad: [AuthAccessGuard], 
+                canLoad: [AuthAccessLoadGuard], 
             },
         ]
     },

@@ -1,0 +1,11 @@
+<ng-container *ngIf="user">
+    <p><strong>ID:</strong> {{ user.id }}</p>
+    <mat-divider></mat-divider>
+
+    <p><strong>Year of birth:</strong> {{ user.age | dob }}</p>
+    <mat-divider></mat-divider>
+
+    <p><strong>Gender:</strong> {{ user.gender | gender }}</p>
+    <mat-divider></mat-divider>
+
+</ng-container>

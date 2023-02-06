@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { mergeMap } from 'rxjs';
 import { IUser } from '../../models/user.interface';
+import { UserApiService } from '../../services/user-api.service';
+import { UserDetailsTransferService } from '../../services/user-details-transfer.service';
 
 @Component({
     selector: 'app-user-details-page',
@@ -8,7 +11,6 @@ import { IUser } from '../../models/user.interface';
     styleUrls: ['./user-details-page.component.scss'],
 })
 export class UserDetailsPageComponent implements OnInit {
-    id!: string;
     user!: IUser;
 
     navLinks = [
@@ -24,15 +26,24 @@ export class UserDetailsPageComponent implements OnInit {
             label: 'Contacts',
             link: 'contacts'
         },
-    ]
+    ];
 
     constructor(
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private userService: UserApiService,
+        private userTransferService: UserDetailsTransferService 
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(routeData => {
-            this.user = routeData['user'];
+        this.route.params
+        .pipe(
+            mergeMap(params => {
+                return this.userService.getUserById(params['id']);
+            })
+        )
+        .subscribe(user => {
+            this.user = user; 
+            this.userTransferService.updateTransferUser(user);
         });
     }
 }

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ExitAboutGuard } from '../core/guards/exitAbout.guard';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
-import { UserDetailsPart } from './models/user-details-part.type';
+import { ExitAboutGuard } from '../core/guards/exit-about.guard';
+import { DetailsCompanyComponent } from './components/details-company/details-company.component';
+import { DetailsContactsComponent } from './components/details-contacts/details-contacts.component';
+import { DetailsPersonalComponent } from './components/details-personal/details-personal.component';
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
 import { UserDetailsPageComponent } from './pages/user-details-page/user-details-page.component';
 
 import { UsersPageComponent } from './pages/users-page/users-page.component';
-import { UserResloverService } from './services/user-reslover.service';
 
 const routes: Routes = [
     {
@@ -31,9 +31,6 @@ const routes: Routes = [
         path: 'details/:id',
         title: 'User details',
         component: UserDetailsPageComponent,
-        resolve: {
-            user: UserResloverService
-        },
         children: [
             {
                 path: '',
@@ -42,18 +39,15 @@ const routes: Routes = [
             },
             {
                 path: 'personal-info',
-                component: UserDetailsComponent,
-                data: { detailsPart: 'personal' as UserDetailsPart }
+                component: DetailsPersonalComponent
             },
             {
                 path: 'company-info',
-                component: UserDetailsComponent,
-                data: { detailsPart: 'company' as UserDetailsPart }
+                component: DetailsCompanyComponent
             },
             {
                 path: 'contacts',
-                component: UserDetailsComponent,
-                data: { detailsPart: 'contacts' as UserDetailsPart }
+                component: DetailsContactsComponent
             },
 
         ]

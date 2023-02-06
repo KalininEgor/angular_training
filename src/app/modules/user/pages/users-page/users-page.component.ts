@@ -166,6 +166,6 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     }
 
     openDetailsPage(id: string): void {
-        this.router.navigate(['users/details', id])
+        this.router.navigate(['users/details', id]);
     }
 }

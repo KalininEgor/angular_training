@@ -19,8 +19,4 @@ export class AuthAccessGuard implements CanActivate {
     canActivate(): Observable<boolean | UrlTree> | boolean | UrlTree {
         return this.authService.authorizationStatus ? true : this.router.parseUrl('/login');  
     }
-
-    canLoad(): Observable<boolean | UrlTree> | boolean | UrlTree {
-        return this.authService.authorizationStatus ? true : this.router.parseUrl('');
-    }
 }

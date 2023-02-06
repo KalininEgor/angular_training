@@ -23,7 +23,9 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
 import { UserRoutingModule } from './user-routing.module';
 import { UserDetailsPageComponent } from './pages/user-details-page/user-details-page.component';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { DetailsContactsComponent } from './components/details-contacts/details-contacts.component';
+import { DetailsPersonalComponent } from './components/details-personal/details-personal.component';
+import { DetailsCompanyComponent } from './components/details-company/details-company.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +36,9 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
         UserFormComponent,
         EditUserPageComponent,
         UserDetailsPageComponent,
-        UserDetailsComponent,
+        DetailsContactsComponent,
+        DetailsPersonalComponent,
+        DetailsCompanyComponent,
     ],
     imports: [
         CommonModule,
