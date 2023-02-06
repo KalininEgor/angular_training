@@ -35,8 +35,4 @@ export class UserDetailsPageComponent implements OnInit {
             this.user = routeData['user'];
         });
     }
-
-    pastUserInfo($: any): void {
-        console.log($);
-    }
 }
