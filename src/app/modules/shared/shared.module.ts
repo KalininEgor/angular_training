@@ -16,6 +16,9 @@ import { ImageUploadInputComponent } from './components/image-upload-input/image
 import { AddressFormListComponent } from './components/address-form-list/address-form-list.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { SearchFieldComponent } from './components/search-field/search-field.component';
+import { FullNamePipe } from './pipes/full-name.pipe';
+import { GenderPipe } from './pipes/gender.pipe';
+import { DobPipe } from './pipes/dob.pipe';
 
 @NgModule({
     declarations: [
@@ -26,6 +29,9 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
         AddressFormListComponent,
         AddressFormComponent,
         SearchFieldComponent,
+        FullNamePipe,
+        GenderPipe,
+        DobPipe,
     ],
     imports: [
         CommonModule,
@@ -44,6 +50,9 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
         ImageUploadInputComponent,
         AddressFormListComponent,
         SearchFieldComponent,
+        FullNamePipe,
+        GenderPipe,
+        DobPipe
     ],
 })
 export class SharedModule {}

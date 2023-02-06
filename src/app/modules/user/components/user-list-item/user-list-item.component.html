@@ -2,11 +2,10 @@
     [imgSrc]="user.imageUrl ? user.imageUrl : 'https://canningtonvet.com.au/wp-content/uploads/2019/06/Cat-question-mark-2.png' "
     [isFavorite]="isFavorite"
     (favoriteChanged)="changeFavorite()"
-    (editClicked)="onEditClick()"
 >
     <span titleData>
-        {{ user.firstName + " " + user.lastName }}
-        <strong class="titleData"> ({{ user.age }} y.o.) </strong>
+        {{ user.firstName | fullName : user.lastName }}
+        <strong class="titleData"> ({{ user.age | dob }} ) </strong>
         <button mat-icon-button (click)="onEditClick()">
             <mat-icon>edit</mat-icon>
         </button>        
@@ -16,13 +15,16 @@
         <button mat-icon-button (click)="onUserExportClick()">
             <mat-icon>get_app</mat-icon>
         </button>        
+        <button mat-icon-button (click)="onDetailsClick()">
+            <mat-icon>info</mat-icon>
+        </button>        
     </span>
 
     <div class="user-info">
         <div><i>ID:</i> {{ user.id }}</div>
         <mat-divider></mat-divider>
 
-        <div><i>Gender:</i> {{ user.gender ? "Male" : "Female" }}</div>
+        <div><i>Gender:</i> {{ user.gender | gender }}</div>
         <mat-divider></mat-divider>
 
         <div><i>Email:</i> {{ user.email }}</div>

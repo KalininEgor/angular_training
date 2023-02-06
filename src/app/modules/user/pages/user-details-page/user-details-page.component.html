@@ -1,0 +1,22 @@
+<ng-container>
+    <h1 >{{ user.firstName | fullName : user.lastName }}</h1>
+    <img [src]="user.imageUrl" alt="">
+</ng-container>
+
+
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a 
+        mat-tab-link
+        *ngFor="let link of navLinks"
+        [routerLink]="link.link"
+        routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">
+        {{link.label}}
+    </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel>
+        <router-outlet></router-outlet> <!--  (activate)="pastUserInfoIntoChildComponent($event: IUser)" -->
+    </mat-tab-nav-panel>
+
+
+

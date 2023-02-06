@@ -13,6 +13,7 @@ export class UserListComponent {
     @Output() editClicked = new EventEmitter<string>();
     @Output() excelExportClicked = new EventEmitter<string>();
     @Output() userExportClicked = new EventEmitter<string>();
+    @Output() detailsClicked = new EventEmitter<string>();
 
     changeFavorite(user: IUser): void {
         this.favoriteChanged.emit(user);
@@ -32,5 +33,9 @@ export class UserListComponent {
 
     onUserExportClick(id: string): void {
         this.userExportClicked.emit(id);
+    }
+    
+    onDetailsClick(id: string): void {
+        this.detailsClicked.emit(id);
     }
 }

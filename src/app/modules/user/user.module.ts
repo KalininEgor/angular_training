@@ -10,6 +10,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
+
 
 import { SharedModule } from '../shared/shared.module';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
@@ -18,8 +21,9 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserRoutingModule } from './user-routing.module';
+import { UserDetailsPageComponent } from './pages/user-details-page/user-details-page.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 @NgModule({
     declarations: [
@@ -29,11 +33,14 @@ import { UserRoutingModule } from './user-routing.module';
         UserListItemComponent,
         UserFormComponent,
         EditUserPageComponent,
+        UserDetailsPageComponent,
+        UserDetailsComponent,
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         SharedModule,
+        UserRoutingModule,
         MatCardModule,
         MatButtonModule,
         MatInputModule,
@@ -43,7 +50,7 @@ import { UserRoutingModule } from './user-routing.module';
         MatDividerModule,
         MatIconModule,
         MatPaginatorModule,
-        UserRoutingModule
+        MatTabsModule
     ],
 })
 export class UserModule {}

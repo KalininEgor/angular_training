@@ -1,0 +1,38 @@
+<ng-container *ngIf="detailsPart === 'personal'; else company">
+    <p><strong>ID:</strong> {{user.id}}</p>
+    <mat-divider></mat-divider>
+
+    <p><strong>Year of birth:</strong> {{user.age | dob}}</p>
+    <mat-divider></mat-divider>
+
+    <p><strong>Gender:</strong> {{user.gender | gender}}</p>
+    <mat-divider></mat-divider>
+</ng-container>
+
+
+<ng-template #company >
+    <ng-container *ngIf="detailsPart === 'company'; else contacts">
+        <p><strong>Company:</strong> {{user.company}}</p>
+        <mat-divider></mat-divider>
+
+        <p><strong>Department:</strong> {{user.department}}</p>
+        <mat-divider></mat-divider>
+    </ng-container>
+</ng-template>
+
+
+<ng-template #contacts>
+    <p><strong>Email:</strong> {{user.email}}</p>
+
+    <ng-container *ngFor="let address of user.addresses; let index">
+        <p><strong>Address line:</strong> {{address.addressLine}}</p>
+        
+        <ng-container *ngIf="address.city">
+            <mat-divider></mat-divider>
+            <p><strong>City:</strong> {{address.city}}</p>
+            
+            <mat-divider></mat-divider>
+            <p><strong>Zip-code:</strong> {{address.zip}}</p>
+        </ng-container>
+    </ng-container>
+</ng-template>

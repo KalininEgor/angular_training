@@ -13,6 +13,8 @@ import { createRandomDelay } from '../utils/random-delay.util';
     providedIn: 'root',
 })
 export class UserApiService {
+    currentUserGroup: IUser[] = []; //only for the work of the current implementation
+
     constructor(private httpService: HttpService) {}
 
     getUsers(page: number = 1, pageSize: number = PAGE_SIZE, search?: string): Observable<IUser[]> {
@@ -27,9 +29,18 @@ export class UserApiService {
 
         return this.httpService.get<IResponseGetUsers>('' , options).pipe(
             map((response) => {
-                return convertToUserList(response.body.results);
+                this.currentUserGroup = convertToUserList(response.body.results); 
+                return this.currentUserGroup; //only for the work of the current implementation
             })
         );
+    }
+
+    getSavedUsersWithoutRequest(): Observable<IUser[]> { //only for the work of the current implementation
+        if (this.currentUserGroup.length > 0) {
+            return of(this.currentUserGroup).pipe(delay(1000));
+        } else {
+            return this.getUsers();
+        }
     }
 
     getExcelByUserId(id: string): Observable<string> {
@@ -44,6 +55,11 @@ export class UserApiService {
     }
 
     getUserById(id: string): Observable<IUser> {
+        return this.getSavedUsersWithoutRequest().pipe(
+            map(users => {
+                return users.find(user => user.id === id)!;
+            })
+        )
         const options = {
             params: new HttpParams().append('id', id)
         };

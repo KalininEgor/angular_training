@@ -145,23 +145,27 @@ export class UsersPageComponent implements OnInit, OnDestroy {
         this.refreshUserList();
     }
 
-    openEditorPage(id: string) {
+    openEditorPage(id: string): void {
         this.router.navigate(['users/edit', id]);
     }
 
-    exportUserExcel(id: string) {
+    exportUserExcel(id: string): void {
         this.excelExportController.next(id);
     }
 
-    exportUser(id: string) {
+    exportUser(id: string): void {
         this.userExportController.next(id);
     }
 
-    refreshUserList(): any {
+    refreshUserList(): void {
         this.userListController.next();
     }
 
-    exhaustRefreshUserList(): any {
+    exhaustRefreshUserList(): void {
         this.exhaustUserListController.next();
+    }
+
+    openDetailsPage(id: string): void {
+        this.router.navigate(['users/details', id])
     }
 }
