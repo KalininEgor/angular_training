@@ -31,6 +31,7 @@ import { UserTableClientPageComponent } from './pages/user-table-client-page/use
 import { UserTableServerPageComponent } from './pages/user-table-server-page/user-table-server-page.component';
 import { MatSortModule } from '@angular/material/sort';
 import { UserTableComponent } from './components/user-table/user-table.component';
+import { UserFullNameComponent } from './components/user-full-name/user-full-name.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { UserTableComponent } from './components/user-table/user-table.component
         UserTableClientPageComponent,
         UserTableServerPageComponent,
         UserTableComponent,
+        UserFullNameComponent,
     ],
     imports: [
         CommonModule,

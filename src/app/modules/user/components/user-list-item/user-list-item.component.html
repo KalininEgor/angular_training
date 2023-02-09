@@ -4,7 +4,7 @@
     (favoriteChanged)="changeFavorite()"
 >
     <span titleData>
-        {{ user.firstName | fullName : user.lastName }}
+        <app-user-full-name [user]="user"></app-user-full-name>
         <strong class="titleData"> ({{ user.age | dob }} ) </strong>
         <button mat-icon-button (click)="onEditClick()">
             <mat-icon>edit</mat-icon>

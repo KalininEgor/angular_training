@@ -16,7 +16,6 @@ import { ImageUploadInputComponent } from './components/image-upload-input/image
 import { AddressFormListComponent } from './components/address-form-list/address-form-list.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { SearchFieldComponent } from './components/search-field/search-field.component';
-import { FullNamePipe } from './pipes/full-name.pipe';
 import { GenderPipe } from './pipes/gender.pipe';
 import { DobPipe } from './pipes/dob.pipe';
 
@@ -29,7 +28,6 @@ import { DobPipe } from './pipes/dob.pipe';
         AddressFormListComponent,
         AddressFormComponent,
         SearchFieldComponent,
-        FullNamePipe,
         GenderPipe,
         DobPipe,
     ],
@@ -50,7 +48,6 @@ import { DobPipe } from './pipes/dob.pipe';
         ImageUploadInputComponent,
         AddressFormListComponent,
         SearchFieldComponent,
-        FullNamePipe,
         GenderPipe,
         DobPipe
     ],
