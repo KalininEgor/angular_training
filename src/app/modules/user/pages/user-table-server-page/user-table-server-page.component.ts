@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { SortOrder } from 'src/app/modules/shared/models/sort-order.type';
 import { UserApiService } from '../../services/user-api.service';
 import { UsersDataSource } from '../../services/users-data-source';
 
@@ -11,6 +12,9 @@ import { UsersDataSource } from '../../services/users-data-source';
 })
 export class UserTableServerPageComponent implements OnInit {
     
+    sortField?: string;
+    sortOrder?: SortOrder;
+
     dataSource!: UsersDataSource;
     paginator!: MatPaginator;
     sort!: MatSort;
@@ -22,14 +26,21 @@ export class UserTableServerPageComponent implements OnInit {
         this.dataSource.loadUsers(1, 10);
     }
 
+    loadUsers(): void {
+        this.dataSource.loadUsers(
+            this.paginator.pageIndex+1,
+            this.paginator.pageSize,
+            undefined,
+            this.sortField,
+            this.sortOrder
+        );
+    }
+
     initPaginator(paginator: MatPaginator): void {
         this.paginator = paginator;
 
         this.paginator.page.subscribe(() => {
-            this.dataSource.loadUsers(
-                this.paginator.pageIndex+1,
-                this.paginator.pageSize
-            );
+            this.loadUsers();
         });
     }
 
@@ -37,13 +48,9 @@ export class UserTableServerPageComponent implements OnInit {
         this.sort = sort;
 
         this.sort.sortChange.subscribe(activeSort => {
-            this.dataSource.loadUsers(
-                this.paginator.pageIndex+1,
-                this.paginator.pageSize,
-                undefined,
-                activeSort.active,
-                activeSort.direction
-            );
+            this.sortField = activeSort.active;
+            this.sortOrder = activeSort.direction;
+            this.loadUsers();            
         });
     }
 }

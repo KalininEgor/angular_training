@@ -35,7 +35,7 @@ export class UserApiService {
                 sortOrder
             ) 
         };
-        debugger
+        
         return this.httpService.get<IResponseGetUsers>('', options).pipe(
             map((response) => {
                 this.currentUserGroup = convertToUserList(

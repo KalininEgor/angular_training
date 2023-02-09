@@ -12,7 +12,7 @@ export function initHttpParams(
         results: pageSize,
         page: page,
     });
-    debugger
+    
     if (search) params = params.append('search', search);
 
     if (sortField) params = params.append('sortField', sortField);
