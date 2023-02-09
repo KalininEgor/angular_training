@@ -7,6 +7,8 @@ import { DetailsPersonalComponent } from './components/details-personal/details-
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
 import { UserDetailsPageComponent } from './pages/user-details-page/user-details-page.component';
+import { UserTableClientPageComponent } from './pages/user-table-client-page/user-table-client-page.component';
+import { UserTableServerPageComponent } from './pages/user-table-server-page/user-table-server-page.component';
 
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 
@@ -15,6 +17,16 @@ const routes: Routes = [
         path: '',
         title: 'User list',
         component: UsersPageComponent,
+    },
+    {
+        path: 'client-table',
+        title: 'User Table (client)',
+        component: UserTableClientPageComponent
+    },
+    {
+        path: 'server-table',
+        title: 'User Table (server)',
+        component: UserTableServerPageComponent
     },
     {
         path: 'add',
@@ -39,14 +51,17 @@ const routes: Routes = [
             },
             {
                 path: 'personal-info',
+                title: 'User Personal Info',
                 component: DetailsPersonalComponent
             },
             {
                 path: 'company-info',
+                title: 'User Company Info',
                 component: DetailsCompanyComponent
             },
             {
                 path: 'contacts',
+                title: 'User Contacts Info',
                 component: DetailsContactsComponent
             },
 

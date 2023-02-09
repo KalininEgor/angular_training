@@ -1,0 +1,11 @@
+<div class="table-wrapper">
+    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+    </div>
+    
+    <app-user-table 
+        [dataSource]="dataSource"
+        (paginatorInited)="initPaginator($event)"
+        (sortInited)="initSort($event)"
+    ></app-user-table>
+</div>

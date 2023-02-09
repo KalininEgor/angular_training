@@ -1,6 +1,6 @@
-import { TValidationErrors } from "../models/validation-error.type";
+import { ValidationErrors } from "../models/validation-error.type";
 
-export const validationErrorsConfig: TValidationErrors = {
+export const validationErrorsConfig: ValidationErrors = {
     required: (controlName) => {
         return `'${controlName}' is required field`;
     },

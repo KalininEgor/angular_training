@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 
 
 import { SharedModule } from '../shared/shared.module';
@@ -26,6 +27,10 @@ import { UserDetailsPageComponent } from './pages/user-details-page/user-details
 import { DetailsContactsComponent } from './components/details-contacts/details-contacts.component';
 import { DetailsPersonalComponent } from './components/details-personal/details-personal.component';
 import { DetailsCompanyComponent } from './components/details-company/details-company.component';
+import { UserTableClientPageComponent } from './pages/user-table-client-page/user-table-client-page.component';
+import { UserTableServerPageComponent } from './pages/user-table-server-page/user-table-server-page.component';
+import { MatSortModule } from '@angular/material/sort';
+import { UserTableComponent } from './components/user-table/user-table.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +44,9 @@ import { DetailsCompanyComponent } from './components/details-company/details-co
         DetailsContactsComponent,
         DetailsPersonalComponent,
         DetailsCompanyComponent,
+        UserTableClientPageComponent,
+        UserTableServerPageComponent,
+        UserTableComponent,
     ],
     imports: [
         CommonModule,
@@ -54,7 +62,9 @@ import { DetailsCompanyComponent } from './components/details-company/details-co
         MatDividerModule,
         MatIconModule,
         MatPaginatorModule,
-        MatTabsModule
+        MatTabsModule,
+        MatTableModule,
+        MatSortModule
     ],
 })
 export class UserModule {}

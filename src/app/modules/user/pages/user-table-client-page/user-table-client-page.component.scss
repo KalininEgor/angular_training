@@ -1,0 +1,21 @@
+@import '../../../../styles/variables';
+
+.table-wrapper {
+    position: relative;
+    margin: $baseSize*3;
+    border-radius: $baseBorder;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.spinner-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.71);
+    z-index: 1;
+}

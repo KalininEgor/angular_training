@@ -1,0 +1,51 @@
+<table 
+    matSort 
+    #sort="matSort" 
+    mat-table 
+    [dataSource]="dataSource"
+>
+    <ng-container matColumnDef="fullName">
+        <th mat-sort-header="lastName" mat-header-cell *matHeaderCellDef> Full Name </th>
+
+        <td mat-cell *matCellDef="let user"> {{user.firstName | fullName: user.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef> Email </th>
+
+        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef> Age </th>
+
+        <td mat-cell *matCellDef="let user"> {{user.age}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="department">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef> Department </th>
+
+        <td mat-cell *matCellDef="let user"> {{user.department}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="addresses">
+        <th mat-header-cell *matHeaderCellDef> Addresses </th>
+
+        <td mat-cell *matCellDef="let user" > 
+            <ng-container *ngFor="let address of user.addresses">
+                {{address.addressLine}}
+            </ng-container>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator 
+    #paginator
+    [length]="1000" 
+    [pageSize]="10" 
+    [pageSizeOptions]="[10, 20, 50]"
+></mat-paginator>

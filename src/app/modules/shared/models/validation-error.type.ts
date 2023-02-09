@@ -1,5 +1,5 @@
 import { AbstractControl } from '@angular/forms';
 
-export type TValidationErrors = {
+export type ValidationErrors = {
     [key: string]: (controlName: string, control: AbstractControl) => string
 };
